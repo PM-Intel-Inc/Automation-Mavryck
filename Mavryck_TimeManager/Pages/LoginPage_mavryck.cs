@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
+using System.Threading;
 
 
 namespace Mavryck_TimeManager.Pages
@@ -50,6 +51,7 @@ namespace Mavryck_TimeManager.Pages
 
             testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Click On Login Button"));
             await ClickOnSubmitButton();
+            Thread.Sleep(10000);
 
 
             testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Verify that the <b> Mavryck Dashboard</b>  is displaying"));

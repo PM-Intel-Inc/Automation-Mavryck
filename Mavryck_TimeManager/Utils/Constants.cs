@@ -2,19 +2,15 @@
 using AventStack.ExtentReports.Reporter;
 using Microsoft.Playwright;
 using NUnit.Framework;
-using NUnit.Framework.Constraints;
 using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace Mavryck_TimeManager.Utils
 {
     public class Constants
     {
-        public static readonly string BaseUrl = "https://staging.mavryck.com/login";
+        public static readonly string BaseUrl = "https://dev.mavryck.com/login";
         public static readonly string email = "mavryck_dev@mavryck.com";
         public static readonly string password = "Dev12345!";
         public static ExtentReports Extent { get;  set; }
@@ -34,7 +30,7 @@ namespace Mavryck_TimeManager.Utils
         public static string DataFolderPath = Path.Combine(resourcesFolderPath, "data");
         public static string costFile = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\resources\data\CostData.xlsx"));
         public static string contractFile = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\resources\data\Contract Document.docx"));
-        public static string scheduleFile = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\resources\data\Adkaro Piling Program Baseline.docx"));
+        public static string scheduleFile = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\resources\data\Adkaro Piling Program Baseline.mpp"));
         public static string schedulefileName = "Adkaro Piling Program Baseline";
         public static string costFileName = "CostData";
         public static string projectName = "Mavryck Automation Project";
