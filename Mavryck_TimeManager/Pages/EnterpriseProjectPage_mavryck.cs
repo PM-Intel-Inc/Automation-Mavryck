@@ -50,7 +50,7 @@ namespace Mavryck_TimeManager.Pages
         private const string MavryckPrediction = "//span[text()='Mavryck Prediction']";
         private const string NoButton = "//button[text()='No']";
         private const string YesButton = "//button[text()='Yes']";
-        private const string DeleteProgram= "//button[text()='Delete Program']";
+        private const string DeleteProgram = "//button[text()='Delete Program']";
         private const string ApplicationFilter = "//input[@placeholder='Application']";
         private const string LocationFilter = "//input[@placeholder='Location']";
         private const string IndustryFilter = "//input[@placeholder='Industry']";
@@ -73,16 +73,13 @@ namespace Mavryck_TimeManager.Pages
         private const string Version = "(//span[text()='Version']//following-sibling::span)[1]";
 
         private const string AppsMenu = "//img[@alt='Apps']";
-
-
-
-
         ArrayList testSteps;
-
-        public EnterpriseProjectPage_mavryck(IPage page)
+        ExtentTest Test;
+        public EnterpriseProjectPage_mavryck(IPage page , ExtentTest test)
         {
             this.page = page;
             testSteps = new ArrayList();
+            Test = test;
         }
 
         public async Task<ArrayList> CreateProject(int step, string projectName, string industry, string location, string currency, string status)
@@ -268,7 +265,7 @@ namespace Mavryck_TimeManager.Pages
 
 
 
-      
+
 
         public async Task ClickUpload()
         {
@@ -380,10 +377,10 @@ namespace Mavryck_TimeManager.Pages
             await page.ClickAsync(ListViewButton);
         }
 
-        
+
         public async Task<bool> VerifyAppDashboardIsDisplaying(string appName)
         {
-            return await WaitForElementVisible(page, $"//div[text()=' {appName}']" , 120000);
+            return await WaitForElementVisible(page, $"//div[text()=' {appName}']", 120000);
 
         }
 
@@ -400,14 +397,14 @@ namespace Mavryck_TimeManager.Pages
 
         public async Task<bool> VerifyVersion()
         {
-            return await WaitForElementVisible(page,Version, 120000);
+            return await WaitForElementVisible(page, Version, 120000);
 
         }
 
         public async Task<bool> VerifyAppIcons(string appName)
         {
-                return await WaitForElementVisible(page, $"(//img[@src='/images/products/{appName}'])[2]", 120000);
-            
+            return await WaitForElementVisible(page, $"(//img[@src='/images/products/{appName}'])[2]", 120000);
+
         }
         public async Task<bool> VerifyVersionFiles(string version)
         {
@@ -437,7 +434,8 @@ namespace Mavryck_TimeManager.Pages
             {
                 return await WaitForElementVisible(page, $"//img[@src='/images/products/{appName}.svg']", 120000);
 
-            }catch(Exception)
+            }
+            catch (Exception)
             {
                 return false;
             }
@@ -457,7 +455,7 @@ namespace Mavryck_TimeManager.Pages
 
         public async Task<bool> VerifyAppIcons2(string appName)
         {
-                return await WaitForElementVisible(page, $"(//img[@src = '/images/AppScreen/{appName}'])[2]", 120000);
+            return await WaitForElementVisible(page, $"(//img[@src = '/images/AppScreen/{appName}'])[2]", 120000);
 
         }
 
@@ -487,14 +485,14 @@ namespace Mavryck_TimeManager.Pages
                 return false;
             }
 
-           
+
         }
         public async Task<bool> VerifyStatusFilterProjects(string value)
         {
             try
             {
                 return await WaitForElementVisible(page, $"//div[contains(text(), '{value}')]", 1200000);
-  
+
             }
             catch (Exception)
             {
@@ -515,7 +513,7 @@ namespace Mavryck_TimeManager.Pages
             return await WaitForElementVisible(page, LastUploaded, 120000);
 
         }
-        
+
 
         public async Task ClickOnApplicationFilter()
         {
@@ -524,7 +522,7 @@ namespace Mavryck_TimeManager.Pages
 
         public async Task SelectFilter(string filter)
         {
-            await ScrollToElement(page , $"//li[text()='{filter}']");
+            await ScrollToElement(page, $"//li[text()='{filter}']");
             await page.ClickAsync($"//li[text()='{filter}']");
 
         }
@@ -582,7 +580,7 @@ namespace Mavryck_TimeManager.Pages
         {
             await page.ClickAsync(ProgramStatus);
             await page.SelectOptionAsync(ProgramStatus, status);
-        
+
         }
 
         public async Task SelectProgramProjectStatus(string status)

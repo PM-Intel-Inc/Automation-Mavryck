@@ -12,52 +12,31 @@ using Microsoft.Playwright;
 using NUnit.Framework;
 using PlanNotePlaywrite;
 
-namespace Mavryck_TimeManager.Tests
+namespace Mavryck_TimeManager.Tests.TimeManagerTests
 {
     [Order(7)]
     public class Andon_Test_mavryck : Base
     {
-        private IPlaywright playwright;
-        private IBrowser browser;
-        private IBrowserContext context;
-        private int step;
-        ArrayList testSteps;
-
-
-        [SetUp]
-        public async Task Setup()
-        {
-            playwright = await PlaywrightConfig.ConfigurePlaywrightAndLaunchBrowser();
-            browser = await PlaywrightConfig.LaunchChromiumBrowser(playwright, chromiumExecutablePath, false);
-            step = 0;
-            testSteps = new ArrayList();
-
-            context = await browser.NewContextAsync(new BrowserNewContextOptions
-            {
-                ViewportSize = ViewportSize.NoViewport
-            });
-        }
-
-        [TearDown]
-        public async Task Teardown()
-        {
-            await browser.CloseAsync();
-        }
 
         [Test, Order(1)]
+        [Parallelizable]
         public async Task Verify_Requirments_Of_TimeManager_Andon()
         {
 
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
-            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify The Header Requirments Of Andon");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             try
             {
-                Test = Extent.CreateTest("Verify The Header Requirments Of Andon");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
@@ -116,13 +95,19 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(2)]
+        [Parallelizable]
         public async Task Andon_Verify_TextAllignment_Of_ID_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon: Verify The Text Allignment Of ID Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "ID";
             var textAllig_left = "Left";
@@ -132,8 +117,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Andon: Verify The Text Allignment Of ID Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -177,13 +160,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(3)]
+        [Parallelizable]
         public async Task Andon_Verify_TextAllignment_Of_TaskName_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Task Name Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Task Name";
             var textAllig_left = "Left";
@@ -192,7 +181,6 @@ namespace Mavryck_TimeManager.Tests
             var colIndex = "2";
             try
             {
-                Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Task Name Column");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
@@ -238,13 +226,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(4)]
+        [Parallelizable]
         public async Task Andon_Verify_TextAllignment_Of_Indicator_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Indicator Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -254,8 +248,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Indicator Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -305,13 +297,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(5)]
+        [Parallelizable]
         public async Task Andon_Verify_TextAllignment_Of_Start_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon: Verify The Text Allignment Of End Date Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -321,8 +319,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Andon: Verify The Text Allignment Of End Date Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -370,15 +366,21 @@ namespace Mavryck_TimeManager.Tests
         }
 
 
-    
+
         [Test, Order(6)]
+        [Parallelizable]
         public async Task Andon_Verify_TextAllignment_Of_Finish_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Reason Of Variance Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -388,8 +390,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Reason Of Variance Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -436,13 +436,19 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(7)]
+        [Parallelizable]
         public async Task Andon_Verify_TextAllignment_Of_Duration_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Duration Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Duration";
             var textAllig_left = "Left";
@@ -452,8 +458,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Duration Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -498,15 +502,21 @@ namespace Mavryck_TimeManager.Tests
             }
         }
 
-       
+
         [Test, Order(8)]
+        [Parallelizable]
         public async Task Andon_Verify_TextAllignment_Of_Critical_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Critical Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -516,8 +526,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Critical Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -566,13 +574,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(9)]
+        [Parallelizable]
         public async Task Andon_Verify_TextAllignment_Of_EarlyStart_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Early Start Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -583,8 +597,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Early Start Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -597,7 +609,7 @@ namespace Mavryck_TimeManager.Tests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-                Thread.Sleep(10000);
+                Thread.Sleep(100000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
@@ -609,7 +621,7 @@ namespace Mavryck_TimeManager.Tests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Andon</b> from Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnAndon();
-
+                Thread.Sleep(100000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await TimeManagerPage_mavryck.ClickOnTextAllignmentButton();
@@ -632,13 +644,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(10)]
+        [Parallelizable]
         public async Task Andon_Verify_TextAllignment_Of_EarlyFinish_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Early Finish Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -648,8 +666,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Early Finish Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -662,7 +678,7 @@ namespace Mavryck_TimeManager.Tests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-                Thread.Sleep(10000);
+                Thread.Sleep(100000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
@@ -698,13 +714,19 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(11)]
+        [Parallelizable]
         public async Task Andon_Verify_TextAllignment_Of_LateStart_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon:  Verify The Text Allignment Of Late Start Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -713,8 +735,6 @@ namespace Mavryck_TimeManager.Tests
             var colIndex = "10";
             try
             {
-                Test = Extent.CreateTest("Andon:  Verify The Text Allignment Of Late Start Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -727,7 +747,7 @@ namespace Mavryck_TimeManager.Tests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-                Thread.Sleep(10000);
+                Thread.Sleep(100000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
@@ -760,13 +780,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(12)]
+        [Parallelizable]
         public async Task Andon_Verify_TextAllignment_Of_LateFinish_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Late Finish Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -776,8 +802,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Late Finish Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -826,13 +850,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(13)]
+        [Parallelizable]
         public async Task Andon_Verify_TextAllignment_Of_TotalFloat_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Total Float Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -842,8 +872,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Andon: Verify The Text Allignment Of Total Float Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -893,13 +921,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(14)]
+        [Parallelizable]
         public async Task Andon_PotentialCliam_Verify_TextAllignment_Of_Id_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of ID Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -909,8 +943,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of ID Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -935,7 +967,7 @@ namespace Mavryck_TimeManager.Tests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Andon</b> from Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnAndon();
-                Thread.Sleep(10000);
+                Thread.Sleep(100000);
 
                 await ScrollToElement(page, $"//h3[text()='Potential Claims']");
 
@@ -961,13 +993,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(15)]
+        [Parallelizable]
         public async Task Andon_PotentialClaim_Verify_TextAllignment_Of_TaskName_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of Task Name Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Task Name";
             var textAllig_left = "Left";
@@ -976,8 +1014,6 @@ namespace Mavryck_TimeManager.Tests
             var colIndex = "2";
             try
             {
-                Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of Task Name Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1031,13 +1067,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(16)]
+        [Parallelizable]
         public async Task Andon_PotentialClaim_Verify_TextAllignment_Of_InRelation_Task_Id_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of InRelation Task Id Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "InRelation Task Id";
             var textAllig_left = "Left";
@@ -1046,7 +1088,6 @@ namespace Mavryck_TimeManager.Tests
             var colIndex = "3";
             try
             {
-                Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of InRelation Task Id Column");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
@@ -1080,7 +1121,7 @@ namespace Mavryck_TimeManager.Tests
                 await TimeManagerPage_mavryck.ClickOnTextAllignmentButton2();
 
                 Test.Log(Status.Info, $" *** Verify The Text Alignment Of Columns *** ");
-                await TimeManagerPage_mavryck.VerifyTextAlignment_andon_1(columnName , textAllig_left , textAllig_right , textAllig_center , colIndex , step);
+                await TimeManagerPage_mavryck.VerifyTextAlignment_andon_1(columnName, textAllig_left, textAllig_right, textAllig_center, colIndex, step);
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -1095,13 +1136,19 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(17)]
+        [Parallelizable]
         public async Task Andon_PotentialClaim_Verify_TextAllignment_Of_InRelation_Task_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of InRelation Task Colum");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "InRelation Task";
             var textAllig_left = "Left";
@@ -1110,7 +1157,6 @@ namespace Mavryck_TimeManager.Tests
             var colIndex = "4";
             try
             {
-                Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of InRelation Task Column");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
@@ -1161,13 +1207,19 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(18)]
+        [Parallelizable]
         public async Task Andon_PotentialClaim_Verify_TextAllignment_Of_Task_Id_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of Task_Id column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Task Id";
             var textAllig_left = "Left";
@@ -1176,8 +1228,6 @@ namespace Mavryck_TimeManager.Tests
             var colIndex = "5";
             try
             {
-                Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of Task_Id column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1226,13 +1276,19 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(19)]
+        [Parallelizable]
         public async Task Andon_PotentialClaim_Verify_TextAllignment_Of_UpdateNumber_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of Update Number column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Update Number";
             var textAllig_left = "Left";
@@ -1241,8 +1297,6 @@ namespace Mavryck_TimeManager.Tests
             var colIndex = "6";
             try
             {
-                Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of Update Number column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1269,7 +1323,7 @@ namespace Mavryck_TimeManager.Tests
                 Thread.Sleep(10000);
 
                 await ScrollToElement(page, $"//h3[text()='Potential Claims']");
-                
+
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await TimeManagerPage_mavryck.ClickOnTextAllignmentButton2();
 
@@ -1291,14 +1345,21 @@ namespace Mavryck_TimeManager.Tests
         }
 
 
-        [Test, Order(19)]
+        [Test, Order(20)]
+        [Parallelizable]
         public async Task Andon_PotentialClaim_Verify_TextAllignment_Of_Reduction_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+
+            var Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of Reduction column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Reduction";
             var textAllig_left = "Left";
@@ -1307,8 +1368,6 @@ namespace Mavryck_TimeManager.Tests
             var colIndex = "7";
             try
             {
-                Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of Reduction column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1356,14 +1415,20 @@ namespace Mavryck_TimeManager.Tests
             }
         }
 
-        [Test, Order(20)]
+        [Test, Order(21)]
+        [Parallelizable]
         public async Task Andon_PotentialClaim_Verify_TextAllignment_Of_Indicators_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of Indicators column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Indicators";
             var textAllig_left = "Left";
@@ -1372,8 +1437,6 @@ namespace Mavryck_TimeManager.Tests
             var colIndex = "8";
             try
             {
-                Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of Indicators column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1424,15 +1487,21 @@ namespace Mavryck_TimeManager.Tests
         }
 
 
-        [Test, Order(21)]
+        [Test, Order(22)]
+        [Parallelizable]
 
         public async Task Andon_PotentialClaim_Verify_TextAllignment_Of_TotalFloat_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of Total Float columnAndon Potential Claim Grid: Verify The Text Allignment Of Total Float column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Total Float";
             var textAllig_left = "Left";
@@ -1441,7 +1510,6 @@ namespace Mavryck_TimeManager.Tests
             var colIndex = "9";
             try
             {
-                Test = Extent.CreateTest("Andon Potential Claim Grid: Verify The Text Allignment Of Total Float column");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
@@ -1490,21 +1558,24 @@ namespace Mavryck_TimeManager.Tests
             }
         }
 
-        [Test, Order(22)]
+        [Test, Order(23)]
+        [Parallelizable]
         public async Task Andon_Verify_Requirments_Of_PotentialClaim_Grid()
         {
 
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
-            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon: Verify The Requirments Of Potential Claim Grid");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             try
             {
-                Test = Extent.CreateTest("Andon: Verify The Requirments Of Potential Claim Grid");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1553,20 +1624,25 @@ namespace Mavryck_TimeManager.Tests
             }
         }
 
-        [Test, Order(23)]
+        [Test, Order(24)]
+        [Parallelizable]
         public async Task Verify_Hover_Feature_Of_Andon()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+
+            var Test = Extent.CreateTest("Andon: Verify The Hover Feature");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
 
             try
             {
-                Test = Extent.CreateTest("Andon: Verify The Hover Feature");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1616,7 +1692,7 @@ namespace Mavryck_TimeManager.Tests
                 await ScrollToElement(page, $"//h3[text()='Potential Claims']");
 
                 testSteps.AddRange(await TimeManagerPage_mavryck.VerifyDownload_FullScreen_HideUnhide_Hover(step));
-         
+
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
             }
@@ -1629,21 +1705,26 @@ namespace Mavryck_TimeManager.Tests
             }
         }
 
-        [Test, Order(24)]
+        [Test, Order(25)]
+        [Parallelizable]
         public async Task Verify_BowWaveMap_Of_Andon()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
-            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify The Bow Wave Map Of Andon");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var title = "Bow Wave";
 
             try
             {
-                Test = Extent.CreateTest("Verify The Bow Wave Map Of Andon");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
@@ -1688,19 +1769,24 @@ namespace Mavryck_TimeManager.Tests
         }
 
 
-        [Test, Order(25)]
+        [Test, Order(26)]
+        [Parallelizable]
         public async Task Verify_Grid_Resizing_Of_OverViewGrid_And_PotentialClaim_Grid()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Andon: Verify The Overview And Potential Claim Grid Is Successfully Resized");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
 
             try
             {
-                Test = Extent.CreateTest("Andon: Verify The Overview And Potential Claim Grid Is Successfully Resized");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);

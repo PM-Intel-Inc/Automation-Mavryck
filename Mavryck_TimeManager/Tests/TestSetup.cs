@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Mavryck_TimeManager.Utils;
 using NUnit.Framework;
 using System.IO;
+using System.Threading;
+using Newtonsoft.Json;
 
 namespace Mavryck_TimeManager.Tests
 {
@@ -16,24 +18,34 @@ namespace Mavryck_TimeManager.Tests
 
     public class TestSetup : Base
     {
-        public static ExtentReports extent;
-
 
         [OneTimeSetUp]
-        public new  void SetupReports()
+        public void SetupReports()
         {
             DeleteImagesFromFolder();
             Extent = new ExtentReports();
             string reportPath = Path.Combine(ReportPath, "index.html");
             var htmlReporter = new ExtentSparkReporter(reportPath);
-            Console.WriteLine(htmlReporter);
             Extent.AttachReporter(htmlReporter);
         }
 
         [OneTimeTearDown]
-        public new void TeardownReports()
+        public void TeardownReports()
         {
+            ExportResultsToJson();
             Extent.Flush();
         }
+
+        public static void ExportResultsToJson()
+        {
+            // Serialize the results to JSON
+            var jsonResults = JsonConvert.SerializeObject(new { testResults = _testResults }, Formatting.Indented);
+
+            // Optionally write to file
+            string reportPath = Path.Combine(JsonReportPath, "jsonFile.json");
+            File.WriteAllText(reportPath, jsonResults);
+            Console.WriteLine($"Test results exported to {reportPath}");
+        }
+
     }
 }

@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using System.Threading;
+//using Mavryck_TimeManager.Tests.EnterpriseDirectoryTests;
 
 
 namespace Mavryck_TimeManager.Pages
@@ -33,10 +34,13 @@ namespace Mavryck_TimeManager.Pages
         private const string LoginWithMicrosoftButton = "//span[text()='Sign in with Microsoft']";
 
         ArrayList testSteps;
-        public LoginPage_mavryck(IPage page)
+        ExtentTest Test;
+        public LoginPage_mavryck(IPage page , ExtentTest test)
         {
             this.page = page;
             testSteps = new ArrayList();
+            Test = test;
+
         }
 
         public async Task<ArrayList> Login(int step)
@@ -51,7 +55,7 @@ namespace Mavryck_TimeManager.Pages
 
             testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Click On Login Button"));
             await ClickOnSubmitButton();
-            Thread.Sleep(10000);
+            Thread.Sleep(100000);
 
 
             testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Verify that the <b> Mavryck Dashboard</b>  is displaying"));
@@ -65,6 +69,7 @@ namespace Mavryck_TimeManager.Pages
         public async Task EnterLoginCredentials(string username, string password)
         {
             await page.FillAsync(EmailInput, username);
+            Thread.Sleep(10000);
             await page.FillAsync(PasswordInput, password);
         }
 
@@ -83,8 +88,8 @@ namespace Mavryck_TimeManager.Pages
         }
 
         public async Task EnterForgotPasswordEmail()
-        { 
-            await page.FillAsync(EmailInput , email);
+        {
+            await page.FillAsync(EmailInput, email);
         }
 
         public async Task ClickOnUpdateButton()
@@ -111,18 +116,18 @@ namespace Mavryck_TimeManager.Pages
 
         public async Task<bool> VerifyLoginDashboardPageIsVisible()
         {
-           return await WaitForElementVisible(page, LoginDashboard, 100000);
-         
+            return await WaitForElementVisible(page, LoginDashboard, 100000);
+
         }
 
         public async Task<bool> VerifyAlertMessageIsVisible()
         {
-             return await WaitForElementVisible(page, AlertMessage, 100000);
-         
+            return await WaitForElementVisible(page, AlertMessage, 100000);
+
         }
         public async Task<bool> VerifyRememberMeCheckboxIsVisible()
         {
-                return await WaitForElementVisible(page, RememberMeCheckbox, 120000);
+            return await WaitForElementVisible(page, RememberMeCheckbox, 120000);
         }
         public async Task<bool> VerifyForgotPasswordIsVisible()
         {

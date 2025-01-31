@@ -11,28 +11,20 @@ namespace PlanNotePlaywrite
     {
         public static async Task<IPlaywright> ConfigurePlaywrightAndLaunchBrowser()
         {
-            // Enable logging
-            // PlaywrightLogger.IsEnabled = true;
-
-            // Create Playwright instance
-            var playwright = await Playwright.CreateAsync();
-
-            return playwright;
+            // Always create a new instance of Playwright.
+            return await Playwright.CreateAsync();
         }
 
         public static async Task<IBrowser> LaunchChromiumBrowser(IPlaywright playwright, string executablePath, bool headless)
         {
-            // Launch Chromium browser
-            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
+            // Always launch a new browser instance.
+            return await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
             {
-                //ExecutablePath = executablePath,
                 Headless = headless,
                 Timeout = 60000,
-                // Set viewport size to null for maximum size
                 Args = new List<string> { "--start-maximized" }
             });
-
-            return browser;
         }
+
     }
 }

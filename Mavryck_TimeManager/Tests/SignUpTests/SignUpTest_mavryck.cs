@@ -7,53 +7,38 @@ using System;
 using System.Threading.Tasks;
 using PlanNotePlaywrite;
 using System.Threading;
+using System.Collections;
 
-namespace Mavryck_TimeManager.Tests
-{
-    [Order(2)]
+namespace Mavryck_TimeManager.Tests.SignUpTests
+{ 
+    [Order(3)]
     public class SignUpTest_mavryck : Base
     {
-        private IPlaywright playwright;
-        private IBrowser browser;
-        private IBrowserContext context;
-        private int step;
-
-        [SetUp]
-        public async Task Setup()
-        {
-            playwright = await PlaywrightConfig.ConfigurePlaywrightAndLaunchBrowser();
-            browser = await PlaywrightConfig.LaunchChromiumBrowser(playwright, chromiumExecutablePath, false);
-            step = 0;
-            context = await browser.NewContextAsync(new BrowserNewContextOptions
-            {
-                ViewportSize = ViewportSize.NoViewport
-            });
-        }
-
-        [TearDown]
-        public async Task Teardown()
-        {
-            await browser.CloseAsync();
-        }
+        
 
         [Test, Order(1)]
+        [Parallelizable]
         public async Task VerifyThe_SignUpDashboardRequirements()
         {
-            var page = await context.NewPageAsync();
-            var SignUpPage_mavryck = new SignUpPage_mavryck(page);
-            var loginPage_mavryck = new LoginPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify The Sign Up Dashboard Requirements");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var SignUpPage_mavryck = new SignUpPage_mavryck(page, Test);
 
             try
             {
-                Test = Extent.CreateTest("Verify The Sign Up Dashboard Requirements");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
+                Thread.Sleep(100000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On Sign Up Button");
                 await loginPage_mavryck.ClickOnSignUpButton();
 
                 Test.Log(Status.Info, $"<b> Verify All the Login Screen Requirements <b>");
+                Thread.Sleep(100000);
 
                 await SignUpPage_mavryck.ClearContent();
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Email</b> is displaying");
@@ -94,19 +79,24 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(2)]
+        [Parallelizable]
         public async Task VerifyUserCan_SignUpToMavryck()
         {
-            var page = await context.NewPageAsync();
-            var SignUpPage_mavryck = new SignUpPage_mavryck(page);
-            var loginPage_mavryck = new LoginPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Successfully Sign Up To The Mavryck");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var SignUpPage_mavryck = new SignUpPage_mavryck(page, Test);
             var company = "mavryck";
             var username = "test";
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Sign Up To The Mavryck");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
+                Thread.Sleep(100000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On Sign Up Link");
                 await loginPage_mavryck.ClickOnSignUpButton();
@@ -145,11 +135,16 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(3)]
+        [Parallelizable]
         public async Task Verify_SignUpValidationMessage()
         {
-            var page = await context.NewPageAsync();
-            var SignUpPage_mavryck = new SignUpPage_mavryck(page);
-            var loginPage_mavryck = new LoginPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify Sign Up Validations");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var SignUpPage_mavryck = new SignUpPage_mavryck(page, Test);
             var company = "mavryck";
             var username = "test";
             try
@@ -158,6 +153,8 @@ namespace Mavryck_TimeManager.Tests
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
+                Thread.Sleep(100000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On Sign Up Link");
                 await loginPage_mavryck.ClickOnSignUpButton();

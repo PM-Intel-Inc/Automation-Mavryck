@@ -9,46 +9,27 @@ using PlanNotePlaywrite;
 using System.Threading;
 using System.Collections;
 
-namespace Mavryck_TimeManager.Tests
+namespace Mavryck_TimeManager.Tests.TimeManagerTests
 {
-    [Order(11)]
+    [Order(12)]
     public class Diagnostics_Test_mavryck : Base
     {
-        private IPlaywright playwright;
-        private IBrowser browser;
-        private IBrowserContext context;
-        private int step;
-        ArrayList testSteps;
 
-
-        [SetUp]
-        public async Task Setup()
-        {
-            playwright = await PlaywrightConfig.ConfigurePlaywrightAndLaunchBrowser();
-            browser = await PlaywrightConfig.LaunchChromiumBrowser(playwright, chromiumExecutablePath, false);
-            step = 0;
-            testSteps = new ArrayList();
-
-            context = await browser.NewContextAsync(new BrowserNewContextOptions
-            {
-                ViewportSize = ViewportSize.NoViewport
-            });
-        }
-
-        [TearDown]
-        public async Task Teardown()
-        {
-            await browser.CloseAsync();
-        }
 
         [Test, Order(1)]
+        [Parallelizable]
         public async Task Diagnostics_Verify_TextAllignment_Of_ID_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Diagnostics: Verify The Text Allignment Of ID Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "ID";
             var textAllig_left = "Left";
@@ -58,8 +39,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Diagnostics: Verify The Text Allignment Of ID Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -108,13 +87,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(2)]
+        [Parallelizable]
         public async Task Diagnostics_Verify_TextAllignment_Of_Criteria_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Diagnostics: Verify The Text Allignment Of Criteria Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Criteria";
             var textAllig_left = "Left";
@@ -124,8 +109,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Diagnostics: Verify The Text Allignment Of Criteria Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -174,13 +157,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(3)]
+        [Parallelizable]
         public async Task Diagnostics_Verify_TextAllignment_Of_Baseline_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Diagnostics: Verify The Text Allignment Of Baseline Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Baseline";
             var textAllig_left = "Left";
@@ -190,8 +179,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Diagnostics: Verify The Text Allignment Of Baseline Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -240,18 +227,23 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(4)]
+        [Parallelizable]
         public async Task Diagnostics_Verify_Hover_Feature_Of_ScheduleQualityIndex()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Diagnostics: Verify The Hover Feature Of Schedule Quality Index");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
 
             try
             {
-                Test = Extent.CreateTest("Diagnostics: Verify The Hover Feature Of Schedule Quality Index");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
@@ -265,6 +257,7 @@ namespace Mavryck_TimeManager.Tests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+                Thread.Sleep(100000);
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
                 await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
@@ -274,7 +267,7 @@ namespace Mavryck_TimeManager.Tests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Diagnostics </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnDiagnostics();
-
+                Thread.Sleep(13000);
 
                 testSteps.AddRange(await TimeManagerPage_mavryck.VerifyDownload_FullScreen_HideUnhide_Hover(step));
                 step = testSteps.Count;
@@ -294,19 +287,23 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(5)]
+        [Parallelizable]
         public async Task Diagnostics_Verify_DeepAnalysis_Report()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Diagnostics: Verify The Deep Analysis Report ");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
 
             try
             {
-                Test = Extent.CreateTest("Diagnostics: Verify The Deep Analysis Report ");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -352,31 +349,36 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(6)]
+        [Parallelizable]
         public async Task Diagnostics_Verify_HoverFeature_Of_Complaince()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Diagnostics: Verify The Hover Feature Of Complaince");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
 
             try
             {
-                Test = Extent.CreateTest("Diagnostics: Verify The Hover Feature Of Complaince");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                Thread.Sleep(10000);
+                Thread.Sleep(100000);
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button"));
                 await DashboardPage_mavryck.ClickOnTimeManager();
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button"));
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+                Thread.Sleep(10000);
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu"));
                 await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
@@ -389,6 +391,7 @@ namespace Mavryck_TimeManager.Tests
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Click On <b> Complaince </b>"));
                 await TimeManagerPage_mavryck.ClickOnComplaince();
+                Thread.Sleep(100000);
 
                 testSteps.AddRange(await TimeManagerPage_mavryck.VerifyDownload_FullScreen_HideUnhide_Hover(step));
                 step = testSteps.Count;
@@ -414,19 +417,23 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(7)]
+        [Parallelizable]
         public async Task Diagnostics_Verify_ContractAnalyzer_Report()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Diagnostics: Verify The Contract Analyzer Report ");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
 
             try
             {
-                Test = Extent.CreateTest("Diagnostics: Verify The Contract Analyzer Report ");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -472,19 +479,23 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(8)]
+        [Parallelizable]
         public async Task Diagnostics_Verify_ReportAnalyzer_Report()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Diagnostics: Verify The Report Analyzer Report ");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
 
             try
             {
-                Test = Extent.CreateTest("Diagnostics: Verify The Report Analyzer Report ");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 

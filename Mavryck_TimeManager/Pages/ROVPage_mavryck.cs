@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
+using AventStack.ExtentReports;
 using Mavryck_TimeManager.Utils;
 using Microsoft.Playwright;
 
@@ -37,12 +39,13 @@ namespace Mavryck_TimeManager.Pages
             private const string RootCauseReset = "//button[@data-tooltip-content='Reset']";
 
             private const string Root_Cause = "(//button[@data-tooltip-content='Root Cause'])[1]";
+            readonly ExtentTest Test;
 
 
-
-            public ROVPage_mavryck(IPage page)
+            public ROVPage_mavryck(IPage page ,ExtentTest test)
             {
                 this.page = page;
+                Test = test;
             }
 
             public async Task ClickOnROV_Icon()
@@ -114,6 +117,7 @@ namespace Mavryck_TimeManager.Pages
 
             public async Task Click_ON_RootCause()
             {
+                Thread.Sleep(10000);
                 await page.ClickAsync(Root_Cause);
 
             }
@@ -126,7 +130,7 @@ namespace Mavryck_TimeManager.Pages
 
             public async Task Enter_StartDate()
             {
-                DateTime today = DateTime.Now; 
+                DateTime today = DateTime.Now;
                 await page.FillAsync(Start_date, today.ToString("yyyy-MM-dd"));
             }
             public async Task Enter_EndDate()
@@ -172,7 +176,7 @@ namespace Mavryck_TimeManager.Pages
             }
             public async Task<bool> VerifyFilteredOuput()
             {
-                return await WaitForElementVisible(page ,"//p[text()='Automation ROV Test']");
+                return await WaitForElementVisible(page, "//p[contains(text(), 'Automation ROV Test')]");
 
             }
 
@@ -190,9 +194,10 @@ namespace Mavryck_TimeManager.Pages
 
             }
 
+
             public async Task<bool> VerifyCorrectiveActionWhy()
             {
-                var element= await page.QuerySelectorAsync("//textarea[@placeholder='Add corrective action.']");
+                var element = await page.QuerySelectorAsync("//textarea[@placeholder='Add corrective action.']");
                 if (element.InnerTextAsync() != null)
                 {
                     return true;
@@ -232,13 +237,13 @@ namespace Mavryck_TimeManager.Pages
 
             public async Task Enter_RootCauseWhy()
             {
-                for(int i=1; i <=5; i++)
+                for (int i = 1; i <= 5; i++)
                 {
-                    await page.FillAsync($"//textarea[@placeholder='WHY {i}?']" , "Automtion Root Cause 1");
-                    if (i== 5)
+                    await page.FillAsync($"//textarea[@placeholder='WHY {i}?']", "Automtion Root Cause 1");
+                    if (i == 5)
                     {
                         break;
-                       
+
                     }
                     await page.ClickAsync(plusRootCauseButton);
                 }
@@ -251,11 +256,11 @@ namespace Mavryck_TimeManager.Pages
                     await page.FillAsync($"(//textarea[@placeholder='Add corrective action.'])[{i}]", "Automtion Corrective Root Cause 1 ");
                 }
             }
-            
+
             public async Task ClickOnNextStep_RCA()
             {
-                    await page.ClickAsync(NextStepButton_RCA);
-                
+                await page.ClickAsync(NextStepButton_RCA);
+
             }
 
 

@@ -10,11 +10,18 @@ using AventStack.ExtentReports;
 using System.Globalization;
 using System.IO;
 using System.Threading;
+using NUnit.Framework;
+using AventStack.ExtentReports.Reporter;
+using Newtonsoft.Json;
+using System.Collections;
 
 namespace Mavryck_TimeManager.Utils
 {
     public class Base : Constants
     {
+
+        public static ArrayList _testResults = new ArrayList();
+
         public static async Task<bool> WaitForElementVisible(IPage page, string selector)
         {
             try
@@ -43,7 +50,7 @@ namespace Mavryck_TimeManager.Utils
            
 
             }
-            catch (Exception e)
+            catch (Exception)
             {
                 await page.GotoAsync(url);
             }
@@ -87,12 +94,12 @@ namespace Mavryck_TimeManager.Utils
 
 
 
-        public void DeleteImagesFromFolder()
+        public static void DeleteImagesFromFolder()
         {
             try
             {
                 // Get all files with a specific extension (e.g., .png) from the folder
-                string[] files = Directory.GetFiles(ScreenshotPath, "*.png");
+                string[] files = Directory.GetFiles(Constants.ScreenshotPath, "*.png");
 
                 // Delete each file
                 foreach (string file in files)
@@ -142,5 +149,10 @@ namespace Mavryck_TimeManager.Utils
             await Task.Delay(2000);
         }
      
-    }
+
+
+
+        
+    
+}
 }

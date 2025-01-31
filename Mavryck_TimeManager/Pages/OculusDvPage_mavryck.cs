@@ -1,29 +1,31 @@
 ﻿using System;
 using System.Threading.Tasks;
+using AventStack.ExtentReports;
 using Mavryck_TimeManager.Utils;
 using Microsoft.Playwright;
 using NUnit.Framework;
 
 namespace Mavryck_TimeManager.Pages
 {
-        internal class OculusDvPage_mavryck : Base
+    internal class OculusDvPage_mavryck : Base
+    {
+        private readonly IPage page;
+        private const string Schedule_Quality = "//h2[text()='Schedule Quality ']";
+        private const string ProjectDuration = "//h2[text()='Project Duration']";
+        private const string StartDate = "//h2[text()='Start Date']";
+        private const string FinishDate = "//h2[text()='Finish Date']";
+        private const string Need_Improvements = "//span[text()='Need Improvements']";
+        private const string QA_Factor = "//h2[text()='Q Factor:']";
+        private const string Baseline = "//h3[text()='Baseline']";
+        private const string Current = "//h3[text()='Current']";
+        private const string Push = "//h3[text()='Push']";
+        private const string Pull = "//h3[text()='Pull']";
+        readonly ExtentTest Test;
+        public OculusDvPage_mavryck(IPage page , ExtentTest test)
         {
-            private readonly IPage page;
-            private const string Schedule_Quality = "//h2[text()='Schedule Quality ']";
-            private const string ProjectDuration = "//h2[text()='Project Duration']"; 
-            private const string StartDate = "//h2[text()='Start Date']";  
-            private const string FinishDate = "//h2[text()='Finish Date']";
-            private const string Need_Improvements = "//span[text()='Need Improvements']";
-            private const string QA_Factor = "//h2[text()='Q Factor:']";
-            private const string Baseline = "//h3[text()='Baseline']";
-            private const string Current = "//h3[text()='Current']";
-            private const string Push = "//h3[text()='Push']";
-            private const string Pull = "//h3[text()='Pull']";
-
-            public OculusDvPage_mavryck(IPage page)
-            {
-                this.page = page;
-            }
+            this.page = page;
+            Test = test;
+        }
 
         public async Task<bool> VerifyScheduleQuality()
         {
@@ -86,60 +88,60 @@ namespace Mavryck_TimeManager.Pages
         }
 
         public async Task<bool> VerifyProjectDuration()
-            {
-                return await WaitForElementVisible(page, ProjectDuration);
+        {
+            return await WaitForElementVisible(page, ProjectDuration);
 
-            }
-            public async Task<bool> VerifyStartDate()
-            {
-                return await WaitForElementVisible(page, StartDate);
+        }
+        public async Task<bool> VerifyStartDate()
+        {
+            return await WaitForElementVisible(page, StartDate);
 
-            }
-            public async Task<bool> VerifyFinishDate()
-            {
-                return await WaitForElementVisible(page, FinishDate);
+        }
+        public async Task<bool> VerifyFinishDate()
+        {
+            return await WaitForElementVisible(page, FinishDate);
 
-            }
-            public async Task<bool> VerifyNeedImprovements()
-            {
-                return await WaitForElementVisible(page, Need_Improvements);
-
-            }
-
-            public async Task<bool> VerifyPush()
-            {
-                return await WaitForElementVisible(page, Push);
-
-            }
-            public async Task<bool> VerifyPull()
-            {
-                return await WaitForElementVisible(page, Pull);
-
-            }
-
-            public async Task<bool> VerifyQAFactor()
-            {
-                return await WaitForElementVisible(page, QA_Factor);
-
-            }
-
-            public async Task<bool> VerifyBaseLine()
-            {
-                return await WaitForElementVisible(page, Baseline);
-
-            }
-
-            public async Task<bool> VerifyCurrent()
-            {
-                return await WaitForElementVisible(page, Current);
-
-            }
-
-
-
+        }
+        public async Task<bool> VerifyNeedImprovements()
+        {
+            return await WaitForElementVisible(page, Need_Improvements);
 
         }
 
-    
+        public async Task<bool> VerifyPush()
+        {
+            return await WaitForElementVisible(page, Push);
+
+        }
+        public async Task<bool> VerifyPull()
+        {
+            return await WaitForElementVisible(page, Pull);
+
+        }
+
+        public async Task<bool> VerifyQAFactor()
+        {
+            return await WaitForElementVisible(page, QA_Factor);
+
+        }
+
+        public async Task<bool> VerifyBaseLine()
+        {
+            return await WaitForElementVisible(page, Baseline);
+
+        }
+
+        public async Task<bool> VerifyCurrent()
+        {
+            return await WaitForElementVisible(page, Current);
+
+        }
+
+
+
+
+    }
+
+
 
 }

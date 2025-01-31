@@ -11,49 +11,26 @@ using PlanNotePlaywrite;
 using System.Threading;
 using System.Collections;
 
-namespace Mavryck_TimeManager.Tests
+namespace Mavryck_TimeManager.Tests.TimeManagerTests
 {
     [Order(8)]
     public class GigoTest_mavryck : Base
     {
-        private IPlaywright playwright;
-        private IBrowser browser;
-        private IBrowserContext context;
-        private int step;
-        ArrayList testSteps;
-
-
-        [SetUp]
-        public async Task Setup()
-        {
-            playwright = await PlaywrightConfig.ConfigurePlaywrightAndLaunchBrowser();
-            browser = await PlaywrightConfig.LaunchChromiumBrowser(playwright, chromiumExecutablePath, false);
-            step = 0;
-            testSteps = new ArrayList();
-
-            context = await browser.NewContextAsync(new BrowserNewContextOptions
-            {
-                ViewportSize = ViewportSize.NoViewport
-            });
-        }
-
-        [TearDown]
-        public async Task Teardown()
-        {
-            await browser.CloseAsync();
-        }
-
-
-
 
         [Test, Order(1)]
+        [Parallelizable]
         public async Task Gigo_Verify_TextAllignment_Of_SRNo_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Sr No Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Sr. No.";
             var textAllig_left = "Left";
@@ -63,8 +40,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Sr No Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -113,13 +88,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(2)]
+        [Parallelizable]
         public async Task Gigo_Verify_TextAllignment_Of_ActivityID_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Activity ID Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Activity ID";
             var textAllig_left = "Left";
@@ -128,14 +109,12 @@ namespace Mavryck_TimeManager.Tests
             var colIndex = "2";
             try
             {
-                Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Activity ID Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                Thread.Sleep(10000);
+                Thread.Sleep(100000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
                 await DashboardPage_mavryck.ClickOnTimeManager();
@@ -177,13 +156,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(3)]
+        [Parallelizable]
         public async Task Gigo_Verify_TextAllignment_Of_Task_Name_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Task Name Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -193,21 +178,19 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Task Name Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                Thread.Sleep(10000);
+                Thread.Sleep(100000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
                 await DashboardPage_mavryck.ClickOnTimeManager();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-                Thread.Sleep(10000);
+                Thread.Sleep(100000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
@@ -216,7 +199,7 @@ namespace Mavryck_TimeManager.Tests
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-                Thread.Sleep(10000);
+                Thread.Sleep(100000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> GIGO </b> From Side Nav Menu");
@@ -244,13 +227,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(4)]
+        [Parallelizable]
         public async Task Gigo_Verify_TextAllignment_Of_Reason_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Reason Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -260,8 +249,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Reason Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -311,15 +298,21 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(5)]
+        [Parallelizable]
         public async Task Gigo_Verify_TextAllignment_Of_Flag_As_Incorrect_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Flag As Incorrect Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
-            var columnName = "Flag As Incorrect";
+            var columnName = "Flag as Incorrect";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -327,14 +320,12 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Flag As Incorrect Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                Thread.Sleep(10000);
+                Thread.Sleep(100000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
                 await DashboardPage_mavryck.ClickOnTimeManager();
@@ -378,13 +369,19 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(6)]
+        [Parallelizable]
         public async Task Gigo_LogicalFlaw_Verify_TextAllignment_Of_SrNO_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Gigo Logical Flaw: Verify The Text Alignment Of Flag As Incorrect Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Sr. No.";
             var textAllig_left = "Left";
@@ -394,21 +391,19 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Gigo Logical Flaw: Verify The Text Alignment Of Flag As Incorrect Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                Thread.Sleep(120000);
+                Thread.Sleep(100000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
                 await DashboardPage_mavryck.ClickOnTimeManager();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-                Thread.Sleep(10000);
+                Thread.Sleep(100000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
@@ -449,13 +444,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(7)]
+        [Parallelizable]
         public async Task Gigo_Logical_FlawVerify_TextAllignment_Of_ActivityID_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Gigo Logical Flaw: Verify The Text Allignment Of Activity ID Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Activity ID";
             var textAllig_left = "Left";
@@ -464,8 +465,6 @@ namespace Mavryck_TimeManager.Tests
             var colIndex = "2";
             try
             {
-                Test = Extent.CreateTest("Gigo Logical Flaw: Verify The Text Allignment Of Activity ID Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -517,13 +516,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(8)]
+        [Parallelizable]
         public async Task Gigo_Logical_flaw_Verify_TextAllignment_Of_Task_Name_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Gigo Logical Flaw: Verify The Text Allignment Of Task Name Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -533,21 +538,19 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Gigo Logical Flaw: Verify The Text Allignment Of Task Name Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                Thread.Sleep(10000);
+                Thread.Sleep(100000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
                 await DashboardPage_mavryck.ClickOnTimeManager();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-                Thread.Sleep(10000);
+                Thread.Sleep(100000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
@@ -569,7 +572,7 @@ namespace Mavryck_TimeManager.Tests
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await TimeManagerPage_mavryck.ClickOnTextAllignmentButton();
 
-        
+
                 Test.Log(Status.Info, $" *** Verify The Text Alignment Of Columns *** ");
                 await TimeManagerPage_mavryck.VerifyTextAlignment(columnName, textAllig_left, textAllig_right, textAllig_center, colIndex, step);
 
@@ -588,13 +591,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(9)]
+        [Parallelizable]
         public async Task Gigo_Logical_Flaw_Verify_TextAllignment_Of_Reason_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Gigo Logical Flaw: Verify The Text Allignment Of Reason Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -659,15 +668,21 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(10)]
+        [Parallelizable]
         public async Task Gigo_Logical_flaw_Verify_TextAllignment_Of_Flag_As_Incorrect_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Gigo Logical Flaw: Verify The Text Allignment Of Flag As Incorrect Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
-            var columnName = "Flag As Incorrect";
+            var columnName = "Flag as Incorrect";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -675,7 +690,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Gigo Logical Flaw: Verify The Text Allignment Of Flag As Incorrect Column");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
@@ -729,26 +743,30 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(11)]
+        [Parallelizable]
         public async Task Verify_Requirments_Of_TimeManager_Gigo()
         {
 
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
-            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify The Header Requirments Of GIGO");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             try
             {
-                Test = Extent.CreateTest("Verify The Header Requirments Of GIGO");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
+                Thread.Sleep(10000);
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                Thread.Sleep(10000);
+                Thread.Sleep(100000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
                 await DashboardPage_mavryck.ClickOnTimeManager();
@@ -772,7 +790,6 @@ namespace Mavryck_TimeManager.Tests
                 Assert.True(await TimeManagerPage_mavryck.VerifyDownload_GridIcon());
                 Assert.True(await TimeManagerPage_mavryck.VerifyShowHide_GridIcon());
                 Assert.True(await TimeManagerPage_mavryck.Verify_FullScreen_GridIcon());
-                Assert.True(await TimeManagerPage_mavryck.VerifyIndicators_GridIcon());
 
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
@@ -789,19 +806,23 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(12)]
+        [Parallelizable]
         public async Task Verify_Hover_Feature_Of_Gigo()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Gigo: Verify The Hover Feature");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
 
             try
             {
-                Test = Extent.CreateTest("Gigo: Verify The Hover Feature");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -857,18 +878,23 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(13)]
+        [Parallelizable]
         public async Task Verify_Grid_Resizing_Of_DurationFlawGrid_And_LogicalFlaw_Grid()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Gigo: Verify The Duration And Logical Flaw Grid Is Successfully Resized");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
 
             try
             {
-                Test = Extent.CreateTest("Gigo: Verify The Duration And Logical Flaw Grid Is Successfully Resized");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);

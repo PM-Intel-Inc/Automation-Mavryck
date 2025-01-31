@@ -7,51 +7,38 @@ using System;
 using System.Threading.Tasks;
 using PlanNotePlaywrite;
 using System.Threading;
+using System.Collections.Generic;
+using Microsoft.VisualStudio.TestPlatform.ObjectModel;
+using Constants = Mavryck_TimeManager.Utils.Constants;
+using System.Collections;
+using Newtonsoft.Json;
+using System.IO;
 
 
-namespace Mavryck_TimeManager.Tests
+namespace Mavryck_TimeManager.Tests.LoginTests
 {
-    [Order(1)]
+    [Order(2)]
     public class LoginTest_mavryck : Base
     {
-        private IPlaywright playwright;
-        private IBrowser browser;
-        private IBrowserContext context;
-        private int step;
-
-        [SetUp]
-        public async Task Setup()
-        {
-            playwright = await PlaywrightConfig.ConfigurePlaywrightAndLaunchBrowser();
-            browser = await PlaywrightConfig.LaunchChromiumBrowser(playwright, chromiumExecutablePath, false);
-            step = 0;
-            context = await browser.NewContextAsync(new BrowserNewContextOptions
-            {
-                ViewportSize = ViewportSize.NoViewport
-            });
-        }
-
-        [TearDown]
-        public async Task Teardown()
-        {
-            await browser.CloseAsync();
-        }
-
-        [Test, Order(1)]
+       
+        [Test]
+        [Parallelizable]
         public async Task VerifyThe_LoginDashboardRequirements()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify The Login Dashboard Requirements");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            var loginPage_mavryck = new LoginPage_mavryck(page , Test);
+            int step = 0;
 
             try
-            {
-                Test = Extent.CreateTest("Verify The Login Dashboard Requirements");
-
+            {                
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
                 Test.Log(Status.Info, $"<b> Verify All the Login Screen Requirements <b>");
-
+                Thread.Sleep(100000);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Email</b> and <b> Password </b>  are displaying");
                 await loginPage_mavryck.VerifyEmailIsVisible();
@@ -74,6 +61,7 @@ namespace Mavryck_TimeManager.Tests
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+
             }
             catch (Exception e)
             {
@@ -83,22 +71,28 @@ namespace Mavryck_TimeManager.Tests
             }
         }
 
-        [Test, Order(2)]
+        [Test]
+        [Parallelizable]
         public async Task VerifyThat_UserCanLoginWithValidCredentials()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify Login With Valid Credentials");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            var loginPage_mavryck = new LoginPage_mavryck(page  , Test);
 
             try
             {
-                Test = Extent.CreateTest("Verify Login With Valid Credentials");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
+                Thread.Sleep(100000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Enter Credentials: Email :" + email + " Password: " + password);
                 await loginPage_mavryck.EnterLoginCredentials(email, password);
-              
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On Remember Me Checkbox");
                 await loginPage_mavryck.ClickOnRememberMeCheckbox();
@@ -106,7 +100,7 @@ namespace Mavryck_TimeManager.Tests
                 Test.Log(Status.Info, $"Step {++step}: Click On Login Button");
                 await loginPage_mavryck.ClickOnSubmitButton();
 
-                Thread.Sleep(10000);
+                Thread.Sleep(100000);
                 Test.Log(Status.Info, $"Step {++step}: Verify that the <b> Mavryck Dashboard</b>  is displaying");
                 Assert.True(await loginPage_mavryck.VerifyDashboardPageIsVisible());
 
@@ -122,23 +116,29 @@ namespace Mavryck_TimeManager.Tests
         }
 
 
-        [Test, Order(3)]
+        [Test]
+        [Parallelizable]
         public async Task UserUnableLoginWith_InValidCredentials()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Unable To Login With InValid Credentials");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var Invalid_email = "test@com.pk";
             var Invalid_password = "123456";
-            
+
 
             try
             {
-                Test = Extent.CreateTest("Verify User Unable To Login With InValid Credentials");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
+                Thread.Sleep(100000);
 
-                Test.Log(Status.Info, $"Step {++step}: Enter Credentials: InValid Email :" + email + " InValid Password: " +password);
+
+                Test.Log(Status.Info, $"Step {++step}: Enter Credentials: InValid Email :" + email + " InValid Password: " + password);
                 await loginPage_mavryck.EnterLoginCredentials(Invalid_email, Invalid_password);
 
 
@@ -163,15 +163,18 @@ namespace Mavryck_TimeManager.Tests
             }
         }
 
-        [Test, Order(4)]
+        [Test]
+        [Parallelizable]
         public async Task UserCanUpdateThe_Password()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-
+            var Test = Extent.CreateTest("Verify User Can Update The Password");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             try
             {
-                Test = Extent.CreateTest("Verify User Can Update The Password");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
@@ -200,18 +203,24 @@ namespace Mavryck_TimeManager.Tests
             }
         }
 
-        [Test, Order(5)]
+        [Test]
+        [Parallelizable]
         public async Task UserCan_SignOut_FromMavryck()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Sign Out From Mavryck");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
 
             try
             {
-                Test = Extent.CreateTest("Verify User Can Sign Out From Mavryck");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
+                Thread.Sleep(100000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Enter Credentials: Email :" + email + " Password: " + password);
                 await loginPage_mavryck.EnterLoginCredentials(email, password);
@@ -229,6 +238,7 @@ namespace Mavryck_TimeManager.Tests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On Sign Out Button");
                 await loginPage_mavryck.ClickOnSignOutButton();
+                Thread.Sleep(10000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify that the <b> Mavryck Login Screen</b>  is displaying");

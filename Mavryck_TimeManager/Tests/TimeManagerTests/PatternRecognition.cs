@@ -10,46 +10,27 @@ using NUnit.Framework;
 using PlanNotePlaywrite;
 
 
-namespace Mavryck_TimeManager.Tests
+namespace Mavryck_TimeManager.Tests.TimeManagerTests
 {
     [Order(10)]
     public class PatternRecognition : Base
     {
-        private IPlaywright playwright;
-        private IBrowser browser;
-        private IBrowserContext context;
-        private int step;
-        ArrayList testSteps;
 
-
-        [SetUp]
-        public async Task Setup()
-        {
-            playwright = await PlaywrightConfig.ConfigurePlaywrightAndLaunchBrowser();
-            browser = await PlaywrightConfig.LaunchChromiumBrowser(playwright, chromiumExecutablePath, false);
-            step = 0;
-            testSteps = new ArrayList();
-
-            context = await browser.NewContextAsync(new BrowserNewContextOptions
-            {
-                ViewportSize = ViewportSize.NoViewport
-            });
-        }
-
-        [TearDown]
-        public async Task Teardown()
-        {
-            await browser.CloseAsync();
-        }
 
         [Test, Order(1)]
+        [Parallelizable]
         public async Task PatternRecognition_BenchMarking_VerifyTheTextAllignmentOf_Tasks_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Sr No Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Tasks";
             var textAllig_left = "Left";
@@ -59,7 +40,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Sr No Column");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
@@ -86,7 +66,7 @@ namespace Mavryck_TimeManager.Tests
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnPatternRecognition();
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Bench Marking </b> From Side Nav Menu");
+                Test.Log(Status.Info, $"Step {++step}: Click On <b> Bench Marking </b>");
                 await TimeManagerPage_mavryck.ClickOnBenchMarking();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
@@ -111,13 +91,19 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(2)]
+        [Parallelizable]
         public async Task PatternRecognition_BenchMarking_VerifyTheTextAllignmentOf_CurrentProject_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Current Project  Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Current Project";
             var textAllig_left = "Left";
@@ -127,8 +113,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Current Project  Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -179,13 +163,19 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(3)]
+        [Parallelizable]
         public async Task PatternRecognition_BenchMarking_VerifyTheTextAllignmentOf_Comparable_InHouse_Projects_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Comparable In-House Projects  Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Comparable In-House Projects";
             var textAllig_left = "Left";
@@ -195,8 +185,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Comparable In-House Projects  Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -246,14 +234,20 @@ namespace Mavryck_TimeManager.Tests
             }
         }
 
-        [Test, Order(3)]
+        [Test, Order(4)]
+        [Parallelizable]
         public async Task PatternRecognition_BenchMarking_VerifyTheTextAllignmentOf_Similar_Projects_In_Other_Companies_Column()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Similar Projects In Other Companies Column");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var columnName = "Similar Projects In Other Companies";
             var textAllig_left = "Left";
@@ -263,8 +257,6 @@ namespace Mavryck_TimeManager.Tests
 
             try
             {
-                Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Similar Projects In Other Companies Column");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -316,22 +308,27 @@ namespace Mavryck_TimeManager.Tests
         }
 
 
-        [Test, Order(4)]
+        [Test, Order(5)]
+        [Parallelizable]
+
         public async Task PatternRecognition_Verify_TotalFloatIndex_Map()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
-            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page);
+            var Test = Extent.CreateTest("Pattern Recognition: Verify The Total Float Index Chart");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var title = "Total Float Index";
 
             try
             {
-                Test = Extent.CreateTest("Pattern Recognition: Verify The Total Float Index Chart");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -381,22 +378,27 @@ namespace Mavryck_TimeManager.Tests
         }
 
 
-        [Test, Order(5)]
+        [Test, Order(6)]
+        [Parallelizable]
         public async Task PatternRecognition_Verify_CriticalActivitiesTrendingMap()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
-            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page);
+            var Test = Extent.CreateTest("Pattern Recognition: Verify The Critical Activities Trending Map");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
+
             var timeManager = "Time Manager";
             var title = "Critical Activities Trending";
 
             try
             {
-                Test = Extent.CreateTest("Pattern Recognition: Verify The Critical Activities Trending Map");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -446,22 +448,26 @@ namespace Mavryck_TimeManager.Tests
             }
         }
 
-        [Test, Order(6)]
+        [Test, Order(7)]
+        [Parallelizable]
         public async Task PatternRecognition_Verify_CurveGraph_Map()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
-            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page);
+            var Test = Extent.CreateTest("Pattern Recognition: Verify The S Curve Graph Chart");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var title = "S Curve Graph";
 
             try
             {
-                Test = Extent.CreateTest("Pattern Recognition: Verify The S Curve Graph Chart");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -510,22 +516,27 @@ namespace Mavryck_TimeManager.Tests
             }
         }
 
-        [Test, Order(7)]
+        [Test, Order(8)]
+        [Parallelizable]
         public async Task PatternRecognition_Correlation_Verify_HeatMap()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
-            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page);
+            var Test = Extent.CreateTest("Pattern Recognition Correlation: Verify The Heat Map");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
+
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var timeManager = "Time Manager";
             var title = "Correlation Heatmap-2";
 
             try
             {
-                Test = Extent.CreateTest("Pattern Recognition Correlation: Verify The Heat Map");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -580,23 +591,28 @@ namespace Mavryck_TimeManager.Tests
         }
 
 
-        [Test, Order(8)]
+        [Test, Order(9)]
+        [Parallelizable]
         public async Task PatternRecognition_Anomolies_Verify_TaskOverRunsMap()
-            
+
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
-            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page);
+            var Test = Extent.CreateTest("Pattern Recognition Anomolies: Verify The Task Over Runs Map");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
+
             var timeManager = "Time Manager";
             var title = "Task Over Runs";
 
             try
             {
-                Test = Extent.CreateTest("Pattern Recognition Anomolies: Verify The Task Over Runs Map");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -645,23 +661,29 @@ namespace Mavryck_TimeManager.Tests
 
 
 
-        [Test, Order(9)]
+        [Test, Order(10)]
+        [Parallelizable]
         public async Task PatternRecognition_Anomolies_Verify_NumberOfDelayEventsMap()
 
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
-            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page);
+
+            var Test = Extent.CreateTest("Pattern Recognition Anomolies: Verify The Number Of Delay Events Map");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
+
             var timeManager = "Time Manager";
-            var title = "Number Of Delay Events";
+            var title = "Number of Delay Events";
 
             try
             {
-                Test = Extent.CreateTest("Pattern Recognition Anomolies: Verify The Number Of Delay Events Map");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -690,6 +712,9 @@ namespace Mavryck_TimeManager.Tests
                 await TimeManagerPage_mavryck.ClickOnAnamolies();
                 Thread.Sleep(120000);
 
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Number Of Delay Events Map</b>");
+                await TimeManagerPage_mavryck.ClickOnNumberOfDelayEvents();
+
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Number Of Delay Events Map</b> is visible");
                 Assert.True(await TimeManagerPage_mavryck.VerifyNumberOfDelayEventsGraph());
 
@@ -714,20 +739,25 @@ namespace Mavryck_TimeManager.Tests
 
 
 
-        [Test, Order(10)]
+        [Test, Order(11)]
+        [Parallelizable]
         public async Task Verify_Hover_Feature_Of_PatternRecognition()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Pattern Recognition: Verify The Hover Feature");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+
             var timeManager = "Time Manager";
 
             try
             {
-                Test = Extent.CreateTest("Pattern Recognition: Verify The Hover Feature");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
@@ -752,16 +782,15 @@ namespace Mavryck_TimeManager.Tests
                 Thread.Sleep(120000);
 
                 Test.Log(Status.Info, $" *** Hover The  <b>Pattern Recognition Features</b> ***");
-                testSteps=await TimeManagerPage_mavryck.Verify_Features_Of_PatternRecognition(step);
+                testSteps = await TimeManagerPage_mavryck.Verify_Features_Of_PatternRecognition(step);
                 step = testSteps.Count;
 
                 Test.Log(Status.Info, $" *** Hover The  <b>Pattern Recognition Bench Marking Grid</b> ***");
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Bench Marking </b> ");
                 await TimeManagerPage_mavryck.ClickOnBenchMarking();
 
-                Test.Log(Status.Info, $" *** Hover The  <b>Download Button</b> Of Grid ***");
-                testSteps=await TimeManagerPage_mavryck.VerifyDownload_FullScreen_HideUnhide_Hover(step);
-
+                testSteps = await TimeManagerPage_mavryck.VerifyDownload_FullScreen_HideUnhide_Hover(step);
+                step = testSteps.Count;
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Resizing Of Bechmarking</b>");
                 await TimeManagerPage_mavryck.ClickOnResizeIcon();

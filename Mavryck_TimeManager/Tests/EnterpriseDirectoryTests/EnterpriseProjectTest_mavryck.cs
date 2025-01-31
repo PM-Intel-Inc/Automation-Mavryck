@@ -5,58 +5,46 @@ using Mavryck_TimeManager.Pages;
 using Mavryck_TimeManager.Utils;
 using System;
 using System.Threading.Tasks;
-using PlanNotePlaywrite;
+//using PlanNotePlaywrite;
 using System.Collections;
 using AventStack.ExtentReports.Reporter.Filter;
 using System.Threading;
+using AventStack.ExtentReports.Reporter;
+using System.IO;
+using System.Collections.Generic;
+using AventStack.ExtentReports.Gherkin.Model;
+using Microsoft.VisualStudio.TestPlatform.TestHost;
 
-namespace Mavryck_TimeManager.Tests
+
+namespace Mavryck_TimeManager.Tests.EnterpriseDirectoryTests
 {
-    [Order(3)]
+    [Order(1)]
+
     public class EnterpriseProjectTest_mavryck : Base
     {
-        private IPlaywright playwright;
-        private IBrowser browser;
-        private IBrowserContext context;
-        private int step;
-        ArrayList testSteps;
 
-        [SetUp]
-        public async Task Setup()
-        {
-            playwright = await PlaywrightConfig.ConfigurePlaywrightAndLaunchBrowser();
-            browser = await PlaywrightConfig.LaunchChromiumBrowser(playwright, chromiumExecutablePath, false);
-            step = 0;
-            testSteps = new ArrayList();
-
-            context = await browser.NewContextAsync(new BrowserNewContextOptions
-            {
-                ViewportSize = ViewportSize.NoViewport
-            });
-        }
-
-        [TearDown]
-        public async Task Teardown()
-        {
-            await browser.CloseAsync();
-        }
 
         //[Test, Order(1)]
+        //[Parallelizable]
         public async Task VerifyThe_NewProjectRequirements()
         {
-            var page = await context.NewPageAsync();
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify Required Fields For Project Creation.");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             try
             {
-                Test = Extent.CreateTest("Verify Required Fields For Project Creation.");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
-                step = testSteps.Count ;
+                step = testSteps.Count;
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
                 await DashboardPage_mavryck.ClickOnTimeManager();
@@ -109,13 +97,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         //[Test, Order(2)]
-
+        //[Parallelizable]
         public async Task VerifyUserCan_CreateProject()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Successfully Create The Project");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string projectName = "Automation Project";
             string status = "Active";
             string industry = "IT";
@@ -128,14 +122,13 @@ namespace Mavryck_TimeManager.Tests
             string estimation = "estimation.svg";
 
             try
-            { 
-                Test = Extent.CreateTest("Verify User Can Successfully Create The Project");
+            {
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
-                step = testSteps.Count ;
+                step = testSteps.Count;
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button"));
                 await DashboardPage_mavryck.ClickOnTimeManager();
@@ -143,43 +136,43 @@ namespace Mavryck_TimeManager.Tests
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button"));
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
-                testSteps.AddRange(await EnterprisePage_mavryck.CreateProject(step , projectName , industry , location , currency , status));
-                step = testSteps.Count ;
+                testSteps.AddRange(await EnterpriseProjectPage_mavryck.CreateProject(step, projectName, industry, location, currency, status));
+                step = testSteps.Count;
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Project : " + projectName + "</b> is displaying");
-                Assert.True(await EnterprisePage_mavryck.VerifyProjectIsDisplaying(projectName));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyProjectIsDisplaying(projectName));
 
                 Test.Log(Status.Info, $" ** Verify the <b>Project : " + projectName + "</b> Details ***");
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Industry ");
-                Assert.True(await EnterprisePage_mavryck.VerifyListViewRequirementsIsVisible(industry));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyListViewRequirementsIsVisible(industry));
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Location ");
-                Assert.True(await EnterprisePage_mavryck.VerifyListViewRequirementsIsVisible(location));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyListViewRequirementsIsVisible(location));
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Currency ");
-                Assert.True(await EnterprisePage_mavryck.VerifyListViewRequirementsIsVisible(currency));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyListViewRequirementsIsVisible(currency));
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Edit Icon ");
-                Assert.True(await EnterprisePage_mavryck.VerifyThreeDot());
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyThreeDot());
 
                 Test.Log(Status.Info, $" ** Verify All the  <b>Project : " + projectName + "</b> Application Icons ** ");
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Vivclima Icon ");
-                Assert.True(await EnterprisePage_mavryck.VerifyAppIcons(vivclimaIcon));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppIcons(vivclimaIcon));
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Time Manager Icon ");
-                Assert.True(await EnterprisePage_mavryck.VerifyAppIcons(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppIcons(timeManager));
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Cost Brain Icon ");
-                Assert.True(await EnterprisePage_mavryck.VerifyAppIcons(cost));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppIcons(cost));
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify SAIF Icon ");
-                Assert.True(await EnterprisePage_mavryck.VerifyAppIcons(saif));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppIcons(saif));
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Estimator Icon ");
-                Assert.True(await EnterprisePage_mavryck.VerifyAppIcons(estimation));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppIcons(estimation));
 
 
 
@@ -196,15 +189,22 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(3)]
+        [Parallelizable]
         public async Task VerifyProjectDetails_In_ListView_Tab()
 
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify Details of Created Project In List View Tab");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+         
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string projectName = "Mavryck Automation Project";
-            string status = "Paused";
             string industry = "Education";
             string location = "AU";
             string currency = "ANG";
@@ -213,11 +213,9 @@ namespace Mavryck_TimeManager.Tests
             string cost = "cost.svg";
             string saif = "CV.svg";
             string estimation = "estimation.svg";
-
+           
             try
             {
-                Test = Extent.CreateTest("Verify Details of Created Project In List View Tab");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -231,42 +229,42 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> List View</b> Button");
-                await EnterprisePage_mavryck.ClickOnListView();
+                await EnterpriseProjectPage_mavryck.ClickOnListView();
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Project : " + projectName + "</b> is displaying");
-                Assert.True(await EnterprisePage_mavryck.VerifyProjectIsDisplaying(projectName));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyProjectIsDisplaying(projectName));
 
                 Test.Log(Status.Info, $" ** Verify the  <b>Project : " + projectName + "</b> details ** ");
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Industry ");
-                Assert.True(await EnterprisePage_mavryck.VerifyListViewRequirementsIsVisible(industry));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyListViewRequirementsIsVisible(industry));
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Location ");
-                Assert.True(await EnterprisePage_mavryck.VerifyListViewRequirementsIsVisible(location));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyListViewRequirementsIsVisible(location));
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Currency ");
-                Assert.True(await EnterprisePage_mavryck.VerifyListViewRequirementsIsVisible(currency));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyListViewRequirementsIsVisible(currency));
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Edit Icon ");
-                Assert.True(await EnterprisePage_mavryck.VerifyThreeDot());
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyThreeDot());
 
                 Test.Log(Status.Info, $" ** Verify All the  <b>Project : " + projectName + "</b> Application Icons ** ");
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Vivclima Icon ");
-                Assert.True(await EnterprisePage_mavryck.VerifyAppIcons(vivclimaIcon));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppIcons(vivclimaIcon));
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Time Manager Icon ");
-                Assert.True(await EnterprisePage_mavryck.VerifyAppIcons(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppIcons(timeManager));
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Cost Brain Icon ");
-                Assert.True(await EnterprisePage_mavryck.VerifyAppIcons2(cost));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppIcons2(cost));
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify SAIF Icon ");
-                Assert.True(await EnterprisePage_mavryck.VerifyAppIcons2(saif));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppIcons2(saif));
 
                 Test.Log(Status.Info, $"Step {++step}: Verify Estimator Icon ");
-                Assert.True(await EnterprisePage_mavryck.VerifyAppIcons2(estimation));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppIcons2(estimation));
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -281,17 +279,22 @@ namespace Mavryck_TimeManager.Tests
 
         // ----- MAVRYCK Team did not allowed the user to create project
         //[Test, Order(4)]
+        //[Parallelizable]
         public async Task VerifyUserCannot_CreateProject_WithEmptyFields()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Unable To Create The Project With Empty Fields");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
 
             try
             {
-                Test = Extent.CreateTest("Verify User Unable To Create The Project With Empty Fields");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -306,13 +309,13 @@ namespace Mavryck_TimeManager.Tests
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Create New Project </b> Button");
-                await EnterprisePage_mavryck.ClickOnCreateProjectButton();
+                await EnterpriseProjectPage_mavryck.ClickOnCreateProjectButton();
 
                 Test.Log(Status.Info, $"Step {++step}: Click <b> Save Button <b> ");
-                await EnterprisePage_mavryck.ClickOnSaveButton();
+                await EnterpriseProjectPage_mavryck.ClickOnSaveButton();
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Verify the <b>Error Popup </b> is displaying"));
-                Assert.True(await EnterprisePage_mavryck.VerifyErrorPopup());
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyErrorPopup());
 
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
@@ -328,12 +331,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(5)]
+        [Parallelizable]
         public async Task Verify_Apps_Functionality_OfProject()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify Application Icons Are Functionaing Properly Of Project");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string vivclimaIcon = "vivclima.svg";
             string viclimaTitle = " Vivclima";
             string timeManager = "projectManager.svg";
@@ -345,10 +355,9 @@ namespace Mavryck_TimeManager.Tests
             string estimation = "estimation.svg";
             string estimationTitle = " AIstimate Pro";
             
+
             try
             {
-                Test = Extent.CreateTest("Verify Application Icons Are Functionaing Properly Of Project");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -362,38 +371,38 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Project : " + projectName + "</b> is displaying");
-                Assert.True(await EnterprisePage_mavryck.VerifyProjectIsDisplaying(projectName));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyProjectIsDisplaying(projectName));
 
                 Test.Log(Status.Info, $"Step {++step}: Click <b> Vivclima Icon <b> ");
-                await EnterprisePage_mavryck.ClickOnAppIcons(vivclimaIcon);
-                await EnterprisePage_mavryck.VerifyAppDashboardIsDisplaying(viclimaTitle);
+                await EnterpriseProjectPage_mavryck.ClickOnAppIcons(vivclimaIcon);
+                await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(viclimaTitle);
                 await page.GoBackAsync();
                 Thread.Sleep(10000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click <b> Time Manager Icon <b> ");
-                await EnterprisePage_mavryck.ClickOnAppIcons(timeManager);
-                await EnterprisePage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle);
+                await EnterpriseProjectPage_mavryck.ClickOnAppIcons(timeManager);
+                await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle);
                 await page.GoBackAsync();
                 Thread.Sleep(10000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click <b> Cost Brain Icon <b> ");
-                await EnterprisePage_mavryck.ClickOnAppIcons2(cost);
-                await EnterprisePage_mavryck.VerifyAppDashboardIsDisplaying(costTitle);
+                await EnterpriseProjectPage_mavryck.ClickOnAppIcons2(cost);
+                await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costTitle);
                 await page.GoBackAsync();
                 Thread.Sleep(10000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click <b> SAIF Icon <b> ");
-                await EnterprisePage_mavryck.ClickOnAppIcons2(saif);
-                await EnterprisePage_mavryck.VerifyAppDashboardIsDisplaying(saifTitle);
+                await EnterpriseProjectPage_mavryck.ClickOnAppIcons2(saif);
+                await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(saifTitle);
                 await page.GoBackAsync();
                 Thread.Sleep(10000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click <b> Estimate Icon <b> ");
-                await EnterprisePage_mavryck.ClickOnAppIcons2(estimation);
-                await EnterprisePage_mavryck.VerifyAppDashboardIsDisplaying(estimationTitle);
+                await EnterpriseProjectPage_mavryck.ClickOnAppIcons2(estimation);
+                await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(estimationTitle);
                 await page.GoBackAsync();
 
 
@@ -410,12 +419,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(6)]
+        [Parallelizable]
         public async Task Verify_Apps_Functionality_OfProject_ListView()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify Application Icons Are Functionaing Properly Of Project From List View");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string vivclimaIcon = "vivclima.svg";
             string viclimaTitle = " Vivclima";
             string timeManager = "projectManager.svg";
@@ -426,10 +442,9 @@ namespace Mavryck_TimeManager.Tests
             string saifTitle = " s AI f";
             string estimation = "estimation.svg";
             string estimationTitle = " AIstimate Pro";
-
+           
             try
             {
-                Test = Extent.CreateTest("Verify Application Icons Are Functionaing Properly Of Project From List View");
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
@@ -444,41 +459,41 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> List View </b> Button");
-                await EnterprisePage_mavryck.ClickOnListView();
+                await EnterpriseProjectPage_mavryck.ClickOnListView();
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b> Project : " + projectName + "</b> is displaying");
-                Assert.True(await EnterprisePage_mavryck.VerifyProjectIsDisplaying(projectName));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyProjectIsDisplaying(projectName));
 
                 Test.Log(Status.Info, $"Step {++step}: Click <b> Vivclima Icon <b> ");
-                await EnterprisePage_mavryck.ClickOnAppIcons(vivclimaIcon);
-                await EnterprisePage_mavryck.VerifyAppDashboardIsDisplaying(viclimaTitle);
+                await EnterpriseProjectPage_mavryck.ClickOnAppIcons(vivclimaIcon);
+                await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(viclimaTitle);
                 await page.GoBackAsync();
                 Thread.Sleep(10000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click <b> Time Manager Icon <b> ");
-                await EnterprisePage_mavryck.ClickOnAppIcons(timeManager);
-                await EnterprisePage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle);
+                await EnterpriseProjectPage_mavryck.ClickOnAppIcons(timeManager);
+                await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle);
                 await page.GoBackAsync();
                 Thread.Sleep(10000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click <b> Cost Brain Icon <b> ");
-                await EnterprisePage_mavryck.ClickOnAppIcons2(cost);
-                await EnterprisePage_mavryck.VerifyAppDashboardIsDisplaying(costTitle);
+                await EnterpriseProjectPage_mavryck.ClickOnAppIcons2(cost);
+                await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costTitle);
                 await page.GoBackAsync();
                 Thread.Sleep(10000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click <b> SAIF Icon <b> ");
-                await EnterprisePage_mavryck.ClickOnAppIcons2(saif);
-                await EnterprisePage_mavryck.VerifyAppDashboardIsDisplaying(saifTitle);
+                await EnterpriseProjectPage_mavryck.ClickOnAppIcons2(saif);
+                await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(saifTitle);
                 await page.GoBackAsync();
                 Thread.Sleep(10000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click <b> Estimate Icon <b> ");
-                await EnterprisePage_mavryck.ClickOnAppIcons2(estimation);
-                await EnterprisePage_mavryck.VerifyAppDashboardIsDisplaying(estimationTitle);
+                await EnterpriseProjectPage_mavryck.ClickOnAppIcons2(estimation);
+                await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(estimationTitle);
                 await page.GoBackAsync();
                 Thread.Sleep(10000);
 
@@ -493,23 +508,29 @@ namespace Mavryck_TimeManager.Tests
                 Assert.True(false);
             }
         }
-        
+
         [Test, Order(7)]
+        [Parallelizable]
         public async Task Verify_Edit_TheExistingProject()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Edit The Project");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+
             try
             {
-                Test = Extent.CreateTest("Verify User Can Edit The Project");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
-                step = testSteps.Count ;
+                step = testSteps.Count;
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
                 await DashboardPage_mavryck.ClickOnTimeManager();
@@ -518,10 +539,10 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Three Dots </b>");
-                await EnterprisePage_mavryck.ClickOnThreedot();
+                await EnterpriseProjectPage_mavryck.ClickOnThreedot();
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b> Administrator Permission Required </b> popup is displaying");
-                Assert.True(await EnterprisePage_mavryck.PleaseContactAdmin());
+                Assert.True(await EnterpriseProjectPage_mavryck.PleaseContactAdmin());
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -535,16 +556,23 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(8)]
+        [Parallelizable]
         public async Task Verify_Upload_ScheduleFile_Under_Project()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Upload The Schedule File Under The Project");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var Version = "1";
+           
             try
             {
-                Test = Extent.CreateTest("Verify User Can Upload The Schedule File Under The Project");
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
@@ -559,21 +587,21 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> View Files </b>");
-                await EnterprisePage_mavryck.ClickOnViewFilesButton();
+                await EnterpriseProjectPage_mavryck.ClickOnViewFilesButton();
 
                 Test.Log(Status.Info, $"Step {++step}: Upload Schedule File <b>" + schedulefileName + " </b>");
-                await EnterprisePage_mavryck.UploadScheduleFile();
+                await EnterpriseProjectPage_mavryck.UploadScheduleFile();
 
                 Test.Log(Status.Info, $"Step {++step}: Select Version <b>" + Version + " </b>");
-                await EnterprisePage_mavryck.SelectVersionNumber(Version);
+                await EnterpriseProjectPage_mavryck.SelectVersionNumber(Version);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Upload </b> button");
-                await EnterprisePage_mavryck.ClickUpload();
+                await EnterpriseProjectPage_mavryck.ClickUpload();
                 Thread.Sleep(10000);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify <b>Please Contact Your Administrator </b> message is displaying");
-                Assert.True(await EnterprisePage_mavryck.PleaseContactAdmin());
+                Assert.True(await EnterpriseProjectPage_mavryck.PleaseContactAdmin());
 
 
 
@@ -589,16 +617,23 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(9)]
+        [Parallelizable]
         public async Task Verify_Upload_CostFile_Under_Project()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Upload The Cost File Under The Project");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string Version = "1";
+          
             try
             {
-                Test = Extent.CreateTest("Verify User Can Upload The Cost File Under The Project");
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
@@ -613,23 +648,23 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> View Files </b>");
-                await EnterprisePage_mavryck.ClickOnViewFilesButton();
+                await EnterpriseProjectPage_mavryck.ClickOnViewFilesButton();
 
                 Test.Log(Status.Info, $"Step {++step}: Upload Cost File <b>" + costFileName + " </b>");
-                await EnterprisePage_mavryck.UploadCostFile();
+                await EnterpriseProjectPage_mavryck.UploadCostFile();
 
 
                 Test.Log(Status.Info, $"Step {++step}: Select Version <b>" + Version + " </b>");
-                await EnterprisePage_mavryck.SelectVersionNumber(Version);
+                await EnterpriseProjectPage_mavryck.SelectVersionNumber(Version);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Upload </b> button");
-                await EnterprisePage_mavryck.ClickUpload();
+                await EnterpriseProjectPage_mavryck.ClickUpload();
                 Thread.Sleep(10000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify <b>Please Contact Your Administrator </b> message is displaying");
-                Assert.True(await EnterprisePage_mavryck.PleaseContactAdmin());
+                Assert.True(await EnterpriseProjectPage_mavryck.PleaseContactAdmin());
 
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
@@ -644,17 +679,22 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(10)]
+        [Parallelizable]
         public async Task Verify_Upload_ContractFile_Under_Project()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Upload The Contract File Under The Project");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string Version = "1";
             try
             {
-                Test = Extent.CreateTest("Verify User Can Upload The Contract File Under The Project");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -668,20 +708,20 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> View Files </b>");
-                await EnterprisePage_mavryck.ClickOnViewFilesButton();
+                await EnterpriseProjectPage_mavryck.ClickOnViewFilesButton();
                 Thread.Sleep(10000);
 
                 Test.Log(Status.Info, $"Step {++step}: Upload Contract File <b>" + contractFile + " </b>");
-                await EnterprisePage_mavryck.UploadContractFile();
+                await EnterpriseProjectPage_mavryck.UploadContractFile();
 
                 Test.Log(Status.Info, $"Step {++step}: Select Version <b>" + Version + " </b>");
-                await EnterprisePage_mavryck.SelectVersionNumber(Version);
+                await EnterpriseProjectPage_mavryck.SelectVersionNumber(Version);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Upload </b> button");
-                await EnterprisePage_mavryck.ClickUpload();
+                await EnterpriseProjectPage_mavryck.ClickUpload();
 
                 Test.Log(Status.Info, $"Step {++step}: Verify <b>Please Contact Your Administrator </b> message is displaying");
-                Assert.True(await EnterprisePage_mavryck.PleaseContactAdmin());
+                Assert.True(await EnterpriseProjectPage_mavryck.PleaseContactAdmin());
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -696,17 +736,22 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(11)]
+        [Parallelizable]
         public async Task Verify_Upload_ScheduleFile_Under_Project_FromListView()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Upload The Schedule File Under The Project From List View");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var Version = "1";
             try
             {
-                Test = Extent.CreateTest("Verify User Can Upload The Schedule File Under The Project From List View");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -720,27 +765,27 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> List View</b> Button");
-                await EnterprisePage_mavryck.ClickOnListView();
+                await EnterpriseProjectPage_mavryck.ClickOnListView();
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Project : " + projectName + "</b> is displaying");
-                Assert.True(await EnterprisePage_mavryck.VerifyProjectIsDisplaying(projectName));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyProjectIsDisplaying(projectName));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> View Files </b>");
-                await EnterprisePage_mavryck.ClickOnViewFilesButton();
+                await EnterpriseProjectPage_mavryck.ClickOnViewFilesButton();
 
                 Test.Log(Status.Info, $"Step {++step}: Upload Schedule File <b>" + schedulefileName + " </b>");
-                await EnterprisePage_mavryck.UploadScheduleFile();
+                await EnterpriseProjectPage_mavryck.UploadScheduleFile();
 
                 Test.Log(Status.Info, $"Step {++step}: Select Version <b>" + Version + " </b>");
-                await EnterprisePage_mavryck.SelectVersionNumber(Version);
+                await EnterpriseProjectPage_mavryck.SelectVersionNumber(Version);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Upload </b> button");
-                await EnterprisePage_mavryck.ClickUpload();
+                await EnterpriseProjectPage_mavryck.ClickUpload();
                 Thread.Sleep(10000);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify <b>Please Contact Your Administrator </b> message is displaying");
-                Assert.True(await EnterprisePage_mavryck.PleaseContactAdmin());
+                Assert.True(await EnterpriseProjectPage_mavryck.PleaseContactAdmin());
 
 
 
@@ -757,17 +802,22 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(12)]
+        [Parallelizable]
         public async Task Verify_Upload_CostFile_Under_Project_FromListView()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Upload The Cost File Under The Project From List View");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string Version = "1";
             try
             {
-                Test = Extent.CreateTest("Verify User Can Upload The Cost File Under The Project From List View");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -781,28 +831,28 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> List View</b> Button");
-                await EnterprisePage_mavryck.ClickOnListView();
+                await EnterpriseProjectPage_mavryck.ClickOnListView();
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Project : " + projectName + "</b> is displaying");
-                Assert.True(await EnterprisePage_mavryck.VerifyProjectIsDisplaying(projectName));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyProjectIsDisplaying(projectName));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> View Files </b>");
-                await EnterprisePage_mavryck.ClickOnViewFilesButton();
+                await EnterpriseProjectPage_mavryck.ClickOnViewFilesButton();
 
                 Test.Log(Status.Info, $"Step {++step}: Upload Cost File <b>" + costFileName + " </b>");
-                await EnterprisePage_mavryck.UploadCostFile();
+                await EnterpriseProjectPage_mavryck.UploadCostFile();
 
 
                 Test.Log(Status.Info, $"Step {++step}: Select Version <b>" + Version + " </b>");
-                await EnterprisePage_mavryck.SelectVersionNumber(Version);
+                await EnterpriseProjectPage_mavryck.SelectVersionNumber(Version);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Upload </b> button");
-                await EnterprisePage_mavryck.ClickUpload();
+                await EnterpriseProjectPage_mavryck.ClickUpload();
                 Thread.Sleep(10000);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify <b>Please Contact Your Administrator </b> message is displaying");
-                Assert.True(await EnterprisePage_mavryck.PleaseContactAdmin());
+                Assert.True(await EnterpriseProjectPage_mavryck.PleaseContactAdmin());
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -816,17 +866,22 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(13)]
+        [Parallelizable]
         public async Task Verify_Upload_ContractFile_Under_Project_FromListView()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Upload The Contract File Under The Project From List View");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string Version = "1";
             try
             {
-                Test = Extent.CreateTest("Verify User Can Upload The Contract File Under The Project From List View");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -840,28 +895,28 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> List View</b> Button");
-                await EnterprisePage_mavryck.ClickOnListView();
+                await EnterpriseProjectPage_mavryck.ClickOnListView();
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Project : " + projectName + "</b> is displaying");
-                Assert.True(await EnterprisePage_mavryck.VerifyProjectIsDisplaying(projectName));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyProjectIsDisplaying(projectName));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> View Files </b>");
-                await EnterprisePage_mavryck.ClickOnViewFilesButton();
+                await EnterpriseProjectPage_mavryck.ClickOnViewFilesButton();
 
                 Test.Log(Status.Info, $"Step {++step}: Upload Contract File <b>" + contractFile + " </b>");
-                await EnterprisePage_mavryck.UploadContractFile();
+                await EnterpriseProjectPage_mavryck.UploadContractFile();
 
 
                 Test.Log(Status.Info, $"Step {++step}: Select Version <b>" + Version + " </b>");
-                await EnterprisePage_mavryck.SelectVersionNumber(Version);
+                await EnterpriseProjectPage_mavryck.SelectVersionNumber(Version);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Upload </b> button");
-                await EnterprisePage_mavryck.ClickUpload();
+                await EnterpriseProjectPage_mavryck.ClickUpload();
                 Thread.Sleep(10000);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify <b>Please Contact Your Administrator </b> message is displaying");
-                Assert.True(await EnterprisePage_mavryck.PleaseContactAdmin());
+                Assert.True(await EnterpriseProjectPage_mavryck.PleaseContactAdmin());
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -876,15 +931,21 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(14)]
+        [Parallelizable]
         public async Task Verify_CancelDeleting_The_Existing_Project()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can  Cancel Deleting The Existing Project");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             try
             {
-                Test = Extent.CreateTest("Verify User Can  Cancel Deleting The Existing Project");
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
@@ -899,17 +960,17 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
                 Thread.Sleep(10000);
 
-                //Test.Log(Status.Info, $"Step {++step}: Click On <b> Delete </b> Icon");
-                //await EnterprisePage_mavryck.ClickOnDeleteButton();
+                Test.Log(Status.Info, $"Step {++step}: Click On <b> Delete </b> Icon");
+                await EnterpriseProjectPage_mavryck.ClickOnDeleteButton();
 
                 //Test.Log(Status.Info, $"Step {++step}: Click On <b>No </b> button");
-                //await EnterprisePage_mavryck.ClickOnNoButton();
+                //await EnterpriseProjectPage_mavryck.ClickOnNoButton();
 
                 //Test.Log(Status.Info, $"Step {++step}: Verify <b>" + projectName + " </b> is displaying");
-                //Assert.True(await EnterprisePage_mavryck.VerifyListViewProjectNameIsVisible());
+                //Assert.True(await EnterpriseProjectPage_mavryck.VerifyListViewProjectNameIsVisible());
 
                 Test.Log(Status.Info, $"Step {++step}: Verify <b>Please Contact Your Administrator </b> message is displaying");
-                Assert.True(await EnterprisePage_mavryck.PleaseContactAdmin());
+                Assert.True(await EnterpriseProjectPage_mavryck.PleaseContactAdmin());
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -924,15 +985,21 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(15)]
+        [Parallelizable]
         public async Task Verify_CancelDeleting_The_Existing_Project_ListView()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Successfully Cancel Deleting The Existing Project From List View");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Cancel Deleting The Existing Project From List View");
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
@@ -947,23 +1014,23 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> List View</b> Button");
-                await EnterprisePage_mavryck.ClickOnListView();
+                await EnterpriseProjectPage_mavryck.ClickOnListView();
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Project : " + projectName + "</b> is displaying");
-                Assert.True(await EnterprisePage_mavryck.VerifyProjectIsDisplaying(projectName));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyProjectIsDisplaying(projectName));
 
-                //Test.Log(Status.Info, $"Step {++step}: Click On <b> Delete </b> Icon");
-                //await EnterprisePage_mavryck.ClickOnDeleteButton();
+                Test.Log(Status.Info, $"Step {++step}: Click On <b> Delete </b> Icon");
+                await EnterpriseProjectPage_mavryck.ClickOnDeleteButton();
 
 
                 //Test.Log(Status.Info, $"Step {++step}: Click On <b>No</b> button");
-                //await EnterprisePage_mavryck.ClickOnNoButton();
+                //await EnterpriseProjectPage_mavryck.ClickOnNoButton();
 
                 //Test.Log(Status.Info, $"Step {++step}: Verify <b>" + projectName + " </b> is displaying");
-                //Assert.True(await EnterprisePage_mavryck.VerifyProjectNameIsVisible());
+                //Assert.True(await EnterpriseProjectPage_mavryck.VerifyProjectNameIsVisible());
 
                 Test.Log(Status.Info, $"Step {++step}: Verify <b>Please Contact Your Administrator </b> message is displaying");
-                Assert.True(await EnterprisePage_mavryck.PleaseContactAdmin());
+                Assert.True(await EnterpriseProjectPage_mavryck.PleaseContactAdmin());
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -977,16 +1044,21 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(16)]
+        [Parallelizable]
         public async Task Verify_Deleting_The_Existing_Project()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Delete The Existing Project");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             try
             {
-                Test = Extent.CreateTest("Verify User Can Delete The Existing Project");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1000,15 +1072,15 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
                 Thread.Sleep(10000);
 
-                //Test.Log(Status.Info, $"Step {++step}: Click On <b> Delete </b> Icon");
-                //await EnterprisePage_mavryck.ClickOnDeleteButton();
+                Test.Log(Status.Info, $"Step {++step}: Click On <b> Delete </b> Icon");
+                await EnterpriseProjectPage_mavryck.ClickOnDeleteButton();
 
                 //Test.Log(Status.Info, $"Step {++step}: Click On <b>Yes</b> button");
-                //await EnterprisePage_mavryck.ClickOnYesButton();
-                
+                //await EnterpriseProjectPage_mavryck.ClickOnYesButton();
+
 
                 Test.Log(Status.Info, $"Step {++step}: Verify <b>Please Contact Your Administrator </b> message is displaying");
-                Assert.True(await EnterprisePage_mavryck.PleaseContactAdmin());
+                Assert.True(await EnterpriseProjectPage_mavryck.PleaseContactAdmin());
 
 
 
@@ -1025,15 +1097,21 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(17)]
+        [Parallelizable]
         public async Task Verify_Deleting_The_Existing_Project_From_ListView()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Successfully Delete The Existing Project From List View");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Delete The Existing Project From List View");
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
@@ -1048,20 +1126,20 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> List View</b> Button");
-                await EnterprisePage_mavryck.ClickOnListView();
+                await EnterpriseProjectPage_mavryck.ClickOnListView();
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Project : " + projectName + "</b> is displaying");
-                Assert.True(await EnterprisePage_mavryck.VerifyProjectIsDisplaying(projectName));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyProjectIsDisplaying(projectName));
 
-                //Test.Log(Status.Info, $"Step {++step}: Click On <b> Delete </b> Icon");
-                //await EnterprisePage_mavryck.ClickOnDeleteButton();
+                Test.Log(Status.Info, $"Step {++step}: Click On <b> Delete </b> Icon");
+                await EnterpriseProjectPage_mavryck.ClickOnDeleteButton();
 
 
                 //Test.Log(Status.Info, $"Step {++step}: Click On <b>Yes</b> button");
-                //await EnterprisePage_mavryck.ClickOnYesButton();
+                //await EnterpriseProjectPage_mavryck.ClickOnYesButton();
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b> Administrator Permission Required </b> popup is displaying");
-                Assert.True(await EnterprisePage_mavryck.PleaseContactAdmin());
+                Assert.True(await EnterpriseProjectPage_mavryck.PleaseContactAdmin());
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -1073,24 +1151,29 @@ namespace Mavryck_TimeManager.Tests
                 Assert.True(false);
             }
         }
-        
+
         [Test, Order(18)]
+        [Parallelizable]
         public async Task Verify_The_ApplicationFilters()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            string[] applicationFilter = { "Time Manager", "Vivclima" , "s AI f", "AIstimate Pro" };
-            string[] applicationIcons = { "projectManager", "vivclima",  "CV", "estimation" };
+            var Test = Extent.CreateTest("Verify User Can Successfully Filter The Projects Of Specific Application");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+            string[] applicationFilter = { "Time Manager", "Vivclima", "s AI f", "AIstimate Pro" };
+            string[] applicationIcons = { "projectManager", "vivclima", "CV", "estimation" };
 
             //string[] applicationFilter = { "Time Manager", "Vivclima", "s AI f", "AIstimate Pro" , "CostBrain" ,"Reporting Manager" , "Contracts Manager" , "Resource Optimizer" , "Risk IQ" };
             //string[] applicationIcons = { "projectManager", "vivclima", "CV", "estimation", "cost"  , "xyz" , "xyz" , "xyz" , "xyz"};
 
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Filter The Projects Of Specific Application");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1104,7 +1187,7 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Filter </b> Button");
-                await EnterprisePage_mavryck.ClickOnFilterButton();
+                await EnterpriseProjectPage_mavryck.ClickOnFilterButton();
 
 
                 for (int i = 0; i < applicationFilter.Length; i++)
@@ -1113,12 +1196,12 @@ namespace Mavryck_TimeManager.Tests
                     string icon = applicationIcons[i];
 
                     Test.Log(Status.Info, $"Step {++step}: Click On <b>Application </b> Filter And Select <b>{application}</b>");
-                    await EnterprisePage_mavryck.ClickOnApplicationFilter();
-                    await EnterprisePage_mavryck.SelectFilter(application);
+                    await EnterpriseProjectPage_mavryck.ClickOnApplicationFilter();
+                    await EnterpriseProjectPage_mavryck.SelectFilter(application);
                     await page.Mouse.DblClickAsync(1000, 400);
                     Thread.Sleep(1000);
 
-                    if (await EnterprisePage_mavryck.VerifyApplicationFilterProjects(icon))
+                    if (await EnterpriseProjectPage_mavryck.VerifyApplicationFilterProjects(icon))
                     {
                         Test.Log(Status.Info, $"Project Displayed after filtering by Application: {application}");
                     }
@@ -1137,20 +1220,26 @@ namespace Mavryck_TimeManager.Tests
                 Test.Fail($"Test failed Screenshot: {e.Message}", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
                 Assert.True(false);
             }
-        
+
         }
 
         [Test, Order(19)]
+        [Parallelizable]
         public async Task Verify_The_IndustryFilters()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Successfully Filter The Projects Of Specific Industry");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string[] industryFilter = { "Education", "Finance", "Healthcare", "IT", "Manufacturing", "Oil & Gas", "Retail", "Transportation", "Other" };
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Filter The Projects Of Specific Industry");
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
@@ -1165,18 +1254,18 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Filter </b> Button");
-                await EnterprisePage_mavryck.ClickOnFilterButton();
+                await EnterpriseProjectPage_mavryck.ClickOnFilterButton();
 
 
                 foreach (var industryfilter in industryFilter)
                 {
                     Test.Log(Status.Info, $"Step {++step}: Click On <b>Industry </b> Filter And Select <b> " + industryfilter + " </b>");
-                    await EnterprisePage_mavryck.ClickOnIndustryFilter();
-                    await EnterprisePage_mavryck.SelectFilter(industryfilter);
+                    await EnterpriseProjectPage_mavryck.ClickOnIndustryFilter();
+                    await EnterpriseProjectPage_mavryck.SelectFilter(industryfilter);
                     await page.Mouse.DblClickAsync(1000, 400);
                     Thread.Sleep(1000);
 
-                    if (await EnterprisePage_mavryck.VerifyIndustryFilterProjects(industryfilter))
+                    if (await EnterpriseProjectPage_mavryck.VerifyIndustryFilterProjects(industryfilter))
                     {
                         Test.Log(Status.Info, "Project Displayed after filtering by industry: " + industryfilter);
                     }
@@ -1200,16 +1289,22 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(20)]
+        [Parallelizable]
         public async Task Verify_The_StatusFilters()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Successfully Filter The Projects Of Specific Status");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string[] statusFilter = { "Active", "Completed" };
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Filter The Projects Of Specific Status");
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
@@ -1224,19 +1319,19 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Filter </b> Button");
-                await EnterprisePage_mavryck.ClickOnFilterButton();
+                await EnterpriseProjectPage_mavryck.ClickOnFilterButton();
 
 
                 foreach (var statusfilter in statusFilter)
                 {
 
                     Test.Log(Status.Info, $"Step {++step}: Click On <b> Status </b> Filter And Select <b> " + statusfilter + " </b>");
-                    await EnterprisePage_mavryck.ClickOnStatusFilter();
-                    await EnterprisePage_mavryck.SelectFilter(statusfilter);
+                    await EnterpriseProjectPage_mavryck.ClickOnStatusFilter();
+                    await EnterpriseProjectPage_mavryck.SelectFilter(statusfilter);
                     await page.Mouse.DblClickAsync(1000, 400);
                     Thread.Sleep(1000);
 
-                    if (await EnterprisePage_mavryck.VerifyStatusFilterProjects(statusfilter))
+                    if (await EnterpriseProjectPage_mavryck.VerifyStatusFilterProjects(statusfilter))
                     {
                         Test.Log(Status.Info, "Project Displayed after filtering by status: " + statusfilter);
                     }
@@ -1259,18 +1354,24 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(21)]
+        [Parallelizable]
         public async Task Verify_The_ApplicationFilters_ListView()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Successfully Filter The Projects Of Specific Application List View");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string[] applicationFilter = { "Time Manager", "Vivclima", "s AI f", "AIstimate Pro", "CostBrain", "Reporting Manager", "Contracts Manager", "Resource Optimizer", "Risk IQ" };
             string[] applicationIcons = { "projectManager", "vivclima", "CV", "estimation", "cost", "xyz", "xyz", "xyz", "xyz" };
 
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Filter The Projects Of Specific Application");
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
@@ -1285,10 +1386,10 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> List View</b> Button");
-                await EnterprisePage_mavryck.ClickOnListView();
+                await EnterpriseProjectPage_mavryck.ClickOnListView();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Filter </b> Button");
-                await EnterprisePage_mavryck.ClickOnFilterButton();
+                await EnterpriseProjectPage_mavryck.ClickOnFilterButton();
 
 
                 for (int i = 0; i < applicationFilter.Length; i++)
@@ -1297,12 +1398,12 @@ namespace Mavryck_TimeManager.Tests
                     string icon = applicationIcons[i];
 
                     Test.Log(Status.Info, $"Step {++step}: Click On <b>Application </b> Filter And Select <b>{application}</b>");
-                    await EnterprisePage_mavryck.ClickOnApplicationFilter();
-                    await EnterprisePage_mavryck.SelectFilter(application);
+                    await EnterpriseProjectPage_mavryck.ClickOnApplicationFilter();
+                    await EnterpriseProjectPage_mavryck.SelectFilter(application);
                     await page.Mouse.DblClickAsync(1000, 400);
                     Thread.Sleep(1000);
 
-                    if (await EnterprisePage_mavryck.VerifyApplicationFilterProjects(icon))
+                    if (await EnterpriseProjectPage_mavryck.VerifyApplicationFilterProjects(icon))
                     {
                         Test.Log(Status.Info, $"Project Displayed after filtering by Application: {application} with Icon: {icon}");
                     }
@@ -1325,17 +1426,22 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(22)]
+        [Parallelizable]
         public async Task Verify_The_IndustryFilters_ListView()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Successfully Filter The Projects Of Specific Industry List View");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string[] industryFilter = { "Education", "Finance", "Healthcare", "IT", "Manufacturing", "Oil & Gas", "Retail", "Transportation", "Other" };
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Filter The Projects Of Specific Location");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1349,21 +1455,21 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> List View</b> Button");
-                await EnterprisePage_mavryck.ClickOnListView();
+                await EnterpriseProjectPage_mavryck.ClickOnListView();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Filter </b> Button");
-                await EnterprisePage_mavryck.ClickOnFilterButton();
+                await EnterpriseProjectPage_mavryck.ClickOnFilterButton();
 
 
                 foreach (var industryfilter in industryFilter)
                 {
                     Test.Log(Status.Info, $"Step {++step}: Click On <b>Industry </b> Filter And Select <b> " + industryfilter + " </b>");
-                    await EnterprisePage_mavryck.ClickOnIndustryFilter();
-                    await EnterprisePage_mavryck.SelectFilter(industryfilter);
+                    await EnterpriseProjectPage_mavryck.ClickOnIndustryFilter();
+                    await EnterpriseProjectPage_mavryck.SelectFilter(industryfilter);
                     await page.Mouse.DblClickAsync(1000, 400);
                     Thread.Sleep(1000);
 
-                    if (await EnterprisePage_mavryck.VerifyIndustryFilterProjects(industryfilter))
+                    if (await EnterpriseProjectPage_mavryck.VerifyIndustryFilterProjects(industryfilter))
                     {
                         Test.Log(Status.Info, "Project Displayed after filtering by Location: " + industryfilter);
                     }
@@ -1387,17 +1493,22 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(24)]
+        [Parallelizable]
         public async Task Verify_The_StatusFilters_ListView()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Successfully Filter The Projects Of Specific Status List View");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string[] statusFilter = { "Active", "Completed" };
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Filter The Projects Of Specific Status");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1411,22 +1522,22 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> List View</b> Button");
-                await EnterprisePage_mavryck.ClickOnListView();
+                await EnterpriseProjectPage_mavryck.ClickOnListView();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Filter </b> Button");
-                await EnterprisePage_mavryck.ClickOnFilterButton();
+                await EnterpriseProjectPage_mavryck.ClickOnFilterButton();
 
 
                 foreach (var statusfilter in statusFilter)
                 {
 
                     Test.Log(Status.Info, $"Step {++step}: Click On <b> Status </b> Filter And Select <b> " + statusfilter + " </b>");
-                    await EnterprisePage_mavryck.ClickOnStatusFilter();
-                    await EnterprisePage_mavryck.SelectFilter(statusfilter);
+                    await EnterpriseProjectPage_mavryck.ClickOnStatusFilter();
+                    await EnterpriseProjectPage_mavryck.SelectFilter(statusfilter);
                     await page.Mouse.DblClickAsync(1000, 400);
                     Thread.Sleep(1000);
 
-                    if (await EnterprisePage_mavryck.VerifyStatusFilterProjects(statusfilter))
+                    if (await EnterpriseProjectPage_mavryck.VerifyStatusFilterProjects(statusfilter))
                     {
                         Test.Log(Status.Info, "Project Displayed after filtering by Status: " + statusfilter);
                     }
@@ -1450,12 +1561,19 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(25)]
+        [Parallelizable]
         public async Task Verify_UserCan_FilterThe_Project_UnderListView()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Successfully Filter The Projects Under List View");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var applicationFilter = "Time Manager";
             var locationFilter = "Canada";
             var industryFilter = "Education";
@@ -1463,7 +1581,6 @@ namespace Mavryck_TimeManager.Tests
             var currencyFilter = "CAD";
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Filter The Projects Under List View");
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
@@ -1478,38 +1595,38 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> List View</b> Button");
-                await EnterprisePage_mavryck.ClickOnListView();
+                await EnterpriseProjectPage_mavryck.ClickOnListView();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Filter </b> Button");
-                await EnterprisePage_mavryck.ClickOnFilterButton();
+                await EnterpriseProjectPage_mavryck.ClickOnFilterButton();
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Application </b> Filter And Select <b>" + applicationFilter + " </b>");
-                await EnterprisePage_mavryck.ClickOnApplicationFilter();
-                await EnterprisePage_mavryck.SelectFilter(applicationFilter);
+                await EnterpriseProjectPage_mavryck.ClickOnApplicationFilter();
+                await EnterpriseProjectPage_mavryck.SelectFilter(applicationFilter);
                 await page.Mouse.DblClickAsync(300, 400);
 
                 //Test.Log(Status.Info, $"Step {++step}: Verify <b> Time Manager </b>  Projects are displaying");
-                //Assert.True(await EnterprisePage_mavryck.VerifyListViewProjectNameIsVisible());
+                //Assert.True(await EnterpriseProjectPage_mavryck.VerifyListViewProjectNameIsVisible());
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Location </b> Filter And Select <b>" + locationFilter + "</b>");
-                await EnterprisePage_mavryck.ClickOnLocationFilter();
-                await EnterprisePage_mavryck.SelectFilter(locationFilter);
+                await EnterpriseProjectPage_mavryck.ClickOnLocationFilter();
+                await EnterpriseProjectPage_mavryck.SelectFilter(locationFilter);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Industry </b> Filter And Select <b> " + industryFilter + " </b>");
-                await EnterprisePage_mavryck.ClickOnIndustryFilter();
-                await EnterprisePage_mavryck.SelectFilter(industryFilter);
+                await EnterpriseProjectPage_mavryck.ClickOnIndustryFilter();
+                await EnterpriseProjectPage_mavryck.SelectFilter(industryFilter);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Currency </b> Filter And Select <b> " + currencyFilter + " </b>");
-                await EnterprisePage_mavryck.ClickOnCurrencyFilter();
-                await EnterprisePage_mavryck.SelectFilter(currencyFilter);
+                await EnterpriseProjectPage_mavryck.ClickOnCurrencyFilter();
+                await EnterpriseProjectPage_mavryck.SelectFilter(currencyFilter);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Status </b> Filter And Select <b> " + statusFilter + " </b>");
-                await EnterprisePage_mavryck.ClickOnStatusFilter();
-                await EnterprisePage_mavryck.SelectFilter(statusFilter);
+                await EnterpriseProjectPage_mavryck.ClickOnStatusFilter();
+                await EnterpriseProjectPage_mavryck.SelectFilter(statusFilter);
 
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
@@ -1526,19 +1643,25 @@ namespace Mavryck_TimeManager.Tests
 
         // ---- MAVRYCK TEAM did not allow the users to create  a program
         //[Test, Order(26)]
+        //[Parallelizable]
         public async Task VerifyUserCan_CreateProgram()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Successfully Create The Program");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string programName = "Automation Program";
             string project = "Andarko Piling Project";
             string status = "Active";
 
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Create The Program");
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
@@ -1553,28 +1676,28 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Programs </b>");
-                await EnterprisePage_mavryck.ClickOnProgramsNavMenu();
+                await EnterpriseProjectPage_mavryck.ClickOnProgramsNavMenu();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Create Programs </b> button");
-                await EnterprisePage_mavryck.ClickOnCreateAProgram();
+                await EnterpriseProjectPage_mavryck.ClickOnCreateAProgram();
 
 
                 Test.Log(Status.Info, $"Step {++step}: Enter Program Name: <b>" + programName + " </b>");
-                await EnterprisePage_mavryck.EnterProjectName(programName);
+                await EnterpriseProjectPage_mavryck.EnterProjectName(programName);
 
                 Test.Log(Status.Info, $"Step {++step}: Enter Program Status: <b>" + status + " </b>");
-                await EnterprisePage_mavryck.SelectProgramStatus(status);
+                await EnterpriseProjectPage_mavryck.SelectProgramStatus(status);
 
                 Test.Log(Status.Info, $"Step {++step}: Enter Program Project Status: <b>" + status + " </b>");
-                await EnterprisePage_mavryck.SelectProgramProjectStatus(project);
+                await EnterpriseProjectPage_mavryck.SelectProgramProjectStatus(project);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Create Program</b>");
-                await EnterprisePage_mavryck.ClickOnCreateProgram();
+                await EnterpriseProjectPage_mavryck.ClickOnCreateProgram();
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Program : " + programName + "</b> is created successfully");
-                Assert.True(await EnterprisePage_mavryck.VerifyProgramIsDisplaying(programName));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyProgramIsDisplaying(programName));
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -1589,18 +1712,23 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(27)]
+        [Parallelizable]
         public async Task Verify_Program_Details()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify All The Program Details and Requirments");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string programName = "Reno and Upgrade";
 
             try
             {
-                Test = Extent.CreateTest("Verify All The Program Details and Requirments");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1614,13 +1742,13 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Programs </b>");
-                await EnterprisePage_mavryck.ClickOnProgramsNavMenu();
+                await EnterpriseProjectPage_mavryck.ClickOnProgramsNavMenu();
 
                 Test.Log(Status.Info, $"*** Verify the <b>Program Details </b> *** ");
-                Assert.True(await EnterprisePage_mavryck.VerifyProgramIsDisplaying(programName));
-                Assert.True(await EnterprisePage_mavryck.VerifyViewProjectButtonIsDisplaying());
-                Assert.True(await EnterprisePage_mavryck.VerifyDeleteButtonIsDisplaying());
-                Assert.True(await EnterprisePage_mavryck.VerifyThreeDot());
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyProgramIsDisplaying(programName));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyViewProjectButtonIsDisplaying());
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyDeleteButtonIsDisplaying());
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyThreeDot());
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -1635,17 +1763,23 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(28)]
+        [Parallelizable]
         public async Task Verify_Program_Details_FromListView()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify All The Program Details and Requirments From List View");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string programName = "Reno and Upgrade";
-             
+
             try
             {
-                Test = Extent.CreateTest("Verify All The Program Details and Requirments From List View");
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
@@ -1660,20 +1794,20 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> List View</b> Button");
-                await EnterprisePage_mavryck.ClickOnListView();
+                await EnterpriseProjectPage_mavryck.ClickOnListView();
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Project : " + projectName + "</b> is displaying");
-                Assert.True(await EnterprisePage_mavryck.VerifyProjectIsDisplaying(projectName));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyProjectIsDisplaying(projectName));
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Programs </b>");
-                await EnterprisePage_mavryck.ClickOnProgramsNavMenu();
+                await EnterpriseProjectPage_mavryck.ClickOnProgramsNavMenu();
 
                 Test.Log(Status.Info, $"*** Verify the <b>Program Details </b> button");
-                Assert.True(await EnterprisePage_mavryck.VerifyProgramIsDisplaying(programName));
-                Assert.True(await EnterprisePage_mavryck.VerifyViewProjectButtonIsDisplaying());
-                Assert.True(await EnterprisePage_mavryck.VerifyDeleteButtonIsDisplaying());
-                Assert.True(await EnterprisePage_mavryck.VerifyThreeDot());
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyProgramIsDisplaying(programName));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyViewProjectButtonIsDisplaying());
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyDeleteButtonIsDisplaying());
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyThreeDot());
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -1687,17 +1821,22 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(29)]
+        [Parallelizable]
         public async Task VerifyUserCan_EditProgram()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Successfully Edit The Program");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
 
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Edit The Program");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1710,16 +1849,16 @@ namespace Mavryck_TimeManager.Tests
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
-              
+
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Programs </b>");
-                await EnterprisePage_mavryck.ClickOnProgramsNavMenu();
+                await EnterpriseProjectPage_mavryck.ClickOnProgramsNavMenu();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Three Dots </b> button");
-                await EnterprisePage_mavryck.ClickOnThreedot();
+                await EnterpriseProjectPage_mavryck.ClickOnThreedot();
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b> Administrator Permission Required </b> popup is displaying");
-                Assert.True(await EnterprisePage_mavryck.PleaseContactAdmin());
+                Assert.True(await EnterpriseProjectPage_mavryck.PleaseContactAdmin());
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -1734,18 +1873,23 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(30)]
+        [Parallelizable]
         public async Task VerifyUserCan_EditProgram_ListView()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
-          
+            var Test = Extent.CreateTest("Verify User Can Successfully Edit The Program From List View");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+
 
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Edit The Program From List View");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1759,20 +1903,20 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> List View</b> Button");
-                await EnterprisePage_mavryck.ClickOnListView();
+                await EnterpriseProjectPage_mavryck.ClickOnListView();
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Project : " + projectName + "</b> is displaying");
-                Assert.True(await EnterprisePage_mavryck.VerifyProjectIsDisplaying(projectName));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyProjectIsDisplaying(projectName));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Programs </b>");
-                await EnterprisePage_mavryck.ClickOnProgramsNavMenu();
+                await EnterpriseProjectPage_mavryck.ClickOnProgramsNavMenu();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Three Dots </b> button");
-                await EnterprisePage_mavryck.ClickOnThreedot();
+                await EnterpriseProjectPage_mavryck.ClickOnThreedot();
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b> Administrator Permission Required </b> popup is displaying");
-                Assert.True(await EnterprisePage_mavryck.PleaseContactAdmin());
+                Assert.True(await EnterpriseProjectPage_mavryck.PleaseContactAdmin());
 
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
@@ -1789,18 +1933,23 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(31)]
+        [Parallelizable]
         public async Task VerifyUserCan_DeleteProgram()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Successfully Delete The Program");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
 
 
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Delete The Program");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1815,14 +1964,14 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Programs </b>");
-                await EnterprisePage_mavryck.ClickOnProgramsNavMenu();
+                await EnterpriseProjectPage_mavryck.ClickOnProgramsNavMenu();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Delete  </b> Icon");
-                await EnterprisePage_mavryck.ClickOnDeleteButton();
+                await EnterpriseProjectPage_mavryck.ClickOnDeleteButton();
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b> Administrator Permission Required </b> popup is displaying");
-                Assert.True(await EnterprisePage_mavryck.PleaseContactAdmin());
+                Assert.True(await EnterpriseProjectPage_mavryck.PleaseContactAdmin());
 
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
@@ -1836,19 +1985,23 @@ namespace Mavryck_TimeManager.Tests
             }
         }
 
-        [Test , Order(32)]
+        [Test, Order(32)]
+        [Parallelizable]
         public async Task VerifyUserCan_DeleteProgram_FromListView()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
-
+            var Test = Extent.CreateTest("Verify User Can Successfully Delete The Program From List View");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
 
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Delete The Program From List View");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1863,14 +2016,14 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Programs </b>");
-                await EnterprisePage_mavryck.ClickOnProgramsNavMenu();
+                await EnterpriseProjectPage_mavryck.ClickOnProgramsNavMenu();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Delete  </b> Icon");
-                await EnterprisePage_mavryck.ClickOnDeleteButton();
+                await EnterpriseProjectPage_mavryck.ClickOnDeleteButton();
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b> Administrator Permission Required </b> popup is displaying");
-                Assert.True(await EnterprisePage_mavryck.PleaseContactAdmin());
+                Assert.True(await EnterpriseProjectPage_mavryck.PleaseContactAdmin());
 
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
@@ -1886,17 +2039,23 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(33)]
+        [Parallelizable]
         public async Task Verify_Files_Details()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);           
+            var Test = Extent.CreateTest("Verify All The Files Details");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+
 
             try
             {
-                Test = Extent.CreateTest("Verify All The Files Details");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1911,12 +2070,12 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Files </b>");
-                await EnterprisePage_mavryck.ClickOnFilesNavMenu();
+                await EnterpriseProjectPage_mavryck.ClickOnFilesNavMenu();
 
                 Test.Log(Status.Info, $"*** Verify the <b>Files Details </b> ***");
-                Assert.True(await EnterprisePage_mavryck.VerifyDateUploaded());
-                Assert.True(await EnterprisePage_mavryck.VerifyLastUpdated());
-                Assert.True(await EnterprisePage_mavryck.VerifyVersion());
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyDateUploaded());
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyLastUpdated());
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyVersion());
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -1931,18 +2090,24 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(34)]
+        [Parallelizable]
         public async Task Verify_UserCan_FilterThe_FilesBy_Application()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            string[] applicationFilter = { "Time Manager", "Vivclima"};
-            string[] applicationIcons = { "projectManager", "vivclima"};
+            var Test = Extent.CreateTest("Verify User Can Successfully Filter The Files By Application");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+
+            string[] applicationFilter = { "Time Manager", "Vivclima" };
+            string[] applicationIcons = { "projectManager", "vivclima" };
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Filter The Files By Application");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -1956,10 +2121,10 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Files </b> from side nav menu");
-                await EnterprisePage_mavryck.ClickOnFilesNavMenu();
+                await EnterpriseProjectPage_mavryck.ClickOnFilesNavMenu();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Filter </b> Button");
-                await EnterprisePage_mavryck.ClickOnFilterButton();
+                await EnterpriseProjectPage_mavryck.ClickOnFilterButton();
 
                 for (int i = 0; i < applicationFilter.Length; i++)
                 {
@@ -1967,12 +2132,12 @@ namespace Mavryck_TimeManager.Tests
                     string icon = applicationIcons[i];
 
                     Test.Log(Status.Info, $"Step {++step}: Click On <b>Application </b> Filter And Select <b>{application}</b>");
-                    await EnterprisePage_mavryck.ClickOnApplicationFilter();
-                    await EnterprisePage_mavryck.SelectFilter(application);
+                    await EnterpriseProjectPage_mavryck.ClickOnApplicationFilter();
+                    await EnterpriseProjectPage_mavryck.SelectFilter(application);
                     await page.Mouse.ClickAsync(1000, 400);
                     Thread.Sleep(1000);
 
-                    if (await EnterprisePage_mavryck.VerifyFilesIcons(icon))
+                    if (await EnterpriseProjectPage_mavryck.VerifyFilesIcons(icon))
                     {
                         Test.Log(Status.Info, $"Project Displayed after filtering by Application: {application}");
                     }
@@ -1981,7 +2146,7 @@ namespace Mavryck_TimeManager.Tests
                         Test.Log(Status.Info, $"No project displayed after filtering by Application: {application}");
                     }
                 }
-             
+
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
             }
@@ -1995,18 +2160,24 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(35)]
+        [Parallelizable]
         public async Task Verify_UserCan_FilterThe_FilesBy_Version()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            string[] versions = {"Baseline", "Update 1", "Update 2"};
+            var Test = Extent.CreateTest("Verify User Can Successfully Filter The Files By Version");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+
+            string[] versions = { "Baseline", "Update 1", "Update 2" };
 
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Filter The Files By Version");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -2020,19 +2191,19 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Files </b> from side nav menu");
-                await EnterprisePage_mavryck.ClickOnFilesNavMenu();
+                await EnterpriseProjectPage_mavryck.ClickOnFilesNavMenu();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Filter </b> Button");
-                await EnterprisePage_mavryck.ClickOnFilterButton();
+                await EnterpriseProjectPage_mavryck.ClickOnFilterButton();
 
                 foreach (var version in versions)
                 {
                     Test.Log(Status.Info, $"Step {++step}: Click On <b>Version</b> Filter and Select <b>{version}</b>");
-                    await EnterprisePage_mavryck.ClickOnVersionFilter();
-                    await EnterprisePage_mavryck.SelectFilter(version);
+                    await EnterpriseProjectPage_mavryck.ClickOnVersionFilter();
+                    await EnterpriseProjectPage_mavryck.SelectFilter(version);
 
 
-                    if (await EnterprisePage_mavryck.VerifyVersionFiles(version))
+                    if (await EnterpriseProjectPage_mavryck.VerifyVersionFiles(version))
                     {
                         Test.Log(Status.Info, "Program Displayed after filtering by Version: " + version);
                     }
@@ -2056,18 +2227,23 @@ namespace Mavryck_TimeManager.Tests
         }
 
         [Test, Order(36)]
+        [Parallelizable]
         public async Task Verify_UserCan_FilterThe_FilesBy_Project()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            string[] projects = { "Piling Project", "Andarko Piling Project"};
+            var Test = Extent.CreateTest("Verify User Can Successfully Filter The Files By Project");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+            string[] projects = { "Piling Project", "Andarko Piling Project" };
 
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Filter The Files By Project");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -2081,20 +2257,20 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Files </b> from side nav menu");
-                await EnterprisePage_mavryck.ClickOnFilesNavMenu();
+                await EnterpriseProjectPage_mavryck.ClickOnFilesNavMenu();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Filter </b> Button");
-                await EnterprisePage_mavryck.ClickOnFilterButton();
+                await EnterpriseProjectPage_mavryck.ClickOnFilterButton();
 
                 foreach (var Project in projects)
                 {
 
                     Test.Log(Status.Info, $"Step {++step}: Click On <b>Project </b> Filter And Select <b> " + Project + " </b>");
-                    await EnterprisePage_mavryck.ClickOnProjectFilter();
-                    await EnterprisePage_mavryck.SelectFilter(Project);
+                    await EnterpriseProjectPage_mavryck.ClickOnProjectFilter();
+                    await EnterpriseProjectPage_mavryck.SelectFilter(Project);
 
 
-                    if (await EnterprisePage_mavryck.VerifyProjectFiles())
+                    if (await EnterpriseProjectPage_mavryck.VerifyProjectFiles())
                     {
                         Test.Log(Status.Info, "Program Displayed after filtering by Version: " + Project);
                     }
@@ -2121,18 +2297,23 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(37)]
+        [Parallelizable]
         public async Task Verify_UserCan_FilterThe_FilesBy_Extension()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var EnterprisePage_mavryck = new EnterpriseProjectPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify User Can Successfully Filter The Files By Extensions");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             string[] extensions = { ".xlsx", ".pdf" };
 
             try
             {
-                Test = Extent.CreateTest("Verify User Can Successfully Filter The Files By Extensions");
-
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
                 await loadURL(page, Constants.BaseUrl);
 
@@ -2146,20 +2327,20 @@ namespace Mavryck_TimeManager.Tests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Files </b> from side nav menu");
-                await EnterprisePage_mavryck.ClickOnFilesNavMenu();
+                await EnterpriseProjectPage_mavryck.ClickOnFilesNavMenu();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Filter </b> Button");
-                await EnterprisePage_mavryck.ClickOnFilterButton();
+                await EnterpriseProjectPage_mavryck.ClickOnFilterButton();
 
                 foreach (var Extension in extensions)
                 {
 
                     Test.Log(Status.Info, $"Step {++step}: Click On <b>Extension </b> Filter And Select <b> " + Extension + " </b>");
-                    await EnterprisePage_mavryck.ClickOnExtensionFilter();
-                    await EnterprisePage_mavryck.SelectFilter(Extension);
+                    await EnterpriseProjectPage_mavryck.ClickOnExtensionFilter();
+                    await EnterpriseProjectPage_mavryck.SelectFilter(Extension);
 
 
-                    if (await EnterprisePage_mavryck.VerifyExtensionFiles(Extension))
+                    if (await EnterpriseProjectPage_mavryck.VerifyExtensionFiles(Extension))
                     {
                         Test.Log(Status.Info, "Program Displayed after filtering by Extension: " + Extension);
                     }
@@ -2187,21 +2368,25 @@ namespace Mavryck_TimeManager.Tests
         [Test, Order(38)]
         public async Task Verify_Hover_Feature_Of_Enterprise_ProjectDirectory_Projects()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify The Hover Feature Of Enterprise Project Directory -- Projects");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
 
             try
             {
-                Test = Extent.CreateTest("Verify The Hover Feature Of Enterprise Project Directory -- Projects");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
-                step = testSteps.Count-1;
+                step = testSteps.Count - 1;
                 Thread.Sleep(10000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
@@ -2252,23 +2437,27 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(39)]
+        [Parallelizable]
         public async Task Verify_Hover_Feature_Of_Enterprise_ProjectDirectory_Programs()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
-
+            var Test = Extent.CreateTest("Verify The Hover Feature Of Enterprise Project Directory Programs");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             try
             {
-                Test = Extent.CreateTest("Verify The Hover Feature Of Enterprise Project Directory Programs");
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
-                step = testSteps.Count-1;
+                step = testSteps.Count - 1;
                 Thread.Sleep(10000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
@@ -2308,18 +2497,22 @@ namespace Mavryck_TimeManager.Tests
 
 
         [Test, Order(40)]
+        [Parallelizable]
         public async Task Verify_Hover_Feature_Of_Enterprise_ProjectDirectory_Files()
         {
-            var page = await context.NewPageAsync();
-            var loginPage_mavryck = new LoginPage_mavryck(page);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page);
+            var Test = Extent.CreateTest("Verify The Hover Feature Of Enterprise Project Directory Files");
+            IPlaywright playwright = await Playwright.CreateAsync();
+            var browser = await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions { Headless = true });
+            var page = await browser.NewPageAsync();
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
 
             try
             {
-                Test = Extent.CreateTest("Verify The Hover Feature Of Enterprise Project Directory Files");
-
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
 

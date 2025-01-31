@@ -18,12 +18,13 @@ namespace Mavryck_TimeManager.Pages
 
         private const string TimeManager = "//span[text()='Time Manager']";
         private const string OpenEnterpriseDirectory = "//button[text()='Open Enterprise Directory']";
-       
 
+        ExtentTest Test;
 
-        public DashboardPage_mavryck(IPage page)
+        public DashboardPage_mavryck(IPage page ,ExtentTest test)
         {
             this.page = page;
+            Test = test;
         }
 
         public async Task ClickOnTimeManager()
@@ -36,6 +37,6 @@ namespace Mavryck_TimeManager.Pages
             await page.ClickAsync(OpenEnterpriseDirectory);
         }
 
-        
+
     }
 }

@@ -33,28 +33,30 @@ namespace Mavryck_TimeManager.Pages
         private const string FullScreenGridIcon = "//button[@data-tooltip-content='Full Screen']";
         private const string Arrow = "//img[@alt='arrowIcon']";
         private const string Logo = "//img[@alt='sidebar logo']";
-        private const string PredictButton = "//span[text()='Click to Predict']";
+        private const string PredictButton2 = "(//span[text()='Click to Predict'])[1]";
+        private const string PredictButton3 = "(//span[text()='Click to Predict'])[2]";
         private const string PredictButton1 = "//button[text()='Predict']";
+
 
         private const string PrognosisPredictButton = "(//h3[text()='Prognosis']//following-sibling::div//div//button)[1]";
         private const string PrognosisPhaseButton = "(//h3[text()='Prognosis']//following-sibling::div//div//button)[2]";
         private const string YesPredictButton = "(//button[@type=\"button\"])[2]";
         private const string StartDate = "//small[text()='Start Date']";
         private const string Core = "//span[text()='Core']";
-        private const string GridView= "//button[@data-tooltip-content='Overview']";
-        private const string KnockOnImpact= "//button[@data-tooltip-content='Knock-on Impact']";
-        private const string Indicators= "//button[@data-tooltip-content='Indicators']";
-        private const string FullScreen= "//button[@data-tooltip-content='Full Screen']";
-        private const string HideUnhideButton= "//button[@data-tooltip-content='Show/Hide Column']";
-        private const string DownloadButtonGrid= "//button[@data-tooltip-content='Download']";
+        private const string GridView = "//button[@data-tooltip-content='Overview']";
+        private const string KnockOnImpact = "//button[@data-tooltip-content='Knock-on Impact']";
+        private const string Indicators = "//button[@data-tooltip-content='Indicators']";
+        private const string FullScreen = "//button[@data-tooltip-content='Full Screen']";
+        private const string HideUnhideButton = "//button[@data-tooltip-content='Show/Hide Column']";
+        private const string DownloadButtonGrid = "//button[@data-tooltip-content='Download']";
         private const string TrendsFeature = "//button[@data-tooltip-content='Trends']";
         private const string CorrelationFeature = "//button[@data-tooltip-content='Correlation']";
         private const string AnomaliesFeature = "//button[@data-tooltip-content='Anomalies']";
-        private const string BenchMarkingFeature = "//button[@data-tooltip-content='Anomalies']";
-        private const string DurationFlaw= "//button[@data-tooltip-content='Durarion Flaw']";
-        private const string LogicalFlaw= "//button[@data-tooltip-content='Logical Flaw']";
-        private const string Probabilities= "//button[@data-tooltip-content='Probabilities']";
-        private const string GanttChart= "//button[@data-tooltip-content='Gantt Chart']";
+        private const string BenchMarkingFeature = "//button[@data-tooltip-content='BenchMarking']";
+        private const string DurationFlaw = "//button[@data-tooltip-content='Durarion Flaw']";
+        private const string LogicalFlaw = "//button[@data-tooltip-content='Logical Flaw']";
+        private const string Probabilities = "//button[@data-tooltip-content='Probabilities']";
+        private const string GanttChart = "//button[@data-tooltip-content='Gantt Chart']";
         private const string Oculus = "//span[text()='Oculus DV']";
         private const string Tooltip = "//div[@role='tooltip']";
         private const string Andon = "//span[text()='Andon']";
@@ -63,6 +65,7 @@ namespace Mavryck_TimeManager.Pages
         private const string PatternRecognition = "//span[text()='Pattern Recognition']";
         private const string Number_Of_DelayEvents = "//button[text()='Number of Delay Events']";
         private const string Diagnostics = "//span[text()='Diagnostics']";
+
         private const string DeepAnalysis = "//button[@data-tooltip-content='Deep Analysis']";
         private const string ContractAnalysis = "//button[@data-tooltip-content='Contract Analyzer']";
         private const string ReportAnalysis = "//button[@data-tooltip-content='Report Analyzer']";
@@ -74,13 +77,14 @@ namespace Mavryck_TimeManager.Pages
         private const string ChangeOrders = "//button[@data-tooltip-content='Change Orders']";
         ArrayList testSteps;
 
+        ExtentTest Test;
 
-
-        public TimeManagerPage_mavryck(IPage page)
+        public TimeManagerPage_mavryck(IPage page , ExtentTest test)
         {
             this.page = page;
             testSteps = new ArrayList();
-           
+            Test = test;
+
         }
 
         public async Task ClickOnTextAllignmentButton()
@@ -93,7 +97,6 @@ namespace Mavryck_TimeManager.Pages
             await page.ClickAsync(Arrow);
             await page.ClickAsync(Diagnostics);
         }
-
         public async Task ClickOnDeepAnalysis()
         {
             await page.ClickAsync(DeepAnalysis);
@@ -170,13 +173,13 @@ namespace Mavryck_TimeManager.Pages
         public async Task ClickOnPrognosisPredictButton()
         {
             await page.ClickAsync(PrognosisPredictButton);
-            await page.ClickAsync("//input[text()='15% - 30%']");
+            await page.ClickAsync("//input[@id='env-1']");
         }
 
         public async Task ClickOnPrognosisPhaseButton()
         {
             await page.ClickAsync(PrognosisPhaseButton);
-            await page.ClickAsync("//input[text()='Engineering']");
+            await page.ClickAsync("//input[@id='trainOption-0']");
         }
         public async Task ClickOnNumberOfDelayEvents()
         {
@@ -225,9 +228,14 @@ namespace Mavryck_TimeManager.Pages
             await page.ClickAsync(AnomaliesFeature);
         }
 
-        public async Task CLickOnPredictButton()
+        public async Task CLickOnPredictButton2()
         {
-            await page.ClickAsync(PredictButton);
+            await page.ClickAsync(PredictButton2);
+        }
+
+        public async Task CLickOnPredictButton3()
+        {
+            await page.ClickAsync(PredictButton3);
         }
 
         public async Task CLickOnPredictButton1()
@@ -282,7 +290,7 @@ namespace Mavryck_TimeManager.Pages
         }
 
 
-        public async Task SelectAllignment(string ColumnName , string textAllign)
+        public async Task SelectAllignment(string ColumnName, string textAllign)
         {
 
             await ScrollToElement(page, $"//label[text()='{ColumnName}']//following-sibling::div//div//select");
@@ -290,9 +298,9 @@ namespace Mavryck_TimeManager.Pages
         }
         public async Task SelectAllignment_andon(string ColumnName, string textAllign)
         {
-                await ScrollToElement(page, $"(//label[text()='{ColumnName}']//following-sibling::div//div//select)[2]");
-                await page.SelectOptionAsync($"(//label[text()='{ColumnName}']//following-sibling::div//div//select)[2]", textAllign);
-           
+            await ScrollToElement(page, $"(//label[text()='{ColumnName}']//following-sibling::div//div//select)[2]");
+            await page.SelectOptionAsync($"(//label[text()='{ColumnName}']//following-sibling::div//div//select)[2]", textAllign);
+
         }
 
         public async Task SelectAllignment_andon_1(string ColumnName, string textAllign)
@@ -306,20 +314,20 @@ namespace Mavryck_TimeManager.Pages
 
         public async Task<bool> VerifyTextAlign(string expectedAlignment, string columnIndex)
         {
-            
+
 
             var element = await page.QuerySelectorAsync($"div.ag-cell[aria-colindex='{columnIndex}']");
             var textAlign = await page.EvaluateAsync<string>("element => window.getComputedStyle(element).getPropertyValue('text-align')", element);
             if (textAlign != expectedAlignment)
             {
-                Console.Write(textAlign  , expectedAlignment);
+                Console.Write(textAlign, expectedAlignment);
                 return true;
 
-             }
+            }
             return false;
         }
 
-        
+
         public async Task<bool> VerifyBowWaveIsDisplaying()
         {
             return await WaitForElementVisible(page, "//div[@id='bowWavediv']", 120000);
@@ -548,7 +556,7 @@ namespace Mavryck_TimeManager.Pages
             testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Verify the <b> Critical Path Analysis</b> is displaying"));
             Assert.True(await WaitForElementVisible(page, $"//b[text()='Critical Path Analysis:']", 120000));
 
-            
+
             testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Verify the <b>Project Phases</b> is displaying"));
             Assert.True(await WaitForElementVisible(page, $"//b[text()='Project Phases:']", 120000));
 
@@ -560,8 +568,8 @@ namespace Mavryck_TimeManager.Pages
         }
 
         public async Task<bool> VerifyAndon()
-                {
-                    return await WaitForElementVisible(page, Andon, 120000);
+        {
+            return await WaitForElementVisible(page, Andon, 120000);
         }
         public async Task ClickOnExitFullScreen()
         {
@@ -583,7 +591,7 @@ namespace Mavryck_TimeManager.Pages
 
         }
 
-        public async Task VerifyTextAlignment(string columnName , string textAllig_left, string textAllig_right , string textAllig_center , string colIndex  , int step)
+        public async Task VerifyTextAlignment(string columnName, string textAllig_left, string textAllig_right, string textAllig_center, string colIndex, int step)
         {
             Test.Log(Status.Info, $"Step {++step}: Select <b> Left </b> Text Allignment Of  <b>" + columnName + "</b>");
             await SelectAllignment(columnName, textAllig_left);
@@ -702,7 +710,7 @@ namespace Mavryck_TimeManager.Pages
 
         public async Task<ArrayList> VerifyDownload_FullScreen_HideUnhide_Hover(int step)
         {
-            Test.Log(Status.Info,  $" *** Hover The  <b>Download Button</b> Of Grid ***");
+            Test.Log(Status.Info, $" *** Hover The  <b>Download Button</b> Of Grid ***");
             await HoverDownloadButton();
 
             testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Verify the <b>Download Tooltip </b> is displaying"));

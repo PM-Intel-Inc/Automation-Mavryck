@@ -1,0 +1,13 @@
+gigo: All fix 
+bug --- flag as incorrect spelling under gigo
+
+oculus dv: All fix
+Diagnostics: All fix
+
+
+Predictions: high level mitigation 
+claim probability prediction and completion probability is not working
+completion grid is not working
+
+ROV Icon is not working
+

@@ -4,6 +4,7 @@ using Microsoft.Playwright;
 using NUnit.Framework;
 using System;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 
 namespace Mavryck_TimeManager.Utils
@@ -13,8 +14,8 @@ namespace Mavryck_TimeManager.Utils
         public static readonly string BaseUrl = "https://dev.mavryck.com/login";
         public static readonly string email = "mavryck_dev@mavryck.com";
         public static readonly string password = "Dev12345!";
-        public static ExtentReports Extent { get;  set; }
-        public static ExtentTest Test { get; set; }
+        public static ExtentReports Extent { get; set; }
+        //public static ExtentTest Test { get; set; }
 
         public readonly int retryCount = 2;
 
@@ -25,7 +26,9 @@ namespace Mavryck_TimeManager.Utils
         public static string projectDirectory = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\.."));
         public static string reportsFolderPath = Path.Combine(projectDirectory, "report");
         public string ReportPath = reportsFolderPath;
-        public string ScreenshotPath = Path.Combine(reportsFolderPath, "image");
+        public static string JsonReportsFolderPath = Path.Combine(projectDirectory, "json");
+        public static string JsonReportPath = JsonReportsFolderPath;
+        public static string ScreenshotPath = Path.Combine(reportsFolderPath, "image");
         public static string resourcesFolderPath = Path.Combine(projectDirectory, "resources");
         public static string DataFolderPath = Path.Combine(resourcesFolderPath, "data");
         public static string costFile = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, @"..\..\..\resources\data\CostData.xlsx"));
@@ -37,31 +40,7 @@ namespace Mavryck_TimeManager.Utils
         public static string contractFileName = "Contract Document";
 
 
-        public void SetupReports()
-        {
-          
-            var htmlReporter = new ExtentSparkReporter(ReportPath);
-            Extent = new ExtentReports();
-            Extent.AttachReporter(htmlReporter);
-        }
-
-        public void TeardownReports()
-        {
-            Extent.Flush();
-        }
-
-        public async Task HandleExceptionAsync(IPage page, Exception e)
-        {
-            string screenshotPath = Path.Combine(ScreenshotPath, $"screenshot{DateTime.Now.Ticks}.png");
-            var screenshotOptions = new PageScreenshotOptions
-            {
-                Path = screenshotPath,
-            };
-            // page.ScreenshotAsync(screenshotOptions).Wait();
-            byte[] screenshotBytes = await page.ScreenshotAsync();
-            Test.Fail($"Test failed: {e.Message}", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
-            Assert.True(false);
-        }
+       
 
     }
 }

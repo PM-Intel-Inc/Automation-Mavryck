@@ -31,14 +31,15 @@ namespace Mavryck_TimeManager.Pages
         private const string PasswordValidation = "//div[text()='Password must be at least 6 characters long']";
         private const string TermsAndPolicyValidation = "//div[text()='Please agree to the terms and conditions.']";
         private const string TermsCheckbox = "//input[@id='termsAndPrivacyCheck']";
+        readonly ExtentTest Test;
 
-
-        public SignUpPage_mavryck(IPage page)
+        public SignUpPage_mavryck(IPage page , ExtentTest test)
         {
             this.page = page;
+            Test = test;
         }
 
-      
+
         public async Task ClickOnSignUpButton()
         {
             await page.ClickAsync(SignUpButton);
