@@ -1,0 +1,50 @@
+﻿using AventStack.ExtentReports;
+using Microsoft.Playwright;
+using Mavryck_TimeManager.Utils;
+using System;
+using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+
+namespace Mavryck_TimeManager.Pages
+{
+    internal class DashboardPage_mavryck : Base
+    {
+        private readonly IPage page;
+
+        private const string TimeManager = "//span[text()='Time Manager']";
+        private const string CostBrain = "//span[text()='CostBrain']";
+        private const string OpenEnterpriseDirectory = "//button[text()='Open Enterprise Directory']";
+
+        ExtentTest Test;
+
+        public DashboardPage_mavryck(IPage page ,ExtentTest test)
+        {
+            this.page = page;
+            Test = test;
+        }
+
+        public async Task ClickOnTimeManager()
+        {
+            await page.ClickAsync(TimeManager);
+        }
+
+        public async Task ClickOnCostBrain()
+        {
+            await page.ClickAsync(CostBrain);
+        }
+
+
+
+        public async Task ClickOnOpenEnterpriseDirectory()
+        {
+            await page.ClickAsync(OpenEnterpriseDirectory);
+        }
+
+
+    }
+}
