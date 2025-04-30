@@ -33,7 +33,7 @@ namespace Mavryck_TimeManager.Tests.EnterpriseDirectoryTests
         public async Task Setup()
         {
             playwright = await PlaywrightConfig.ConfigurePlaywrightAndLaunchBrowser();
-            browser = await PlaywrightConfig.LaunchChromiumBrowser(playwright, chromiumExecutablePath, false);
+            browser = await PlaywrightConfig.LaunchChromiumBrowser(playwright, chromiumExecutablePath, true);
 
             context = await browser.NewContextAsync(new BrowserNewContextOptions
             {

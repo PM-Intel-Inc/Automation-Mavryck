@@ -658,13 +658,13 @@ namespace Mavryck_TimeManager.Pages
 
         public async Task SelectAppFromTopRight_Menu(string app)
         {
-            await page.ClickAsync($"(//img[@src='/images/products/{app}.svg'])[2]");
+            await page.ClickAsync($"(//img[@src='/images/products/{app}.svg'])[1]");
 
         }
 
         public async Task SelectAppFromTopRight_Menu1(string app)
         {
-            await page.ClickAsync($"(//img[@src='/images/AppScreen/cost.svg'])[3]");
+            await page.ClickAsync($"(//img[@src='/images/AppScreen/{app}.svg'])[2]");
 
         }
 

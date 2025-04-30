@@ -107,15 +107,18 @@ namespace Mavryck_TimeManager.Pages
                 await page.ClickAsync(CancelButton);
             }
 
-            public async Task Enter_ROV_Name()
+            public async Task Enter_ROV_Name(String name)
             {
                 await page.DblClickAsync(Name_ROV);
-                await page.FillAsync("//input[@aria-label='Input Editor']", "Automation ROV Test");
+                await page.FillAsync("//input[@aria-label='Input Editor']", name);
                 await page.Keyboard.PressAsync("Enter");
 
-            }
 
-            public async Task Click_ON_RootCause()
+            }
+            
+
+
+        public async Task Click_ON_RootCause()
             {
                 Thread.Sleep(10000);
                 await page.ClickAsync(Root_Cause);
@@ -176,7 +179,7 @@ namespace Mavryck_TimeManager.Pages
             }
             public async Task<bool> VerifyFilteredOuput()
             {
-                return await WaitForElementVisible(page, "//p[contains(text(), 'Automation ROV Test')]");
+                return await WaitForElementVisible(page, "//p[contains(text(), 'Automation Filter')]");
 
             }
 

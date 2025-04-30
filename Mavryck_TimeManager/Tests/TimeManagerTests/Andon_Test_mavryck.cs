@@ -17,7 +17,11 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
     [TestFixture]
     [Parallelizable(ParallelScope.Self)]
 
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/Andon_Test_mavryck.cs
     public class Andon_CostBrainTest_mavryck : Base
+=======
+    public class Andon_AbacusTest_mavryck : Base
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/Andon_Test_mavryck.cs
     {
         private IPlaywright playwright;
         private IBrowser browser;
@@ -1685,7 +1689,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             }
         }
 
-        [Test]
+        //[Test]
         public async Task Verify_BowWaveMap_Of_Andon()
         {
             var Test = Extent.CreateTest("Verify The Bow Wave Map Of Andon");
@@ -1817,5 +1821,64 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
 
         }
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/Andon_Test_mavryck.cs
+=======
+
+        [Test]
+        public async Task Andon_Verify_PageTitles_WithTooltips()
+        {
+            var Test = Extent.CreateTest("Andon : Verify The Page Titles With Tooltips");
+
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+            var timeManagerTitle = "NeuroDynamiq";
+            var timeManager = "projectManager";
+
+            try
+            {
+
+                Test.Log(Status.Info, $"Step {++step}: Launching the app");
+                await loadURL(page, Constants.BaseUrl);
+
+                testSteps.AddRange(await loginPage_mavryck.Login(step));
+                step = testSteps.Count;
+                await Task.Delay(10000);
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
+                await DashboardPage_mavryck.ClickOnTimeManager();
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
+                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+
+                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App");
+                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
+
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
+                await Task.Delay(10000);
+
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Andon</b> From Side Nav Menu");
+                await TimeManagerPage_mavryck.ClickOnAndon();
+
+                await TimeManagerPage_mavryck.VerifyPageTitleWithTooltip_Andon();
+
+
+            }
+            catch (Exception e)
+            {
+
+                byte[] screenshotBytes = await page.ScreenshotAsync();
+                Test.Fail($"Test failed Screenshot: {e.Message}", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+                Assert.True(false);
+
+            }
+        }
+
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/Andon_Test_mavryck.cs
     }
 }

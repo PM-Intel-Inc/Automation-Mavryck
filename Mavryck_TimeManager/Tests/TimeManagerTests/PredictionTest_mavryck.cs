@@ -1623,6 +1623,9 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
                 await TimeManagerPage_mavryck.CLickOnPredictButton1();
 
 
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Prognosis Grid</b> is displaying");
+                Assert.True(await TimeManagerPage_mavryck.VerifyPrognosisGrid());
+
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());

@@ -62,7 +62,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -131,7 +131,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             var columnName = "ID";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -199,7 +199,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             var columnName = "Activity Name";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -264,7 +264,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -328,7 +328,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -399,7 +399,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var textAllig_center = "Center";
             var colIndex = "5";
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             try
             {
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
@@ -466,7 +466,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var textAllig_center = "Center";
             var colIndex = "6";
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             try
             {
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
@@ -535,7 +535,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "7";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -601,7 +601,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "8";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -669,7 +669,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "9";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -735,7 +735,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "10";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -804,7 +804,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "11";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -871,7 +871,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "12";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -940,7 +940,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "13";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -1007,7 +1007,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "14";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -1076,7 +1076,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "15";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -1139,7 +1139,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
             try
             {
@@ -1208,7 +1208,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
             try
             {
@@ -1272,7 +1272,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var columnName = "ID";
             var colIndex = "1";
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
             try
             {
@@ -1337,7 +1337,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var columnName = "Task Name";
             var colIndex = "2";
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
             try
             {
@@ -1403,7 +1403,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var columnName = "InRelation Task Id";
             var colIndex = "3";
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
             try
             {
@@ -1469,7 +1469,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var columnName = "InRelation Task";
             var colIndex = "4";
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
             try
             {
@@ -1534,7 +1534,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var columnName = "Task Id";
             var colIndex = "5";
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
             try
             {
@@ -1598,7 +1598,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var columnName = "Update Number";
             var colIndex = "6";
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
             try
             {
@@ -1662,7 +1662,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var columnName = "Reduction";
             var colIndex = "7";
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
             try
             {
@@ -1726,7 +1726,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var columnName = "Indicators";
             var colIndex = "8";
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
             try
             {
@@ -1790,7 +1790,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var columnName = "Total Float";
             var colIndex = "9";
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
             try
             {
@@ -1851,7 +1851,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
             try
             {
@@ -1913,7 +1913,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
             try
             {
@@ -1983,7 +1983,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             var title = "Bow Wave";
             try
             {
@@ -2041,7 +2041,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             var columnName = "ID";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -2111,7 +2111,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             var columnName = "Activity Name";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -2178,7 +2178,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -2245,7 +2245,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -2317,7 +2317,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var textAllig_center = "Center";
             var colIndex = "5";
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             try
             {
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
@@ -2385,7 +2385,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var textAllig_center = "Center";
             var colIndex = "6";
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             try
             {
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
@@ -2455,7 +2455,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "7";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -2523,7 +2523,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "8";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -2593,7 +2593,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "9";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -2661,7 +2661,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "10";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -2731,7 +2731,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "11";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -2799,7 +2799,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "12";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -2869,7 +2869,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "13";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -2938,7 +2938,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "14";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -3008,7 +3008,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var colIndex = "15";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -3071,7 +3071,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
             try
             {
@@ -3118,6 +3118,58 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             }
 
 
+        }
+        [Test]
+        public async Task Andon_Verify_PageTitles_WithTooltips()
+        {
+            var Test = Extent.CreateTest("Andon:  Verify The Page Titles With Tooltips");
+
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
+            var costbrain = "cost";
+            var costBrainTitle = "Numetra";
+
+
+            try
+            {
+                testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
+                await loadURL(page, Constants.BaseUrl);
+
+                testSteps.AddRange(await loginPage_mavryck.Login(step));
+                step = testSteps.Count;
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
+                await DashboardPage_mavryck.ClickOnCostBrain();
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
+                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+
+                Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
+                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
+                await Task.Delay(15000);
+
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Andon</b> From Side Nav Menu");
+                await CostBrainPage_mavryck.ClickOnAndon();
+
+
+                await CostBrainPage_mavryck.VerifyPageTitleWithTooltip_Andon();
+            }
+            catch (Exception e)
+            {
+
+                byte[] screenshotBytes = await page.ScreenshotAsync();
+                Test.Fail($"Test failed Screenshot: {e.Message}", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+                Assert.True(false);
+
+            }
         }
 
     }

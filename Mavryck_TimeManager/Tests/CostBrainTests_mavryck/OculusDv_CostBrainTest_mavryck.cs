@@ -61,7 +61,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
 
             try
@@ -130,7 +130,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             var title = "Correlation Heatmap";
 
             try
@@ -190,7 +190,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             var title = "Realistic ETC";
 
             try
@@ -250,7 +250,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             var title = "Bow Wave";
 
             try
@@ -310,7 +310,7 @@ namespace Mavryck_TimeManager.Tests.CostBrainTests_mavryck
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
             var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
 
             try

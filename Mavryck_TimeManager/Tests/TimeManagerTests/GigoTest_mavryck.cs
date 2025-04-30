@@ -61,7 +61,12 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var timeManager = "Time Manager";
+=======
+            var timeManagerTitle = "NeuroDynamiq";
+            var timeManager = "projectManager";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var columnName = "Sr. No.";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -87,7 +92,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
                 await Task.Delay(10000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> GIGO </b> From Side Nav Menu");
@@ -127,7 +132,12 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var timeManager = "Time Manager";
+=======
+            var timeManagerTitle = "NeuroDynamiq";
+            var timeManager = "projectManager";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var columnName = "Activity ID";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -153,7 +163,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
                 await Task.Delay(15000);
 
 
@@ -191,7 +201,12 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var timeManager = "Time Manager";
+=======
+            var timeManagerTitle = "NeuroDynamiq";
+            var timeManager = "projectManager";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -217,7 +232,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
                 await Task.Delay(15000);
 
 
@@ -258,7 +273,12 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var timeManager = "Time Manager";
+=======
+            var timeManagerTitle = "NeuroDynamiq";
+            var timeManager = "projectManager";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -285,7 +305,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
                 await Task.Delay(10000);
 
 
@@ -326,7 +346,12 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var timeManager = "Time Manager";
+=======
+            var timeManagerTitle = "NeuroDynamiq";
+            var timeManager = "projectManager";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var columnName = "Flag as Incorrect";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -352,7 +377,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> GIGO </b> From Side Nav Menu");
@@ -389,7 +414,12 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var timeManager = "Time Manager";
+=======
+            var timeManagerTitle = "NeuroDynamiq";
+            var timeManager = "projectManager";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var columnName = "Sr. No.";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -416,7 +446,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
                 await Task.Delay(10000);
 
 
@@ -461,7 +491,12 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var timeManager = "Time Manager";
+=======
+            var timeManagerTitle = "NeuroDynamiq";
+            var timeManager = "projectManager";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var columnName = "Activity ID";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -486,7 +521,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
                 await Task.Delay(10000);
 
 
@@ -530,7 +565,12 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var timeManager = "Time Manager";
+=======
+            var timeManagerTitle = "NeuroDynamiq";
+            var timeManager = "projectManager";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -558,7 +598,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> GIGO </b> From Side Nav Menu");
@@ -602,7 +642,12 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var timeManager = "Time Manager";
+=======
+            var timeManagerTitle = "NeuroDynamiq";
+            var timeManager = "projectManager";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -630,7 +675,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> GIGO </b> From Side Nav Menu");
@@ -674,7 +719,12 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var timeManager = "Time Manager";
+=======
+            var timeManagerTitle = "NeuroDynamiq";
+            var timeManager = "projectManager";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var columnName = "Flag as Incorrect";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -702,7 +752,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> GIGO </b> From Side Nav Menu");
@@ -746,7 +796,12 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var timeManager = "Time Manager";
+=======
+            var timeManagerTitle = "NeuroDynamiq";
+            var timeManager = "projectManager";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/GigoTest_mavryck.cs
             try
             {
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
@@ -765,7 +820,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
                 await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>GIGO</b> From Side Nav Menu");
@@ -800,7 +855,12 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var timeManager = "Time Manager";
+=======
+            var timeManagerTitle = "NeuroDynamiq";
+            var timeManager = "projectManager";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/GigoTest_mavryck.cs
 
             try
             {
@@ -820,7 +880,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
                 await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying"));
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>GIGO</b> From Side Nav Menu");
@@ -868,7 +928,12 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/GigoTest_mavryck.cs
             var timeManager = "Time Manager";
+=======
+            var timeManagerTitle = "NeuroDynamiq";
+            var timeManager = "projectManager";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/GigoTest_mavryck.cs
 
             try
             {
@@ -889,7 +954,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
                 await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>GIGO</b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnGigo();
@@ -924,6 +989,60 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             }
         }
 
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/GigoTest_mavryck.cs
+=======
+        [Test]
+        public async Task GIGO_Verify_PageTitles_WithTooltips()
+        {
+            var Test = Extent.CreateTest("GIGO : Verify The Page Titles With Tooltips");
+
+            int step = 0;
+            ArrayList testSteps = new();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+            var timeManagerTitle = "NeuroDynamiq";
+            var timeManager = "projectManager";
+
+            try
+            {
+
+                Test.Log(Status.Info, $"Step {++step}: Launching the app");
+                await loadURL(page, Constants.BaseUrl);
+
+                testSteps.AddRange(await loginPage_mavryck.Login(step));
+                step = testSteps.Count;
+                await Task.Delay(10000);
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
+                await DashboardPage_mavryck.ClickOnTimeManager();
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
+                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+
+                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App");
+                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
+
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
+                await Task.Delay(10000);
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>GIGO</b> From Side Nav Menu");
+                await TimeManagerPage_mavryck.ClickOnGigo();
+
+                await TimeManagerPage_mavryck.VerifyPageTitleWithTooltip_GIGO();
+            }
+            catch (Exception e)
+            {
+
+                byte[] screenshotBytes = await page.ScreenshotAsync();
+                Test.Fail($"Test failed Screenshot: {e.Message}", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+                Assert.True(false);
+
+            }
+        }
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/GigoTest_mavryck.cs
     }
 
 

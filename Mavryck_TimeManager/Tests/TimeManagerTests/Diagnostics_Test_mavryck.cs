@@ -343,7 +343,8 @@ namespace Mavryck_TimeManager.Tests.Cos
                 await TimeManagerPage_mavryck.ClickOnDeepAnalysis();
 
                 testSteps.Add(Test.Log(Status.Info, $" <b> **** Wait For Few Seconds (Report is generating ) ****"));
-                Thread.Sleep(10000);
+                Thread.Sleep(180000);
+
                 testSteps.AddRange(await TimeManagerPage_mavryck.VerifyDeepAnalysisReport(step));
 
 
@@ -464,6 +465,7 @@ namespace Mavryck_TimeManager.Tests.Cos
 
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Click On <b> Contract Analyzer </b>"));
                 await TimeManagerPage_mavryck.ClickOnContractAnalysis();
+                Thread.Sleep(60000);
 
                 testSteps.Add(Test.Log(Status.Info, $" <b> **** Wait For Few Seconds (Report is generating ) ****"));
                 Assert.True(await TimeManagerPage_mavryck.VerifyContractAnalysisReport(step));
@@ -526,7 +528,12 @@ namespace Mavryck_TimeManager.Tests.Cos
 
                 testSteps.Add(Test.Log(Status.Info, $" <b> **** Wait For Few Seconds (Report is generating ) ****"));
                 Thread.Sleep(120000);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/Diagnostics_Test_mavryck.cs
                 Assert.True(await TimeManagerPage_mavryck.VerifyReportAnalysisReport(step));
+=======
+
+                Assert.True(await TimeManagerPage_mavryck.VerifyReportAnalysisReport());
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/Diagnostics_Test_mavryck.cs
 
 
 

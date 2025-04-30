@@ -164,7 +164,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await TimeManagerPage_mavryck.ClickOnTextAllignmentButton();
-                await Task.Delay(120000);
+                await Task.Delay(10000);
 
                 Test.Log(Status.Info, $" *** Verify The Text Alignment Of Columns *** ");
                 await TimeManagerPage_mavryck.VerifyTextAlignment(columnName, textAllig_left, textAllig_right, textAllig_center, colIndex, step);
@@ -229,7 +229,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await TimeManagerPage_mavryck.ClickOnTextAllignmentButton();
-                await Task.Delay(120000);
+                await Task.Delay(10000);
 
                 Test.Log(Status.Info, $" *** Verify The Text Alignment Of Columns *** ");
                 await TimeManagerPage_mavryck.VerifyTextAlignment(columnName, textAllig_left, textAllig_right, textAllig_center, colIndex, step);
@@ -294,7 +294,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await TimeManagerPage_mavryck.ClickOnTextAllignmentButton();
-                await Task.Delay(120000);
+                await Task.Delay(10000);
 
                 Test.Log(Status.Info, $" *** Verify The Text Alignment Of Columns *** ");
                 await TimeManagerPage_mavryck.VerifyTextAlignment(columnName, textAllig_left, textAllig_right, textAllig_center, colIndex, step);
@@ -361,7 +361,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await TimeManagerPage_mavryck.ClickOnTextAllignmentButton();
-                await Task.Delay(120000);
+                await Task.Delay(10000);
 
                 Test.Log(Status.Info, $" *** Verify The Text Alignment Of Columns *** ");
                 await TimeManagerPage_mavryck.VerifyTextAlignment(columnName, textAllig_left, textAllig_right, textAllig_center, colIndex, step);
@@ -426,7 +426,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await TimeManagerPage_mavryck.ClickOnTextAllignmentButton();
-                await Task.Delay(120000);
+                await Task.Delay(10000);
 
 
                 Test.Log(Status.Info, $" *** Verify The Text Alignment Of Columns *** ");
@@ -491,7 +491,11 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await TimeManagerPage_mavryck.ClickOnTextAllignmentButton();
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/Core_Test_mavryck.cs
                 await Task.Delay(120000);
+=======
+                await Task.Delay(10000);
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/Core_Test_mavryck.cs
 
                 Test.Log(Status.Info, $" *** Verify The Text Alignment Of Columns *** ");
                 await TimeManagerPage_mavryck.VerifyTextAlignment(columnName, textAllig_left, textAllig_right, textAllig_center, colIndex, step);
@@ -556,7 +560,11 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await TimeManagerPage_mavryck.ClickOnTextAllignmentButton();
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/Core_Test_mavryck.cs
                 await Task.Delay(120000);
+=======
+                await Task.Delay(10000);
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/Core_Test_mavryck.cs
 
                 Test.Log(Status.Info, $" *** Verify The Text Alignment Of Columns *** ");
                 await TimeManagerPage_mavryck.VerifyTextAlignment(columnName, textAllig_left, textAllig_right, textAllig_center, colIndex, step);
@@ -622,6 +630,10 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await TimeManagerPage_mavryck.ClickOnTextAllignmentButton();
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/Core_Test_mavryck.cs
+=======
+                await Task.Delay(10000);
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/Core_Test_mavryck.cs
 
                 await Task.Delay(120000);
                 Test.Log(Status.Info, $" *** Verify The Text Alignment Of Columns *** ");
@@ -688,7 +700,11 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await TimeManagerPage_mavryck.ClickOnTextAllignmentButton();
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/Core_Test_mavryck.cs
                 await Task.Delay(120000);
+=======
+                await Task.Delay(10000);
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/Core_Test_mavryck.cs
 
                 Test.Log(Status.Info, $" *** Verify The Text Alignment Of Columns *** ");
                 await TimeManagerPage_mavryck.VerifyTextAlignment(columnName, textAllig_left, textAllig_right, textAllig_center, colIndex, step);
@@ -753,7 +769,11 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await TimeManagerPage_mavryck.ClickOnTextAllignmentButton();
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/Core_Test_mavryck.cs
                 await Task.Delay(120000);
+=======
+                await Task.Delay(10000);
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/Core_Test_mavryck.cs
 
                 Test.Log(Status.Info, $" *** Verify The Text Alignment Of Columns *** ");
                 await TimeManagerPage_mavryck.VerifyTextAlignment(columnName, textAllig_left, textAllig_right, textAllig_center, colIndex, step);
@@ -822,7 +842,11 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await TimeManagerPage_mavryck.ClickOnTextAllignmentButton();
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/Core_Test_mavryck.cs
                 await Task.Delay(120000);
+=======
+                await Task.Delay(10000);
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/Core_Test_mavryck.cs
 
                 Test.Log(Status.Info, $" *** Verify The Text Alignment Of Columns *** ");
                 await TimeManagerPage_mavryck.VerifyTextAlignment(columnName, textAllig_left, textAllig_right, textAllig_center, colIndex, step);

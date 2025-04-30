@@ -16,8 +16,15 @@ namespace Mavryck_TimeManager.Pages
     {
         private readonly IPage page;
 
+<<<<<<< Updated upstream:Mavryck_TimeManager/Pages/DashboardPage_mavryck.cs
         private const string TimeManager = "//span[text()='Time Manager']";
         private const string CostBrain = "//span[text()='CostBrain']";
+=======
+        private const string TimeManager = "//span[text()='NeuroDynamiq']";
+        private const string CostBrain = "//span[text()='Numetra']";
+        private const string Vivclima = "//span[contains(text(), 'VivClima')]";
+        private const string Abacus = "//span[contains(text(), 'Abacus')]";
+>>>>>>> Stashed changes:Mavryck_System/Pages/DashboardPage_mavryck.cs
         private const string OpenEnterpriseDirectory = "//button[text()='Open Enterprise Directory']";
 
         ExtentTest Test;
@@ -38,6 +45,22 @@ namespace Mavryck_TimeManager.Pages
             await page.ClickAsync(CostBrain);
         }
 
+<<<<<<< Updated upstream:Mavryck_TimeManager/Pages/DashboardPage_mavryck.cs
+=======
+        public async Task ClickOnVivclima()
+        {
+            await page.ClickAsync(Vivclima);
+        }
+
+        public async Task ClickOnAbacus()
+        {
+            await page.ClickAsync(Abacus);
+        }
+
+
+
+
+>>>>>>> Stashed changes:Mavryck_System/Pages/DashboardPage_mavryck.cs
 
 
         public async Task ClickOnOpenEnterpriseDirectory()

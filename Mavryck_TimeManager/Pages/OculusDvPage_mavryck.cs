@@ -115,7 +115,7 @@ namespace Mavryck_TimeManager.Pages
 
         public async Task<bool> VerifyCriticalActivitiesTrendingMapIsdisplaying()
         {
-            return await WaitForElementVisible(page, "//div[@id='tfttdiv']", 120000);
+            return await WaitForElementVisible(page, "//div[@id='barchartdiv']", 120000);
 
         }
 

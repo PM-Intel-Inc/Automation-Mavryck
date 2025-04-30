@@ -460,7 +460,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
                 await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
+                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));

@@ -67,6 +67,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var control_acc = "Automation Control Account";
             var control_acc_manager = "Automation Control Account Manager";
             var theme = "Equipment Failure";
+            var ROVName = "RCA ICON ROv test";
 
 
             try
@@ -97,7 +98,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
                 await ROVPage_mavryck.Click_On_NewRow();
 
                 Test.Log(Status.Info, $"Step {++step}: Enter The <b>ROV Name</b>");
-                await ROVPage_mavryck.Enter_ROV_Name();
+                await ROVPage_mavryck.Enter_ROV_Name(ROVName);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Root Cause</b> Button");
                 await ROVPage_mavryck.Click_ON_RootCause();
@@ -179,8 +180,13 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var control_acc = "Automation Control Account";
             var control_acc_manager = "Automation Control Account Manager";
             var theme = "Equipment Failure";
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/ROV_Test_mavryck.cs
 
 
+=======
+            var appName = "projectManager";
+            var ROVName = "Automation ROV Test";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/ROV_Test_mavryck.cs
             try
             {
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
@@ -211,7 +217,7 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
                 await ROVPage_mavryck.Click_On_NewRow();
 
                 Test.Log(Status.Info, $"Step {++step}: Enter The <b>ROV Name</b>");
-                await ROVPage_mavryck.Enter_ROV_Name();
+                await ROVPage_mavryck.Enter_ROV_Name(ROVName);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Root Cause</b> Button");
                 await ROVPage_mavryck.Click_ON_RootCause();
@@ -295,7 +301,8 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
             var timeManager = "Time Manager";
             var input1 = "Automation";
-            var input2 = "ROV Test";
+            var input2 = "Filter ROV Test";
+            var ROVName = "Filter ROV Test";
 
 
 
@@ -324,6 +331,13 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>ROV</b> Icon");
                 await ROVPage_mavryck.ClickOnROV_Icon();
 
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Add Another Row</b>");
+                await ROVPage_mavryck.Click_On_NewRow();
+
+                Test.Log(Status.Info, $"Step {++step}: Enter The <b>ROV Name</b>");
+                await ROVPage_mavryck.Enter_ROV_Name(ROVName);
+                await Task.Delay(10000);
+
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Filter</b> Button");
                 await ROVPage_mavryck.Click_On_Filter();
 
@@ -335,6 +349,13 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Verify <b>Filtered ROV</b> is displaying");
                 Assert.True(await ROVPage_mavryck.VerifyFilteredOuput());
+
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Delete</b> Button");
+                await ROVPage_mavryck.Click_On_Delete();
+
+                Test.Log(Status.Info, $"Step {++step}: Enter <b>Yes Delete It </b> Button");
+                await ROVPage_mavryck.Click_On_Yes();
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -360,8 +381,14 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var ROVPage_mavryck = new ROVPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/ROV_Test_mavryck.cs
 
             var timeManager = "Time Manager";
+=======
+            var appName = "projectManager";
+            var timeManager = "NeuroDynamiq";
+            var ROVName = "Cancel RESET ROV";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/ROV_Test_mavryck.cs
 
             try
             {
@@ -384,11 +411,21 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
                 await Task.Delay(15000);
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>Existing ROV</b> Icon");
-                await ROVPage_mavryck.ClickOnExistingROV();
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>ROV</b> Icon");
+                await ROVPage_mavryck.ClickOnROV_Icon();
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Add Another Row</b>");
+                await ROVPage_mavryck.Click_On_NewRow();
+
+                Test.Log(Status.Info, $"Step {++step}: Enter The <b>ROV Name</b>");
+                await ROVPage_mavryck.Enter_ROV_Name(ROVName);
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Root Cause</b> Button");
+                await ROVPage_mavryck.Click_ON_RootCause();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Root Cause RCA ToolTip</b> Button");
                 await ROVPage_mavryck.Click_On_RootCauseToolTip();
+                await Task.Delay(60000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Reset</b> Button");
                 await ROVPage_mavryck.ClickOnRootCause_Reset();
@@ -423,8 +460,14 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var ROVPage_mavryck = new ROVPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/ROV_Test_mavryck.cs
 
             var timeManager = "Time Manager";
+=======
+            var appName = "projectManager";
+            var timeManager = "NeuroDynamiq";
+            var ROVName = "Reset ROV Test";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/ROV_Test_mavryck.cs
 
             try
             {
@@ -446,11 +489,21 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>Existing ROV</b> Icon");
-                await ROVPage_mavryck.ClickOnExistingROV();
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>ROV</b> Icon");
+                await ROVPage_mavryck.ClickOnROV_Icon();
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Add Another Row</b>");
+                await ROVPage_mavryck.Click_On_NewRow();
+
+                Test.Log(Status.Info, $"Step {++step}: Enter The <b>ROV Name</b>");
+                await ROVPage_mavryck.Enter_ROV_Name(ROVName);
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Root Cause</b> Button");
+                await ROVPage_mavryck.Click_ON_RootCause();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Root Cause RCA ToolTip</b> Button");
                 await ROVPage_mavryck.Click_On_RootCauseToolTip();
+                await Task.Delay(60000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Reset</b> Button");
                 await ROVPage_mavryck.ClickOnRootCause_Reset();
@@ -486,8 +539,14 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var ROVPage_mavryck = new ROVPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/ROV_Test_mavryck.cs
             var timeManager = "Time Manager";
 
+=======
+            var timeManager = "NeuroDynamiq";
+            var appName = "projectManager";
+            var ROVName = "Delete Test ROV";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/ROV_Test_mavryck.cs
             try
             {
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
@@ -507,9 +566,17 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                await Task.Delay(60000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>ROV</b> Icon");
                 await ROVPage_mavryck.ClickOnROV_Icon();
+
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Add Another Row</b>");
+                await ROVPage_mavryck.Click_On_NewRow();
+
+                Test.Log(Status.Info, $"Step {++step}: Enter The <b>ROV Name</b>");
+                await ROVPage_mavryck.Enter_ROV_Name(ROVName);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Delete</b> Button");
                 await ROVPage_mavryck.Click_On_Delete();

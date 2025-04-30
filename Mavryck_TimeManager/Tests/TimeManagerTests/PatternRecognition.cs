@@ -195,8 +195,13 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/PatternRecognition.cs
             var timeManager = "Time Manager";
             var columnName = "Comparable In-House Projects";
+=======
+            var timeManager = "NeuroDynamiq";
+            var columnName = "Comparable in-house projects";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/PatternRecognition.cs
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -265,8 +270,14 @@ namespace Mavryck_TimeManager.Tests.TimeManagerTests
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
+<<<<<<< Updated upstream:Mavryck_TimeManager/Tests/TimeManagerTests/PatternRecognition.cs
             var timeManager = "Time Manager";
             var columnName = "Similar Projects In Other Companies";
+=======
+            var timeManager = "NeuroDynamiq";
+            var appName = "projectManager";
+            var columnName = "Similar projects in other companies";
+>>>>>>> Stashed changes:Mavryck_System/Tests/TimeManagerTests/PatternRecognition.cs
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";

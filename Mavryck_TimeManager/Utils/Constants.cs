@@ -15,7 +15,6 @@ namespace Mavryck_TimeManager.Utils
         public static readonly string email = "mavryck_dev@mavryck.com";
         public static readonly string password = "Dev12345!";
         public static ExtentReports Extent { get; set; }
-        //public static ExtentTest Test { get; set; }
 
         public readonly int retryCount = 2;
 
