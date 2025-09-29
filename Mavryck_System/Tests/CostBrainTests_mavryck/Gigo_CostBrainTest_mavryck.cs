@@ -4,14 +4,17 @@ using AventStack.ExtentReports;
 using Microsoft.Playwright;
 using NUnit.Framework;
 using Mavryck_System.Pages;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using System;
 using System.Threading.Tasks;
 using PlanNotePlaywrite;
+using System.Threading;
 using System.Collections;
 
 namespace Mavryck_System.Tests.CostBrainTests_mavryck
 {
+
+
     [TestFixture]
     [Parallelizable(ParallelScope.Self)]
 
@@ -53,17 +56,16 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
         {
             var Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Sr No Column");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var columnName = "Sr. No.";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+           var costBrainTitle = "Numetra";
             var colIndex = "1";
             try
             {
@@ -73,18 +75,11 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Gigo</b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnGigo();
@@ -118,18 +113,18 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
         {
             var Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Activity ID Column");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var columnName = "CBS No.";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
             var colIndex = "2";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            
+           var costBrainTitle = "Numetra";
 
 
             try
@@ -140,18 +135,11 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Gigo</b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnGigo();
@@ -182,18 +170,18 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
         {
             var Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Task Name Column");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
             var columnName = "Name";
             var colIndex = "3";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            
+           var costBrainTitle = "Numetra";
 
 
             try
@@ -204,18 +192,12 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Gigo</b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnGigo();
@@ -250,18 +232,18 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
             var Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Reason Column");
             
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
             var columnName = "Reason";
             var colIndex = "4";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            
+           var costBrainTitle = "Numetra";
 
 
             try
@@ -272,18 +254,11 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Gigo</b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnGigo();
@@ -318,10 +293,10 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
             var Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Flag As Incorrect Column");
            
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var columnName = "Flag as Incorrect";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -329,8 +304,8 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
             var colIndex = "5";
 
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            
+           var costBrainTitle = "Numetra";
 
 
             try
@@ -341,18 +316,11 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Gigo</b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnGigo();
@@ -382,19 +350,19 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
 
 
         [Test]
-        public async Task Verify_Requirments_Of_TimeManager_Gigo()
+        public async Task Verify_Requirments_Of_Gigo()
         {
 
             var Test = Extent.CreateTest("Verify The Header Requirments Of GIGO");
             
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            
+           var costBrainTitle = "Numetra";
 
 
             try
@@ -405,23 +373,18 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Gigo</b> From Side Nav Menu");
-                await CostBrainPage_mavryck.ClickOnGigo();
+                await CostBrainPage_mavryck.ClickOnGigo(); 
+                await Task.Delay(15000);
 
-                
+
                 Test.Log(Status.Info, $" *** Verify The Grid Icons *** ");
                 await CostBrainPage_mavryck.VerifyDownload_FullScreen_HideUnhide_Hover(step);
               
@@ -446,13 +409,13 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
             var Test = Extent.CreateTest("Gigo: Verify The Hover Feature");
            
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            
+            var costBrainTitle = "Numetra";
 
 
             try
@@ -463,27 +426,21 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Gigo</b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnGigo();
 
 
-                testSteps.Add(Test.Log(Status.Info, $" *** Hover The  <b>Cost Flaw</b> Of Core ***"));
-                await CostBrainPage_mavryck.HoverCostFlaw();
+                testSteps.Add(Test.Log(Status.Info, $" *** Hover The  <b>Duration Flaw</b> Of Core ***"));
+                await CostBrainPage_mavryck.HoverDurationFlaw();
 
-                testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Verify the <b>Logical Flaw Hover Tooltip </b> is displaying"));
+                testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Verify the <b>Duration Flaw Hover Tooltip </b> is displaying"));
                 Assert.True(await CostBrainPage_mavryck.VerifyHoverTooltip());
              
                 byte[] screenshotBytes = await page.ScreenshotAsync();
@@ -505,13 +462,13 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
         {
             var Test = Extent.CreateTest("Gigo: Verify The Cost Flaw Grid Is Successfully Resized");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+             
+            var costBrainTitle = "Numetra";
             try
             {
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
@@ -520,18 +477,12 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Gigo</b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnGigo();
@@ -556,6 +507,54 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
             }
         }
 
+
+        [Test]
+        public async Task Gigo_Verify_PageTitles_WithTooltips()
+        {
+            var Test = Extent.CreateTest("Gigo: Verify The Page Titles With Tooltips");
+
+            int step = 0;
+            var testSteps = new ArrayList();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
+            var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
+            
+            var costBrainTitle = "Numetra";
+
+
+            try
+            {
+                testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
+                await loadURL(page, Constants.BaseUrl);
+
+                testSteps.AddRange(await loginPage_mavryck.Login(step));
+                step = testSteps.Count;
+
+                Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
+
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
+
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Gigo</b> From Side Nav Menu");
+                await CostBrainPage_mavryck.ClickOnGigo();
+                await Task.Delay(15000);
+
+
+
+                await CostBrainPage_mavryck.VerifyPageTitleWithTooltip_Gigo();
+            }
+            catch (Exception e)
+            {
+
+                byte[] screenshotBytes = await page.ScreenshotAsync();
+                Test.Fail($"Test failed Screenshot: {e.Message}", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+                Assert.True(false);
+
+            }
+        }
     }
 
 

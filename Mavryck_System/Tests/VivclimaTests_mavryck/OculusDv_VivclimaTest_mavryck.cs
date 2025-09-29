@@ -3,7 +3,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using AventStack.ExtentReports;
 using Mavryck_System.Pages;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using Microsoft.Playwright;
 using NUnit.Framework;
 using PlanNotePlaywrite;
@@ -13,7 +13,7 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
     [TestFixture]
     [Parallelizable(ParallelScope.Self)]
 
-    public class OculusDv_VivclimaTest_mavryck : Base
+    public class OculusDv_OptimaRes_Test_mavryck : Base
     {
 
         private IPlaywright playwright;
@@ -31,7 +31,7 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 ViewportSize = new ViewportSize { Width = 1920, Height = 1080 }
             });
 
-            page = await context.NewPageAsync();  
+            page = await context.NewPageAsync();
         }
 
         [TearDown]
@@ -49,12 +49,13 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
         {
             var Test = Extent.CreateTest("Vivclima : Verify The Header Requirments Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
+
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var VivclimaPage_mavryck = new VivclimaPage_mavryck(page, Test);
-            var vivclima = "vivclima";
+           
             var vivclimaTitle = "Vivclima";
 
 
@@ -66,14 +67,10 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Vivclima </b> Button");
-                await DashboardPage_mavryck.ClickOnVivclima();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+             
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Vivclima </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(vivclima);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(vivclimaTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Vivclima App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(vivclimaTitle));
@@ -122,12 +119,12 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
         {
             var Test = Extent.CreateTest("Vivclima: Verify The Total Carbox Tax Map Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var VivclimaPage_mavryck = new VivclimaPage_mavryck(page, Test);
-            var vivclima = "vivclima";
+           
             var vivclimaTitle = "Vivclima";
             var title = "Total Carbon Tax";
 
@@ -140,14 +137,8 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 step = testSteps.Count;
 
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Vivclima </b> Button");
-                await DashboardPage_mavryck.ClickOnVivclima();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Vivclima </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(vivclima);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(vivclimaTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Vivclima App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(vivclimaTitle));
@@ -181,12 +172,12 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
         {
             var Test = Extent.CreateTest("Vivclima: Verify The Map Resizing Of Total Carbox Tax Map Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var VivclimaPage_mavryck = new VivclimaPage_mavryck(page, Test);
-            var vivclima = "vivclima";
+           
             var vivclimaTitle = "Vivclima";
 
             try
@@ -198,14 +189,9 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 step = testSteps.Count;
 
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Vivclima </b> Button");
-                await DashboardPage_mavryck.ClickOnVivclima();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Vivclima </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(vivclima);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(vivclimaTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Vivclima App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(vivclimaTitle));
@@ -242,12 +228,12 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
         {
             var Test = Extent.CreateTest("Vivclima: Verify The S Curve Total Carbox Tax Map Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var VivclimaPage_mavryck = new VivclimaPage_mavryck(page, Test);
-            var vivclima = "vivclima";
+           
             var vivclimaTitle = "Vivclima";
             var title = "Total Carbon Tax";
 
@@ -260,14 +246,9 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 step = testSteps.Count;
 
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Vivclima </b> Button");
-                await DashboardPage_mavryck.ClickOnVivclima();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Vivclima </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(vivclima);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(vivclimaTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Vivclima App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(vivclimaTitle));
@@ -306,12 +287,12 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
         {
             var Test = Extent.CreateTest("Vivclima: Verify The Map Resizing Of S Curve Total Carbox Tax Map Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var VivclimaPage_mavryck = new VivclimaPage_mavryck(page, Test);
-            var vivclima = "vivclima";
+           
             var vivclimaTitle = "Vivclima";
 
             try
@@ -323,14 +304,8 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 step = testSteps.Count;
 
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Vivclima </b> Button");
-                await DashboardPage_mavryck.ClickOnVivclima();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Vivclima </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(vivclima);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(vivclimaTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Vivclima App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(vivclimaTitle));
@@ -366,18 +341,18 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
 
 
 
-       
+
         [Test]
         public async Task Vivclima_Verify_TotalCarbonEmission_Of_OculusDV()
         {
             var Test = Extent.CreateTest("Vivclima: Verify The Total Carbox Emission Map Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var VivclimaPage_mavryck = new VivclimaPage_mavryck(page, Test);
-            var vivclima = "vivclima";
+           
             var vivclimaTitle = "Vivclima";
             var title = "Total Carbon Emission";
 
@@ -389,15 +364,8 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Vivclima </b> Button");
-                await DashboardPage_mavryck.ClickOnVivclima();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Vivclima </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(vivclima);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(vivclimaTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Vivclima App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(vivclimaTitle));
@@ -431,12 +399,12 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
         {
             var Test = Extent.CreateTest("Vivclima: Verify The Map Resizing Of Total Carbox Emission Map Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var VivclimaPage_mavryck = new VivclimaPage_mavryck(page, Test);
-            var vivclima = "vivclima";
+           
             var vivclimaTitle = "Vivclima";
 
             try
@@ -448,14 +416,10 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 step = testSteps.Count;
 
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Vivclima </b> Button");
-                await DashboardPage_mavryck.ClickOnVivclima();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+               
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Vivclima </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(vivclima);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(vivclimaTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Vivclima App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(vivclimaTitle));
@@ -493,12 +457,12 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
         {
             var Test = Extent.CreateTest("Vivclima: Verify The S Curve Of Total Carbon Emission Map Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var VivclimaPage_mavryck = new VivclimaPage_mavryck(page, Test);
-            var vivclima = "vivclima";
+           
             var vivclimaTitle = "Vivclima";
             var title = "Total Carbon Emission";
 
@@ -511,14 +475,10 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 step = testSteps.Count;
 
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Vivclima </b> Button");
-                await DashboardPage_mavryck.ClickOnVivclima();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+               
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Vivclima </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(vivclima);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(vivclimaTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Vivclima App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(vivclimaTitle));
@@ -558,12 +518,12 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
         {
             var Test = Extent.CreateTest("Vivclima: Verify The Map Resizing Of S Curve Of Total Carbon Emission Map Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var VivclimaPage_mavryck = new VivclimaPage_mavryck(page, Test);
-            var vivclima = "vivclima";
+           
             var vivclimaTitle = "Vivclima";
 
             try
@@ -575,14 +535,8 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 step = testSteps.Count;
 
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Vivclima </b> Button");
-                await DashboardPage_mavryck.ClickOnVivclima();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Vivclima </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(vivclima);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(vivclimaTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Vivclima App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(vivclimaTitle));
@@ -627,12 +581,12 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
         {
             var Test = Extent.CreateTest("Vivclima: Verify The Tornado Emission Comparison Chart Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var VivclimaPage_mavryck = new VivclimaPage_mavryck(page, Test);
-            var vivclima = "vivclima";
+           
             var vivclimaTitle = "Vivclima";
             var title = "Tornado Emission Comparison Chart";
 
@@ -644,14 +598,9 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Vivclima </b> Button");
-                await DashboardPage_mavryck.ClickOnVivclima();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
+          
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Vivclima </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(vivclima);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(vivclimaTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Vivclima App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(vivclimaTitle));
@@ -686,12 +635,12 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
         {
             var Test = Extent.CreateTest("Vivclima: Verify The Map Resizing Of Tornado Emission Comparison Chart Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var VivclimaPage_mavryck = new VivclimaPage_mavryck(page, Test);
-            var vivclima = "vivclima";
+           
             var vivclimaTitle = "Vivclima";
 
             try
@@ -702,14 +651,10 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Vivclima </b> Button");
-                await DashboardPage_mavryck.ClickOnVivclima();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+             
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Vivclima </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(vivclima);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(vivclimaTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Vivclima App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(vivclimaTitle));
@@ -749,12 +694,12 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
         {
             var Test = Extent.CreateTest("Vivclima: Verify The Total Emission Chart Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var VivclimaPage_mavryck = new VivclimaPage_mavryck(page, Test);
-            var vivclima = "vivclima";
+           
             var vivclimaTitle = "Vivclima";
             var title = "Total Emission";
 
@@ -766,18 +711,13 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Vivclima </b> Button");
-                await DashboardPage_mavryck.ClickOnVivclima();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Vivclima </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(vivclima);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(vivclimaTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Vivclima App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(vivclimaTitle));
-                
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Oculus DV</b> From Side Nav Menu");
                 await VivclimaPage_mavryck.ClickOnOculusDV();
@@ -808,14 +748,13 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
         {
             var Test = Extent.CreateTest("Vivclima: Verify The Map Resizing Of Total Emission Chart Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var VivclimaPage_mavryck = new VivclimaPage_mavryck(page, Test);
-            var vivclima = "vivclima";
+           
             var vivclimaTitle = "Vivclima";
-            var title = "Total Emission";
 
             try
             {
@@ -825,14 +764,10 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Vivclima </b> Button");
-                await DashboardPage_mavryck.ClickOnVivclima();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+            
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Vivclima </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(vivclima);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(vivclimaTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Vivclima App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(vivclimaTitle));
@@ -870,12 +805,11 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
         {
             var Test = Extent.CreateTest("Vivclima: Verify The Hover Feature Of Oculus Dv");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var VivclimaPage_mavryck = new VivclimaPage_mavryck(page, Test);
-            var vivclima = "vivclima";
             var vivclimaTitle = "Vivclima";
             byte[] screenshotBytes = null;
 
@@ -887,14 +821,10 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Vivclima </b> Button");
-                await DashboardPage_mavryck.ClickOnVivclima();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+               
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Vivclima </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(vivclima);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(vivclimaTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Vivclima App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(vivclimaTitle));
@@ -905,7 +835,7 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 await Task.Delay(20000);
 
                 Test.Log(Status.Info, $" *** Hover The  <b>Grid View</b> Of Oculus DV ***");
-                await VivclimaPage_mavryck.HoverOculusDV();
+                await VivclimaPage_mavryck.HoverGridView();
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Grid View Hover Tooltip </b> is displaying");
                 Assert.True(await VivclimaPage_mavryck.VerifyHoverTooltip());
@@ -924,19 +854,18 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
         }
 
         [Test]
-        public async Task Vivclima_Verify_PageTitles_WithTooltips_OF_OculusDV()
+        public async Task Vivclima_Verify_PageTitles_Of_OculusDV()
         {
-            var Test = Extent.CreateTest("Vivclima : Verify The Page Titles With Tooltips Of Oculus DV");
+            var Test = Extent.CreateTest("Oculus DV : Verify The Page Title");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var VivclimaPage_mavryck = new VivclimaPage_mavryck(page, Test);
-            var vivclima = "vivclima";
             var vivclimaTitle = "Vivclima";
-
+            var actualTitle = "Oculus DV";
             try
             {
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
@@ -945,14 +874,10 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Vivclima </b> Button");
-                await DashboardPage_mavryck.ClickOnVivclima();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+            
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Vivclima </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(vivclima);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(vivclimaTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Vivclima App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(vivclimaTitle));
@@ -962,7 +887,7 @@ namespace Mavryck_System.Tests.VivclimaTests_mavryck
                 await VivclimaPage_mavryck.ClickOnOculusDV();
                 await Task.Delay(20000);
 
-                await VivclimaPage_mavryck.VerifyPageTitleWithTooltip_OculusDV();
+                await CommonFeaturesPage_mavryck.VerifyPageTitleWithTooltip(actualTitle);
             }
             catch (Exception e)
             {

@@ -2,7 +2,7 @@
 using Microsoft.Playwright;
 using NUnit.Framework;
 using Mavryck_System.Pages;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using System;
 using System.Threading.Tasks;
 using PlanNotePlaywrite;
@@ -52,12 +52,11 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Diagnostics: Verify The Cost Variance Over Time Map Is Displaying");
             int step = 0;
-            ArrayList testSteps = new();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            var testSteps = new ArrayList();
             var abacusTitle = "Abacus";
             var title = "Cost Variance Over Time";
 
@@ -69,18 +68,11 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Diagnostics </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnDiagnostics();
@@ -115,12 +107,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Diagnostics: Verify The Map Resizing Of Cost Variance OverTime Map");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
 
             try
@@ -131,18 +123,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Diagnostics </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnDiagnostics();
@@ -179,12 +165,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Diagnostics: Verify The Schedule Variance Over Time Map Is Displaying");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
             var title = "Schedule Variance Over Time";
 
@@ -196,18 +182,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Diagnostics </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnDiagnostics();
@@ -242,12 +222,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Diagnostics: Verify The Map Resizing Of Schedule Variance Over Time Map Is Displaying");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
 
             try
@@ -258,18 +238,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Diagnostics </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnDiagnostics();
@@ -307,12 +281,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Diagnostics: Verify The Cost Overrun Predictions Map Is Displaying");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
             var title = "Cost Overrun Predictions";
 
@@ -324,18 +298,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Diagnostics </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnDiagnostics();
@@ -369,12 +337,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Diagnostics: Verify The Map Resizing Of Cost Overrun Predictions Map Is Displaying");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
 
             try
@@ -385,18 +353,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Diagnostics </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnDiagnostics();
@@ -433,12 +395,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Diagnostics: Verify The Forecast Accuracy Map Is Displaying");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
             var title = "Forecast Accuracy";
 
@@ -450,18 +412,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Diagnostics </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnDiagnostics();
@@ -495,12 +451,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Diagnostics: Verify The Map Resizing Of Forecast Accuracy Map Is Displaying");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
 
             try
@@ -511,18 +467,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Diagnostics </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnDiagnostics();
@@ -560,12 +510,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Diagnostics: Verify The Labour Resource Constraints Map Is Displaying");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
             var title = "Labor Resource Constraints";
 
@@ -577,18 +527,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Diagnostics </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnDiagnostics();
@@ -623,12 +567,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Diagnostics: Verify The Map Resizing Of  Labour Resource Constraints Map Is Displaying");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
 
             try
@@ -639,18 +583,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Diagnostics </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnDiagnostics();
@@ -687,12 +625,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Diagnostics: Verify The Material Resource Constraints Map Is Displaying");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
             var title = "Material Resource Constraints";
 
@@ -704,18 +642,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Diagnostics </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnDiagnostics();
@@ -751,12 +683,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Diagnostics: Verify The Map Resizing Of Material Resource Constraints Map Is Displaying");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
 
             try
@@ -767,18 +699,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Diagnostics </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnDiagnostics();
@@ -816,12 +742,11 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
             var Test = Extent.CreateTest("Predictions:  Verify The Page Titles With Tooltips");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
             var abacusTitle = "Abacus";
 
             try
@@ -832,18 +757,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Diagnostics </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnDiagnostics();

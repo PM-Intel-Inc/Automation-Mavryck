@@ -4,7 +4,7 @@ using AventStack.ExtentReports;
 using Microsoft.Playwright;
 using NUnit.Framework;
 using Mavryck_System.Pages;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using System;
 using System.Threading.Tasks;
 using PlanNotePlaywrite;
@@ -30,7 +30,7 @@ namespace Mavryck_System.Tests.TimeManagerTests
         public async Task Setup()
         {
             playwright = await PlaywrightConfig.ConfigurePlaywrightAndLaunchBrowser();
-            browser = await PlaywrightConfig.LaunchChromiumBrowser(playwright, chromiumExecutablePath, true);
+            browser = await PlaywrightConfig.LaunchChromiumBrowser(playwright, chromiumExecutablePath, false);
 
             context = await browser.NewContextAsync(new BrowserNewContextOptions
             {
@@ -56,12 +56,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
         {
             var Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Sr No Column");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
+
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
             var columnName = "Sr. No.";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -76,19 +77,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
+             
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
 
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-                await Task.Delay(10000);
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> GIGO </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnGigo();
@@ -122,12 +118,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
         {
             var Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Activity ID Column");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+            
             var columnName = "Activity ID";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -140,20 +137,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                Thread.Sleep(100000);
+              
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
 
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
                 await Task.Delay(15000);
 
 
@@ -186,12 +177,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
         {
             var Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Task Name Column");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+            
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -206,18 +198,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+          
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
 
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
                 await Task.Delay(15000);
 
 
@@ -253,12 +241,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Reason Column");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+            
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -273,20 +262,15 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
 
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
 
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-                await Task.Delay(10000);
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
+                
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> GIGO </b> From Side Nav Menu");
@@ -321,12 +305,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Gigo Duration Flaw: Verify The Text Allignment Of Flag As Incorrect Column");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+            
             var columnName = "Flag as Incorrect";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -341,18 +326,12 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
 
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> GIGO </b> From Side Nav Menu");
@@ -384,12 +363,12 @@ namespace Mavryck_System.Tests.TimeManagerTests
         {
             var Test = Extent.CreateTest("Gigo Logical Flaw: Verify The Text Alignment Of Flag As Incorrect Column");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
             var columnName = "Sr. No.";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -404,22 +383,12 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
 
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
-
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-                await Task.Delay(10000);
-
-
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> GIGO </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnGigo();
@@ -456,12 +425,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Gigo Logical Flaw: Verify The Text Allignment Of Activity ID Column");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+            
             var columnName = "Activity ID";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -475,19 +445,15 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+            
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
 
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-                await Task.Delay(10000);
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
+                await Task.Delay(1000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> GIGO </b> From Side Nav Menu");
@@ -525,12 +491,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Gigo Logical Flaw: Verify The Text Allignment Of Task Name Column");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+            
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -544,21 +511,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                Thread.Sleep(100000);
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+                
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
 
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
-
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> GIGO </b> From Side Nav Menu");
@@ -597,12 +556,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Gigo Logical Flaw: Verify The Text Allignment Of Reason Column");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+            
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -618,20 +578,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
 
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
-
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
+                await Task.Delay(1500);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> GIGO </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnGigo();
@@ -669,12 +623,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Gigo Logical Flaw: Verify The Text Allignment Of Flag As Incorrect Column");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+            
             var columnName = "Flag as Incorrect";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -690,20 +645,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
 
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-
+                await Task.Delay(1500);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> GIGO </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnGigo();
@@ -734,59 +683,7 @@ namespace Mavryck_System.Tests.TimeManagerTests
             }
         }
 
-        [Test]
-        public async Task Verify_Requirments_Of_TimeManager_Gigo()
-        {
-
-            var Test = Extent.CreateTest("Verify The Header Requirments Of GIGO");
-
-            int step = 0;
-            ArrayList testSteps = new();
-            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
-            try
-            {
-                Test.Log(Status.Info, $"Step {++step}: Launching the app");
-                await loadURL(page, Constants.BaseUrl);
-
-                testSteps.AddRange(await loginPage_mavryck.Login(step));
-                step = testSteps.Count;
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>GIGO</b> From Side Nav Menu");
-                await TimeManagerPage_mavryck.ClickOnGigo();
-
-                Test.Log(Status.Info, $" *** Verify The Grid Icons *** ");
-                await TimeManagerPage_mavryck.VerifyDownload_FullScreen_HideUnhide_Hover(step);
-
-                byte[] screenshotBytes = await page.ScreenshotAsync();
-                Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
-
-            }
-            catch (Exception e)
-            {
-
-                byte[] screenshotBytes = await page.ScreenshotAsync();
-                Test.Fail($"Test failed Screenshot: {e.Message}", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
-                Assert.True(false);
-
-            }
-        }
+      
 
 
         [Test]
@@ -795,12 +692,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Gigo: Verify The Hover Feature");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+
 
             try
             {
@@ -810,17 +708,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button"));
-                await DashboardPage_mavryck.ClickOnTimeManager();
+             
 
-                testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button"));
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+                testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu"));
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu"));
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
-
-                testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying"));
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying"));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>GIGO</b> From Side Nav Menu");
@@ -863,12 +757,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
         {
             var Test = Extent.CreateTest("Gigo: Verify The Duration And Logical Flaw Grid Is Successfully Resized");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+            
 
             try
             {
@@ -879,17 +774,12 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>GIGO</b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnGigo();
@@ -924,18 +814,20 @@ namespace Mavryck_System.Tests.TimeManagerTests
             }
         }
 
+
         [Test]
         public async Task GIGO_Verify_PageTitles_WithTooltips()
         {
             var Test = Extent.CreateTest("GIGO : Verify The Page Titles With Tooltips");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+            var actualTitle = "GIGO";
 
             try
             {
@@ -945,25 +837,25 @@ namespace Mavryck_System.Tests.TimeManagerTests
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                await Task.Delay(10000);
+                
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+                Test.Log(Status.Info, $"Step {++step}: Click On <b> NeuroDynamiq </b> Button");
+                await CommonFeaturesPage_mavryck.ClickOnTimeManager();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+                await CommonFeaturesPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-                await Task.Delay(10000);
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>GIGO</b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnGigo();
 
-                await TimeManagerPage_mavryck.VerifyPageTitleWithTooltip_GIGO();
+                await CommonFeaturesPage_mavryck.VerifyPageTitleWithTooltip(actualTitle);
             }
             catch (Exception e)
             {
@@ -975,4 +867,6 @@ namespace Mavryck_System.Tests.TimeManagerTests
             }
         }
     }
+
+    
 }

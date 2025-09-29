@@ -2,18 +2,18 @@
 using System.Threading;
 using System.Threading.Tasks;
 using AventStack.ExtentReports;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using Microsoft.Playwright;
+
 
 namespace Mavryck_System.Pages
 {
-
         internal class ROVPage_mavryck : Base
         {
             private readonly IPage page;
             private const string ROV_Icon = "//img[@alt='rovIcon']";
             private const string AddNew_ROV_Row = "//button[@data-tooltip-id='addNewRowTooltip']";
-            private const string FilterButton = "(//span[@role='presentation'])[1]";
+            private const string FilterButton = "((//div[@col-id='reason']//following-sibling::div)[4]//div//span)[1]";
             private const string DeleteButton = "//button[@data-tooltip-content='Delete']";
             private const string YesButton = "//button[text()='Yes, delete it!']";
             private const string ROV_YesButton = "//button[text()='Yes']";
@@ -37,11 +37,13 @@ namespace Mavryck_System.Pages
             private const string RootCauseReset = "//button[@data-tooltip-content='Reset']";
 
             private const string Root_Cause = "(//button[@data-tooltip-content='Root Cause'])[1]";
+            readonly ExtentTest Test;
 
 
             public ROVPage_mavryck(IPage page ,ExtentTest test)
             {
                 this.page = page;
+                Test = test;
             }
 
             public async Task ClickOnROV_Icon()
@@ -103,15 +105,18 @@ namespace Mavryck_System.Pages
                 await page.ClickAsync(CancelButton);
             }
 
-            public async Task Enter_ROV_Name()
+            public async Task Enter_ROV_Name(String name)
             {
                 await page.DblClickAsync(Name_ROV);
-                await page.FillAsync("//input[@aria-label='Input Editor']", "Automation ROV Test");
+                await page.FillAsync("//input[@aria-label='Input Editor']", name);
                 await page.Keyboard.PressAsync("Enter");
 
-            }
 
-            public async Task Click_ON_RootCause()
+            }
+            
+
+
+        public async Task Click_ON_RootCause()
             {
                 Thread.Sleep(10000);
                 await page.ClickAsync(Root_Cause);
@@ -170,9 +175,9 @@ namespace Mavryck_System.Pages
                 await page.FillAsync(Filter_Input2, input);
 
             }
-            public async Task<bool> VerifyFilteredOuput()
+            public async Task<bool> VerifyFilteredOuput(string name)
             {
-                return await WaitForElementVisible(page, "//p[contains(text(), 'Automation ROV Test')]");
+                return await WaitForElementVisible(page, $"//p[contains(text() , '{name}')]");
 
             }
 
@@ -255,6 +260,7 @@ namespace Mavryck_System.Pages
 
             public async Task ClickOnNextStep_RCA()
             {
+                 await ScrollToElement(page, NextStepButton_RCA);
                 await page.ClickAsync(NextStepButton_RCA);
 
             }
@@ -262,5 +268,5 @@ namespace Mavryck_System.Pages
 
         }
 
-    }
 
+}

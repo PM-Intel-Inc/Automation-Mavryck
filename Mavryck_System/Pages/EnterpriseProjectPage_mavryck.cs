@@ -1,8 +1,12 @@
 ﻿using AventStack.ExtentReports;
 using Microsoft.Playwright;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using NUnit.Framework;
 
@@ -14,9 +18,13 @@ namespace Mavryck_System.Pages
         private readonly IPage page;
 
         private const string CreateProjectButton = "//span[text()='Create a Project ']";
+        private const string CloseIcon = "(//button[contains(@class ,'close')])[2]";
         private const string ProjectName = "//input[@id='projectName']";
+        private const string ProjectsAndPrograms = "//span[text()='Project & Programs']";
+        private const string GlobalAdmin = "//span[text()='Global Admin']";
+        private const string ProjectAdmin = "//span[text()='Project Admin']";
+        private const string OrganizationAdmin = "//span[text()='Organization Admin']";
         private const string Tooltip = "//div[@role='tooltip']";
-
         private const string Industry = "//select[@id='industry']";
         private const string Location = "//select[@id='location']";
         private const string GridView = "//button[@data-tooltip-content='Grid View']";
@@ -32,16 +40,16 @@ namespace Mavryck_System.Pages
         private const string DeleteButton = "//img[@src='/images/icons/projectDirectory/Trash.svg']";
         private const string FilterButton = "//button[@data-tooltip-content='filter']";
         private const string EnterpriseDashboard = "//div[text()=' Enterprise Directory']";
-        private const string ThreeDot = "(//button[@data-tooltip-content=\"Edit\"])[1]";
+        private const string ThreeDot = "(//button[@data-tooltip-content='Edit'])[1]";
         private const string EditSaveButton = "//button[text()='Save']";
-        private const string EditProjectName = "//input[@id=\"title\"]";
-        private const string ViewFiles = "//span[text()='View Files']";
+        private const string EditProjectName = "//input[@id='title']";
+        private const string ViewFiles = "//button[text()='View Files']";
         private const string BrowseScheduleFile = "(//input[@type='file'])[1]";
         private const string BrowseCostFile = "(//input[@type='file'])[2]";
         private const string BrowseContractFile = "(//input[@type='file'])[3]";
         private const string UploadButton = "//button[text()='Upload']";
         private const string ErrorPopupProject = "//h3[text()='Error']";
-        private const string ListViewButton = "(//button[@data-tooltip-id='pmTooltip'])[2]";
+        private const string ListViewButton = "//button[@data-tooltip-content='List View']";
         private const string MavryckPrediction = "//span[text()='Mavryck Prediction']";
         private const string NoButton = "//button[text()='No']";
         private const string YesButton = "//button[text()='Yes']";
@@ -62,10 +70,13 @@ namespace Mavryck_System.Pages
         private const string ProgramName = "//span[@id='projectName']";
         private const string programTitle = "//input[@id='title']";
         private const string ProgramStatus = "//select[@name='status']";
+        private const string RightMenu="//li[@data-tooltip-content='Apps']";
         private const string CreateProgram = "//span[text()='Create Program ']";
         private const string DateUploaded = "(//span[text()='Date Uploaded']//following-sibling::span)[1]";
         private const string LastUploaded = "(//span[text()='Last Updated']//following-sibling::span)[1]";
         private const string Version = "(//span[text()='Version']//following-sibling::span)[1]";
+
+        private const string AppsMenu = "//img[@alt='Apps']";
         ArrayList testSteps;
         ExtentTest Test;
         public EnterpriseProjectPage_mavryck(IPage page , ExtentTest test)
@@ -191,7 +202,7 @@ namespace Mavryck_System.Pages
 
         public async Task<bool> VerifyListViewRequirementsIsVisible(string value)
         {
-            return await WaitForElementVisible(page, $"//span[text()='{value}']", 120000);
+            return await WaitForElementVisible(page, $"//p[text()='{value}']", 120000);
         }
 
 
@@ -243,12 +254,34 @@ namespace Mavryck_System.Pages
 
         public async Task<bool> VerifyProjectIsDisplaying(string ProjectName)
         {
-            return await WaitForElementVisible(page, "//h3[text()='" + ProjectName + "']", 120000);
+            return await WaitForElementVisible(page, "//h2[text()='" + ProjectName + "']", 120000);
         }
+
+        public async Task<bool> VerifyProjectsAndProgramIsDispalying()
+        {
+            return await WaitForElementVisible(page, ProjectsAndPrograms, 120000);
+        }
+
+
+        public async Task<bool> VerifyGlobalAdminIsDispalying()
+        {
+            return await WaitForElementVisible(page, GlobalAdmin, 120000);
+        }
+        public async Task<bool> VerifyProjectAdminIsDispalying()
+        {
+            return await WaitForElementVisible(page, GlobalAdmin, 120000);
+        }
+        public async Task<bool> VerifyOrganizationAdminIsDispalying()
+        {
+            return await WaitForElementVisible(page, OrganizationAdmin, 120000);
+        }
+
+
+
 
         public async Task<bool> VerifyProgramIsDisplaying(string programName)
         {
-            return await WaitForElementVisible(page, "//h3[text()='" + programName + "']", 120000);
+            return await WaitForElementVisible(page, "//h2[text()='" + programName + "']", 120000);
         }
 
         public async Task EnterProjectName(string name)
@@ -373,7 +406,8 @@ namespace Mavryck_System.Pages
 
         public async Task<bool> VerifyAppDashboardIsDisplaying(string appName)
         {
-            return await WaitForElementVisible(page, $"//div[text()=' {appName}']", 120000);
+            await page.ClickAsync("//button[contains(@class , 'close')]");
+            return await WaitForElementVisible(page, $"//span[text()='{appName}']", 120000);
 
         }
 
@@ -394,10 +428,23 @@ namespace Mavryck_System.Pages
 
         }
 
+        public async Task<bool> VerifyAppIcons2(string appName)
+        {
+            try
+            {
+                return await WaitForElementVisible(page, $"(//div//a//img[@alt='{appName}'])[2]", 120000);
+            }
+            catch (Exception)
+            {
+                return await WaitForElementVisible(page, $"(//div//a//img[@alt='{appName}'])[1]", 120000);
+            }
+            
+        }
         public async Task<bool> VerifyAppIcons(string appName)
         {
-            return await WaitForElementVisible(page, $"(//img[@src='/images/products/{appName}'])[2]", 120000);
-
+         
+                return await WaitForElementVisible(page, $"(//div//img[@alt='{appName}'])[1]", 120000);
+          
         }
         public async Task<bool> VerifyVersionFiles(string version)
         {
@@ -436,21 +483,29 @@ namespace Mavryck_System.Pages
 
         public async Task ClickOnAppIcons(string appName)
         {
-            await page.ClickAsync($"(//img[@src='/images/products/{appName}'])[2]");
-
+           await page.ClickAsync($"(//div//img[@alt='{appName}'])[1]");
         }
 
+
+        public async Task ClickOnCloseIcon()
+        {
+            await page.ClickAsync(CloseIcon);
+
+        }
         public async Task ClickOnAppIcons2(string appName)
         {
-            await page.ClickAsync($"(//img[@src = '/images/AppScreen/{appName}'])[2]");
+            try
+            {
+                await page.ClickAsync($"(//div//a//img[@alt='{appName}'])[1]");
+            }
+            catch (Exception e)
+            {
+                await page.ClickAsync($"(//div//a//img[@alt='{appName}'])[2]");
+            }
 
         }
 
-        public async Task<bool> VerifyAppIcons2(string appName)
-        {
-            return await WaitForElementVisible(page, $"(//img[@src = '/images/AppScreen/{appName}'])[2]", 120000);
-
-        }
+     
 
 
         public async Task<bool> VerifyApplicationFilterProjects(string icon)
@@ -510,7 +565,7 @@ namespace Mavryck_System.Pages
             }
             catch (Exception ex)
             {
-                Console.WriteLine($"Error finding application: {ex.Message}");
+                return false;
             }
 
             return false;
@@ -652,10 +707,22 @@ namespace Mavryck_System.Pages
             await page.ClickAsync($"(//img[@src='/images/products/{app}.svg'])[2]");
 
         }
+        public async Task SelectAppFromTopRight_Menu_3(string app)
+        {
+            await page.ClickAsync($"(//img[@src='/images/products/{app}.svg'])[3]");
+
+        }
 
         public async Task SelectAppFromTopRight_Menu1(string app)
         {
-            await page.ClickAsync($"(//img[@src='/images/AppScreen/cost.svg'])[3]");
+            await page.ClickAsync($"(//img[@src='/images/AppScreen/{app}.svg'])[2]");
+
+        }
+
+        public async Task SelectAppFromMenu(string app)
+        {
+            await page.ClickAsync(RightMenu);
+            await page.ClickAsync($"//a[text()='{app}']");
 
         }
 

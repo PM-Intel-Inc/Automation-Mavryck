@@ -17,6 +17,7 @@ namespace PlanNotePlaywrite
 
         public static async Task<IBrowser> LaunchChromiumBrowser(IPlaywright playwright, string executablePath, bool headless)
         {
+            // Always launch a new browser instance.
             return await playwright.Chromium.LaunchAsync(new BrowserTypeLaunchOptions
             {
                 Headless = headless,

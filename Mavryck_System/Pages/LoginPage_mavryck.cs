@@ -1,10 +1,11 @@
 ﻿using AventStack.ExtentReports;
 using Microsoft.Playwright;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using System.Collections;
 using System.Threading.Tasks;
 using NUnit.Framework;
 using System.Threading;
+using static System.Net.WebRequestMethods;
 
 
 namespace Mavryck_System.Pages
@@ -13,19 +14,22 @@ namespace Mavryck_System.Pages
     {
         private readonly IPage page;
 
-        private const string EmailInput = "//input[@placeholder='Email']";
-        private const string PasswordInput = "//input[@placeholder='Password']";
-        private const string LoginButton = "//button[text()='Login to Mavryck']";
+        private const string EmailInput = "//input[@id='email']";
+        private const string PasswordInput = "//input[@id='password']";
+        private const string LoginButton = "//button[text()='Login']";
         private const string Dashboard = "//h2[text()=' Mavryck Apps']";
-        private const string AlertMessage = "//div[text()='Invalid email or password']";
-        private const string RememberMeCheckbox = "//input[@type='checkbox']";
+        private const string AlertMessage = "//div[text()='Network error. Please check your connection and try again.']";
+        private const string RememberMeCheckbox = "//input[@id='rememberMe']";
         private const string ForgotPassword = "//a[text()='Forgot Password?']";
         private const string UpdateButton = "//button[text()='Update Password']";
         private const string Profile = "//button[text()='Mavryck Interal']";
         private const string SignOutButton = "//button[text()='Sign Out']";
-        private const string LoginDashboard = "//h4[text()='Welcome to the revolution']";
+        private const string SubmitOTPButton = "//button[text()='Submit']";
+        private const string LoginDashboard = "//h1[text()='Project & Decision Intelligence. Built In.']";
         private const string SignUpLink = "//a[text()='Sign Up']";
-        private const string LoginWithMicrosoftButton = "//span[text()='Sign in with Microsoft']";
+        private const string LoginWithMicrosoftButton = "//button[text()='Sign in with Microsoft']";
+        private const string OtpScreen = "//label[text()='OTP Code']";
+
 
         ArrayList testSteps;
         ExtentTest Test;
@@ -49,11 +53,18 @@ namespace Mavryck_System.Pages
 
             testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Click On Login Button"));
             await ClickOnSubmitButton();
-            Thread.Sleep(15000);
 
+            Test.Log(Status.Info, $"Step {++step}: Verify that the <b> OTP Screen </b>  is displaying");
+            Assert.True(await VerifyOTPScreen());
 
-            testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Verify that the <b> Mavryck Dashboard</b>  is displaying"));
-            Assert.True(await VerifyDashboardPageIsVisible());
+            Test.Log(Status.Info, $"Step {++step}: Enter <b> OTP Screen </b> " + otp);
+            await EnterOTP(otp);
+
+            Test.Log(Status.Info, $"Step {++step}: Click On Submit Button");
+            await ClickOnsubmitOtpButton();
+
+            //Test.Log(Status.Info, $"Step {++step}: Verify that the <b> Mavryck Dashboard</b>  is displaying");
+            //Assert.True(await VerifyDashboardPageIsVisible());
 
             return testSteps;
 
@@ -101,11 +112,28 @@ namespace Mavryck_System.Pages
         {
             await page.ClickAsync(SignUpLink);
         }
+        public async Task ClickOnsubmitOtpButton()
+        {
+            await page.ClickAsync(SubmitOTPButton);
+        }
 
 
         public async Task<bool> VerifyDashboardPageIsVisible()
         {
             return await WaitForElementVisible(page, Dashboard, 100000);
+        }
+        public async Task EnterOTP(string otp)
+        {
+            for(int i=1; i<=otp.Length; i++)
+            {
+                await page.FillAsync($"(//input[@type='text'])[{i}]", otp);
+            }
+
+
+        }
+        public async Task<bool> VerifyOTPScreen()
+        {
+            return await WaitForElementVisible(page, OtpScreen, 100000);
         }
 
         public async Task<bool> VerifyLoginDashboardPageIsVisible()

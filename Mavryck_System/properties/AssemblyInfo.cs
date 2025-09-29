@@ -1,4 +1,4 @@
 ﻿using NUnit.Framework;
 
-[assembly: Parallelizable(ParallelScope.Self)]
-[assembly: LevelOfParallelism(1)]
+[assembly: Parallelizable(ParallelScope.All)] 
+[assembly: LevelOfParallelism(2)]

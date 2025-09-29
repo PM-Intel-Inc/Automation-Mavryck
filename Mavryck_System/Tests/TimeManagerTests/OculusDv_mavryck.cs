@@ -7,7 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AventStack.ExtentReports;
 using Mavryck_System.Pages;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using Microsoft.Playwright;
 using NUnit.Framework;
 using PlanNotePlaywrite;
@@ -18,7 +18,7 @@ namespace Mavryck_System.Tests.TimeManagerTests
     [Parallelizable(ParallelScope.Self)]
 
 
-    public class OculusDv_mavryck : Base
+    public class OculusDv_CostBrainTest_mavryck : Base
     {
 
         private IPlaywright playwright;
@@ -58,14 +58,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Verify The Header Requirments Of Oculus DV");
           
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
-            var appName = "projectManager";
+           
+            var timeManagerTitle = "NeuroDynamiq";
 
             try
             {
@@ -76,17 +76,12 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+            
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Oculus DV</b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnOculusDV();
@@ -100,14 +95,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 Assert.True(await OculusDvPage_mavryck.VerifyQAFactor());
 
 
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Project Duration </b> is displaying");
-                Assert.True(await OculusDvPage_mavryck.VerifyProjectDuration());
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Project Delay </b> is displaying");
+                Assert.True(await OculusDvPage_mavryck.VerifyProjectDelayed());
 
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Start Date </b> is displaying");
-                Assert.True(await OculusDvPage_mavryck.VerifyStartDate());
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Float Utilization Analysis </b> is displaying");
+                Assert.True(await OculusDvPage_mavryck.VerifyFloatUtilization());
 
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Finish Date </b> is displaying");
-                Assert.True(await OculusDvPage_mavryck.VerifyFinishDate());
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b> Knock On Impact </b> is displaying");
+                Assert.True(await OculusDvPage_mavryck.VerifyKnockOnImpact());
 
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
@@ -130,15 +125,15 @@ namespace Mavryck_System.Tests.TimeManagerTests
         {
             var Test = Extent.CreateTest("Verify The Total Float Index Chart Of Oculus DV");            
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
-            var title = "Total Float Index";
-            var appName = "projectManager";
+           
+            var title = "Total Float Index"; 
+            var timeManagerTitle = "NeuroDynamiq";
 
             try
             {
@@ -148,21 +143,16 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+                
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Oculus DV</b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnOculusDV();
-                await Task.Delay(15000);
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Bar Chart</b> is visible");
                 Assert.True(await OculusDvPage_mavryck.VerifyHeatMapIsDisplaying());
@@ -192,15 +182,15 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Verify The Word Map Of Oculus DV");
            
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+           
             var title = "Word map : Reasons of Variance";
-            var appName = "projectManager";
+            var timeManagerTitle = "NeuroDynamiq";
             try
             {
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
@@ -209,21 +199,17 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+               
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Oculus DV</b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnOculusDV();
-                await Task.Delay(15000);
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Word Map</b> is visible");
                 Assert.True(await OculusDvPage_mavryck.VerifyWordMapIsDisplaying());
@@ -249,14 +235,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
         {
             var Test = Extent.CreateTest("Verify The Task Categories Map Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var appName = "projectManager";
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+           
             var title = "Task Categories";
 
             try
@@ -267,21 +253,16 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Oculus DV</b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnOculusDV();
-                await Task.Delay(15000);
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Task Categories</b> is visible");
                 Assert.True(await OculusDvPage_mavryck.VerifyTaskCategoriesIsDisplaying());
@@ -310,14 +291,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Verify The Correlation Heat Map Of Oculus DV");
             
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var appName = "projectManager";
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+           
             var title = "Correlation Heatmap";
 
             try
@@ -328,21 +309,16 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+           
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Oculus DV</b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnOculusDV();
-                await Task.Delay(15000);
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Correlation Heatmap</b> is visible");
                 Assert.True(await OculusDvPage_mavryck.VerifyCorrelationHeatmapIsDisplaying());
@@ -372,16 +348,15 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Verify The Critical Activities Trending Map Of Oculus DV");
          
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var appName = "projectManager";
-            var timeManager = "NeuroDynamiq";
+           
             var title = "Critical Activities Trending";
-
+            var timeManagerTitle = "NeuroDynamiq";
             try
             {
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
@@ -390,21 +365,16 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+             
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Oculus DV</b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnOculusDV();
-                await Task.Delay(15000);
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Critical Activities Trending</b> Map");
                 await OculusDvPage_mavryck.ClickOnCriticalActivitiesTrendingMapIsdisplaying();
@@ -436,16 +406,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Verify The Task Over Runs Map Of Oculus DV");
            
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var appName = "projectManager";
-            var timeManager = "NeuroDynamiq";
-            var title = "Task Over Runs";
-
+            var title = "Task Overruns";
+            var timeManagerTitle = "NeuroDynamiq";
             try
             {
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
@@ -454,21 +422,16 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+              
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(timeManager);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Oculus DV</b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnOculusDV();
-                await Task.Delay(15000);
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Task Over Runs Map</b> is visible");
                 Assert.True(await OculusDvPage_mavryck.VerifyTotalOverRunsIsDisplaying());
@@ -496,15 +459,15 @@ namespace Mavryck_System.Tests.TimeManagerTests
         {
             var Test = Extent.CreateTest("Verify The Bow Wave Map Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
             var title = "Bow Wave";
-            var appName = "projectManager";
+
             try
             {
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
@@ -512,27 +475,20 @@ namespace Mavryck_System.Tests.TimeManagerTests
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                await Task.Delay(10000);
+                
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-                await Task.Delay(10000);
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Oculus DV</b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnOculusDV();
-                await Task.Delay(120000);
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Bow Wave Map</b> is visible");
-                Assert.True(await OculusDvPage_mavryck.VerifyBowWaveIsDisplaying());
+                Assert.True(await OculusDvPage_mavryck.VerifyBowWaveMapIsDisplaying());
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the Map Title: <b>Bow Wave</b> is displaying");
                 Assert.True(await OculusDvPage_mavryck.VerifyChartNameIsDisplaying(title));
@@ -551,56 +507,6 @@ namespace Mavryck_System.Tests.TimeManagerTests
             }
         }
 
-        [Test]
-        public async Task OculusDV_Verify_PageTitles_WithTooltips()
-        {
-            var Test = Extent.CreateTest("Oculus DV:  Verify The Page Titles With Tooltips");
-
-            int step = 0;
-            ArrayList testSteps = new();
-            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
-            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
-            var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
-            var appName = "projectManager";
-            try
-            {
-
-                Test.Log(Status.Info, $"Step {++step}: Launching the app");
-                await loadURL(page, Constants.BaseUrl);
-
-                testSteps.AddRange(await loginPage_mavryck.Login(step));
-                step = testSteps.Count;
-                await Task.Delay(10000);
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-                await Task.Delay(10000);
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>Oculus DV</b> From Side Nav Menu");
-                await TimeManagerPage_mavryck.ClickOnOculusDV();
-
-                await TimeManagerPage_mavryck.VerifyPageTitleWithTooltip_OculusDV();
-            }
-            catch (Exception e)
-            {
-
-                byte[] screenshotBytes = await page.ScreenshotAsync();
-                Test.Fail($"Test failed Screenshot: {e.Message}", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
-                Assert.True(false);
-
-            }
-        }
 
     }
 }

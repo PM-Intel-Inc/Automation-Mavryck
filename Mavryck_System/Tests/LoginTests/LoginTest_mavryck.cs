@@ -2,12 +2,11 @@
 using Microsoft.Playwright;
 using NUnit.Framework;
 using Mavryck_System.Pages;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using System;
 using System.Threading.Tasks;
 using PlanNotePlaywrite;
 using System.Threading;
-using Constants = Mavryck_TimeManager.Utils.Constants;
 
 
 namespace Mavryck_System.Tests.LoginTests
@@ -26,7 +25,7 @@ namespace Mavryck_System.Tests.LoginTests
         public async Task Setup()
         {
             playwright = await PlaywrightConfig.ConfigurePlaywrightAndLaunchBrowser();
-            browser = await PlaywrightConfig.LaunchChromiumBrowser(playwright, chromiumExecutablePath, true);
+            browser = await PlaywrightConfig.LaunchChromiumBrowser(playwright, chromiumExecutablePath, false);
 
             context = await browser.NewContextAsync(new BrowserNewContextOptions
             {
@@ -59,7 +58,6 @@ namespace Mavryck_System.Tests.LoginTests
                 await loadURL(page, Constants.BaseUrl);
 
                 Test.Log(Status.Info, $"<b> Verify All the Login Screen Requirements <b>");
-                Thread.Sleep(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Email</b> and <b> Password </b>  are displaying");
                 await loginPage_mavryck.VerifyEmailIsVisible();
@@ -98,28 +96,35 @@ namespace Mavryck_System.Tests.LoginTests
             var Test = Extent.CreateTest("Verify Login With Valid Credentials");
             int step = 0;
             var loginPage_mavryck = new LoginPage_mavryck(page  , Test);
-
+            string otp = "123456";
             try
             {
 
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
                 await loadURL(page, Constants.BaseUrl);
-                //Thread.Sleep(15000);
 
 
-                //Test.Log(Status.Info, $"Step {++step}: Enter Credentials: Email :" + email + " Password: " + password);
-                //await loginPage_mavryck.EnterLoginCredentials(email, password);
+                Test.Log(Status.Info, $"Step {++step}: Enter Credentials: Email :" + email + " Password: " + password);
+                await loginPage_mavryck.EnterLoginCredentials(email, password);
 
 
-                //Test.Log(Status.Info, $"Step {++step}: Click On Remember Me Checkbox");
-                //await loginPage_mavryck.ClickOnRememberMeCheckbox();
+                Test.Log(Status.Info, $"Step {++step}: Click On Remember Me Checkbox");
+                await loginPage_mavryck.ClickOnRememberMeCheckbox();
 
-                //Test.Log(Status.Info, $"Step {++step}: Click On Login Button");
-                //await loginPage_mavryck.ClickOnSubmitButton();
-                //Thread.Sleep(15000);
+                Test.Log(Status.Info, $"Step {++step}: Click On Login Button");
+                await loginPage_mavryck.ClickOnSubmitButton();
 
-                //Test.Log(Status.Info, $"Step {++step}: Verify that the <b> Mavryck Dashboard</b>  is displaying");
-                //Assert.True(await loginPage_mavryck.VerifyDashboardPageIsVisible());
+                Test.Log(Status.Info, $"Step {++step}: Verify that the <b> OTP Screen </b>  is displaying");
+                Assert.True(await loginPage_mavryck.VerifyOTPScreen());
+
+                Test.Log(Status.Info, $"Step {++step}: Enter <b> OTP Screen </b> " + otp);
+                await loginPage_mavryck.EnterOTP(otp);
+
+                Test.Log(Status.Info, $"Step {++step}: Click On Submit Button");
+                await loginPage_mavryck.ClickOnsubmitOtpButton();
+
+                Test.Log(Status.Info, $"Step {++step}: Verify that the <b> Mavryck Dashboard</b>  is displaying");
+                Assert.True(await loginPage_mavryck.VerifyDashboardPageIsVisible());
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -133,7 +138,7 @@ namespace Mavryck_System.Tests.LoginTests
         }
 
 
-        //[Test]
+        [Test]
         public async Task UserUnableLoginWith_InValidCredentials()
         {
             var Test = Extent.CreateTest("Verify User Unable To Login With InValid Credentials");
@@ -175,7 +180,7 @@ namespace Mavryck_System.Tests.LoginTests
             }
         }
 
-        //[Test]
+        [Test]
         public async Task UserCanUpdateThe_Password()
         {
             var Test = Extent.CreateTest("Verify User Can Update The Password");
@@ -211,7 +216,7 @@ namespace Mavryck_System.Tests.LoginTests
             }
         }
 
-        //[Test]
+        [Test]
         public async Task UserCan_SignOut_FromMavryck()
         {
             var Test = Extent.CreateTest("Verify User Can Sign Out From Mavryck");
@@ -229,19 +234,28 @@ namespace Mavryck_System.Tests.LoginTests
                 await loginPage_mavryck.EnterLoginCredentials(email, password);
 
 
+
                 Test.Log(Status.Info, $"Step {++step}: Click On Remember Me Checkbox");
                 await loginPage_mavryck.ClickOnRememberMeCheckbox();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On Login Button");
                 await loginPage_mavryck.ClickOnSubmitButton();
 
+
+                Test.Log(Status.Info, $"Step {++step}: Verify that the <b> OTP Screen </b>  is displaying");
+                Assert.True(await loginPage_mavryck.VerifyOTPScreen());
+
+                Test.Log(Status.Info, $"Step {++step}: Enter <b> OTP Screen </b> " + otp);
+                await loginPage_mavryck.EnterOTP(otp);
+
+                Test.Log(Status.Info, $"Step {++step}: Click On Submit Button");
+                await loginPage_mavryck.ClickOnsubmitOtpButton();
+
                 Test.Log(Status.Info, $"Step {++step}: Verify that the <b> Mavryck Dashboard</b>  is displaying");
                 Assert.True(await loginPage_mavryck.VerifyDashboardPageIsVisible());
-                Thread.Sleep(10000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On Sign Out Button");
                 await loginPage_mavryck.ClickOnSignOutButton();
-                Thread.Sleep(10000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Verify that the <b> Mavryck Login Screen</b>  is displaying");
