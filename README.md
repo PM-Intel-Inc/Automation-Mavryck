@@ -67,5 +67,3 @@ This guide explains how to set up and execute **Playwright test cases in C#/.NET
 
 Viewing Results
 Test results are shown in the Test Explorer panel.
-
-✅ You can now **build, run, and debug Playwright tests** directly inside **Visual Studio 2022**!
