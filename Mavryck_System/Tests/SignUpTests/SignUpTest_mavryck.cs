@@ -2,7 +2,7 @@
 using Microsoft.Playwright;
 using NUnit.Framework;
 using Mavryck_System.Pages;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using System;
 using System.Threading.Tasks;
 using PlanNotePlaywrite;

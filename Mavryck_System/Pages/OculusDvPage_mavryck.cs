@@ -1,31 +1,35 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using AventStack.ExtentReports;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using Microsoft.Playwright;
+using NUnit.Framework;
 
-namespace Mavryck_System.Pages
+namespace  Mavryck_System.Pages
 {
     internal class OculusDvPage_mavryck : Base
     {
         private readonly IPage page;
-        private const string Schedule_Quality = "//h2[text()='Schedule Quality ']";
-        private const string ProjectDuration = "//h2[text()='Project Duration']";
+        private const string Schedule_Quality = "//h3[text()='Schedule Quality']";
+        private const string ProjectDelayed = "//h3[text()='Project Delayed']";
         private const string StartDate = "//h2[text()='Start Date']";
-        private const string Budget = "//h2[text()='Budget']";
-        private const string FinishDate = "//h2[text()='Finish Date']";
+        private const string Budget = "//h2[text()='Budget (ITD)']";
         private const string Need_Improvements = "//span[text()='Need Improvements']";
-        private const string QA_Factor = "//h2[text()='Q Factor:']";
-        private const string Baseline = "//h3[text()='Baseline']";
-        private const string Current = "//h3[text()='Current']";
+        private const string QA_Factor = "//h3[text()='Q Factor']";
+        private const string FloatUtitlizationAnalysis = "//h3[text()='Float Utilization Analysis']";
+        private const string KnockOnImpact = "//h3[text()='Knock on Impact']";
         private const string Push = "//h3[text()='Push']";
         private const string Pull = "//h3[text()='Pull']";
         private const string ETC = "//h2[text()='Estimated to Complete (ETC) ']";
         private const string ITC = "//h2[text()='Incurred to Date (ITC)']";
         private const string EAC= "//h2[text()='Estimated at Complete (EAC)']";
-   
+
+        
+        readonly ExtentTest Test;
         public OculusDvPage_mavryck(IPage page , ExtentTest test)
         {
             this.page = page;
+            Test = test;
         }
 
         public async Task<bool> VerifyScheduleQuality()
@@ -40,8 +44,6 @@ namespace Mavryck_System.Pages
 
         }
 
-       
-
         public async Task<bool> VerifyEAC()
         {
             return await WaitForElementVisible(page, EAC);
@@ -53,10 +55,6 @@ namespace Mavryck_System.Pages
             return await WaitForElementVisible(page, "//div[@id='heatMapDiv']", 120000);
 
         }
-
-      
-       
-
 
         public async Task<bool> VerifyRealisticETCIsDisplaying()
         {
@@ -83,11 +81,13 @@ namespace Mavryck_System.Pages
         }
         public async Task<bool> VerifyTotalOverRunsIsDisplaying()
         {
-            return await WaitForElementVisible(page, "//div[@id='scatterPlotDiv']", 120000);
+            await ScrollToElement(page, "//h3[text()='Task Overruns']");
+            return await WaitForElementVisible(page, "//div[@id='tmOdv']", 120000);
 
         }
         public async Task<bool> VerifyBowWaveIsDisplaying()
         {
+            await ScrollToElement(page, "//h3[text()='Bow Wave']");
             return await WaitForElementVisible(page, "//div[@id='bowWaveChart']", 120000);
 
         }
@@ -110,13 +110,15 @@ namespace Mavryck_System.Pages
 
         public async Task<bool> VerifyCorrelationHeatmapIsDisplaying()
         {
+            await ScrollToElement(page, "//h3[text()='Correlation Heatmap']");
+
             return await WaitForElementVisible(page, "//div[@id='heatMapDiv']", 120000);
 
         }
 
         public async Task<bool> VerifyCriticalActivitiesTrendingMapIsdisplaying()
         {
-            return await WaitForElementVisible(page, "//div[@id='tfttdiv']", 120000);
+            return await WaitForElementVisible(page, "//div[@id='barchartdiv']", 120000);
 
         }
 
@@ -125,12 +127,7 @@ namespace Mavryck_System.Pages
             await page.ClickAsync("//button[text()='Critical Activities Trending']");
 
         }
-
-        public async Task<bool> VerifyProjectDuration()
-        {
-            return await WaitForElementVisible(page, ProjectDuration);
-
-        }
+        
 
         public async Task<bool> VerifyITC()
         {
@@ -148,9 +145,9 @@ namespace Mavryck_System.Pages
             return await WaitForElementVisible(page, Budget);
 
         }
-        public async Task<bool> VerifyFinishDate()
+        public async Task<bool> VerifyFloatUtilization()
         {
-            return await WaitForElementVisible(page, FinishDate);
+            return await WaitForElementVisible(page, FloatUtitlizationAnalysis);
 
         }
         public async Task<bool> VerifyNeedImprovements()
@@ -176,15 +173,15 @@ namespace Mavryck_System.Pages
 
         }
 
-        public async Task<bool> VerifyBaseLine()
+        public async Task<bool> VerifyProjectDelayed()
         {
-            return await WaitForElementVisible(page, Baseline);
+            return await WaitForElementVisible(page, ProjectDelayed);
 
         }
 
-        public async Task<bool> VerifyCurrent()
+        public async Task<bool> VerifyKnockOnImpact()
         {
-            return await WaitForElementVisible(page, Current);
+            return await WaitForElementVisible(page, KnockOnImpact);
 
         }
 

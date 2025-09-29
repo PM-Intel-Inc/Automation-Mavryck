@@ -1,6 +1,6 @@
 ﻿using AventStack.ExtentReports.Reporter;
 using AventStack.ExtentReports;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using NUnit.Framework;
 using System.IO;
 

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Threading.Tasks;
 using AventStack.ExtentReports;
 using Mavryck_System.Pages;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using Microsoft.Playwright;
 using NUnit.Framework;
 using PlanNotePlaywrite;
@@ -49,15 +49,14 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
         public async Task CostBrain_Verify_Header_Of_OculusDV()
         {
             var Test = Extent.CreateTest("Cost Brain : Verify The Header Requirments Of Oculus DV");
-            int step = 0;
-            ArrayList testSteps = new();
+            int step = 0; 
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
 
             try
@@ -68,18 +67,12 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
+            
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Oculus DV</b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnOculusDV();
@@ -119,14 +112,13 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
         {
             var Test = Extent.CreateTest("Cost Brain: Verify The Correlation HeatMap Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             var title = "Correlation Heatmap";
 
             try
@@ -137,22 +129,15 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-                await Task.Delay(10000);
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Oculus DV</b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnOculusDV();
+
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b> Heat Map</b> is visible");
                 Assert.True(await OculusDvPage_mavryck.VerifyHeatMapIsDisplaying());
@@ -179,14 +164,13 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
         {
             var Test = Extent.CreateTest("Cost Brain: Verify The Realistic ETC Map Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             var title = "Realistic ETC";
 
             try
@@ -197,18 +181,11 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Oculus DV</b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnOculusDV();
@@ -239,14 +216,13 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
         {
             var Test = Extent.CreateTest("Cost Brain: Verify The Bow Wave Map Of Oculus DV");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             var title = "Bow Wave";
 
             try
@@ -257,19 +233,11 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-                await Task.Delay(10000);
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Oculus DV</b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnOculusDV();
@@ -299,14 +267,12 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
         {
             var Test = Extent.CreateTest("Cost Brain: Verify The Hover Feature Of Oculus Dv");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
             byte[] screenshotBytes = null;
 
             try
@@ -317,18 +283,11 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Oculus DV</b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnOculusDV();

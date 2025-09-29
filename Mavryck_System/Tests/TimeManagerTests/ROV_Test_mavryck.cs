@@ -1,9 +1,13 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using AventStack.ExtentReports;
 using Mavryck_System.Pages;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using Microsoft.Playwright;
 using NUnit.Framework;
 using PlanNotePlaywrite;
@@ -51,17 +55,18 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Verify User Can Add The Reason Of Variance");
            
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
+
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var ROVPage_mavryck = new ROVPage_mavryck(page, Test);
-            var appName = "projectManager";
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
             var variance = "Automation Variance";
             var control_acc = "Automation Control Account";
             var control_acc_manager = "Automation Control Account Manager";
             var theme = "Equipment Failure";
+            var ROVName = "ROV Automation1";
 
 
             try
@@ -72,18 +77,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-                await Task.Delay(15000);
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
+               
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>ROV</b> Icon");
                 await ROVPage_mavryck.ClickOnROV_Icon();
@@ -92,7 +92,7 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 await ROVPage_mavryck.Click_On_NewRow();
 
                 Test.Log(Status.Info, $"Step {++step}: Enter The <b>ROV Name</b>");
-                await ROVPage_mavryck.Enter_ROV_Name();
+                await ROVPage_mavryck.Enter_ROV_Name(ROVName);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Root Cause</b> Button");
                 await ROVPage_mavryck.Click_ON_RootCause();
@@ -140,7 +140,7 @@ namespace Mavryck_System.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Next Step </b>");
                 await ROVPage_mavryck.ClickOnNextStep_RCA();
-                await Task.Delay(10000);
+                
 
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
@@ -164,17 +164,19 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Verify User Can Enter The Reason Of Variance Details By RCA Icon");
             
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var ROVPage_mavryck = new ROVPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+           var timeManagerTitle = "NeuroDynamiq";
+           
             var variance = "Automation Variance";
             var control_acc = "Automation Control Account";
             var control_acc_manager = "Automation Control Account Manager";
             var theme = "Equipment Failure";
-            var appName = "projectManager";
+            var ROVName = "ROV Automation2 RCA";
+
             try
             {
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
@@ -182,21 +184,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                await Task.Delay(10000);
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-                await Task.Delay(10000);
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-                await Task.Delay(120000);
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
+               
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>ROV</b> Icon");
                 await ROVPage_mavryck.ClickOnROV_Icon();
@@ -205,7 +200,7 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 await ROVPage_mavryck.Click_On_NewRow();
 
                 Test.Log(Status.Info, $"Step {++step}: Enter The <b>ROV Name</b>");
-                await ROVPage_mavryck.Enter_ROV_Name();
+                await ROVPage_mavryck.Enter_ROV_Name(ROVName);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Root Cause</b> Button");
                 await ROVPage_mavryck.Click_ON_RootCause();
@@ -232,11 +227,10 @@ namespace Mavryck_System.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On  <b>RCA Icon</b>");
                 await ROVPage_mavryck.ClickOnRCAIcon();
-                await Task.Delay(10000);
 
 
-                Test.Log(Status.Info, $"Step {++step}: Enter <b>Root Cause Why's</b> by clicking on <b> RCA ICON </b>");
-                await ROVPage_mavryck.VerifyRootCauseWhy();
+                Test.Log(Status.Info, $"Step {++step}: Verify <b>Root Cause Why's</b> are automatically filled </b>");
+                Assert.True(await ROVPage_mavryck.VerifyRootCauseWhy());
 
                 Test.Log(Status.Info, $"Step {++step}: Select <b>Theme</b>");
                 await ROVPage_mavryck.SelectTheme(theme);
@@ -250,7 +244,7 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 Test.Log(Status.Info, $" *** Enter The CORRECTIVE ACTION ROOT CAUSE  **** ");
 
                 Test.Log(Status.Info, $"Step {++step}: Verify <b>Corrective Action Root Cause</b> added ");
-                await ROVPage_mavryck.VerifyCorrectiveActionWhy();
+                Assert.True(await ROVPage_mavryck.VerifyCorrectiveActionWhy());
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Next Step </b>");
                 await ROVPage_mavryck.ClickOnNextStep_RCA();
@@ -259,7 +253,7 @@ namespace Mavryck_System.Tests.TimeManagerTests
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Next Step </b>");
                 await ROVPage_mavryck.ClickOnNextStep_RCA();
-                await Task.Delay(10000);
+                
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -281,15 +275,15 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Verify ROV Filter Is Functioning Properly");
             
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var ROVPage_mavryck = new ROVPage_mavryck(page, Test);
-            var appName = "projectManager";
-            var timeManager = "NeuroDynamiq";
-            var input1 = "Automation";
-            var input2 = "ROV Test";
+           var timeManagerTitle = "NeuroDynamiq";
+            var input1 = "Filter";
+            var input2 = "ROV";
+            var ROVName = "Filter ROV";
 
 
 
@@ -300,23 +294,24 @@ namespace Mavryck_System.Tests.TimeManagerTests
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                await Task.Delay(10000);
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
+               
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>ROV</b> Icon");
                 await ROVPage_mavryck.ClickOnROV_Icon();
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Add Another Row</b>");
+                await ROVPage_mavryck.Click_On_NewRow();
+
+                Test.Log(Status.Info, $"Step {++step}: Enter The <b>ROV Name</b>");
+                await ROVPage_mavryck.Enter_ROV_Name(ROVName);
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Filter</b> Button");
                 await ROVPage_mavryck.Click_On_Filter();
@@ -328,7 +323,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 await ROVPage_mavryck.Enter_filterInput2(input2);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify <b>Filtered ROV</b> is displaying");
-                Assert.True(await ROVPage_mavryck.VerifyFilteredOuput());
+                Assert.True(await ROVPage_mavryck.VerifyFilteredOuput(ROVName));
+
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Delete</b> Button");
+                await ROVPage_mavryck.Click_On_Delete();
+
+                Test.Log(Status.Info, $"Step {++step}: Enter <b>Yes Delete It </b> Button");
+                await ROVPage_mavryck.Click_On_Yes();
 
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
@@ -349,14 +351,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Verify User Can Cancel Resetting The ROV");
             
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var ROVPage_mavryck = new ROVPage_mavryck(page, Test);
-            var appName = "projectManager";
-            var timeManager = "NeuroDynamiq";
-
+           var timeManagerTitle = "NeuroDynamiq";
+           
+            var ROVName = "Reset ROV";
             try
             {
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
@@ -365,24 +367,29 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
+             
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-                await Task.Delay(15000);
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
+               
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>Existing ROV</b> Icon");
-                await ROVPage_mavryck.ClickOnExistingROV();
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>ROV</b> Icon");
+                await ROVPage_mavryck.ClickOnROV_Icon();
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Add Another Row</b>");
+                await ROVPage_mavryck.Click_On_NewRow();
+
+                Test.Log(Status.Info, $"Step {++step}: Enter The <b>ROV Name</b>");
+                await ROVPage_mavryck.Enter_ROV_Name(ROVName);
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Root Cause</b> Button");
+                await ROVPage_mavryck.Click_ON_RootCause();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Root Cause RCA ToolTip</b> Button");
                 await ROVPage_mavryck.Click_On_RootCauseToolTip();
+                await Task.Delay(20000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Reset</b> Button");
                 await ROVPage_mavryck.ClickOnRootCause_Reset();
@@ -412,13 +419,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Verify User Can Reset The ROV");
            
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var ROVPage_mavryck = new ROVPage_mavryck(page, Test);
-            var appName = "projectManager";
-            var timeManager = "NeuroDynamiq";
+           var timeManagerTitle = "NeuroDynamiq";
+           
+            var ROVName = "Reset ROV1";
 
             try
             {
@@ -428,23 +436,30 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+               
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
+               
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>Existing ROV</b> Icon");
-                await ROVPage_mavryck.ClickOnExistingROV();
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>ROV</b> Icon");
+                await ROVPage_mavryck.ClickOnROV_Icon();
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Add Another Row</b>");
+                await ROVPage_mavryck.Click_On_NewRow();
+
+                Test.Log(Status.Info, $"Step {++step}: Enter The <b>ROV Name</b>");
+                await ROVPage_mavryck.Enter_ROV_Name(ROVName);
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Root Cause</b> Button");
+                await ROVPage_mavryck.Click_ON_RootCause();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Root Cause RCA ToolTip</b> Button");
                 await ROVPage_mavryck.Click_On_RootCauseToolTip();
+                await Task.Delay(20000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Reset</b> Button");
                 await ROVPage_mavryck.ClickOnRootCause_Reset();
@@ -475,13 +490,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Verify User Can Delete The ROV");
             
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var ROVPage_mavryck = new ROVPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
-            var appName = "projectManager";
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
+           var timeManagerTitle = "NeuroDynamiq";
+           
+            var ROVName = "Delete ROV";
             try
             {
                 Test.Log(Status.Info, $"Step {++step}: Launching the app");
@@ -490,20 +506,23 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
+             
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
+               
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>ROV</b> Icon");
                 await ROVPage_mavryck.ClickOnROV_Icon();
+
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b>Add Another Row</b>");
+                await ROVPage_mavryck.Click_On_NewRow();
+
+                Test.Log(Status.Info, $"Step {++step}: Enter The <b>ROV Name</b>");
+                await ROVPage_mavryck.Enter_ROV_Name(ROVName);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b>Delete</b> Button");
                 await ROVPage_mavryck.Click_On_Delete();

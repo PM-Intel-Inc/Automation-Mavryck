@@ -1,9 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Threading;
 using System.Threading.Tasks;
 using AventStack.ExtentReports;
 using Mavryck_System.Pages;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using Microsoft.Playwright;
 using NUnit.Framework;
 using PlanNotePlaywrite;
@@ -50,18 +51,17 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
         {
             var Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Metric Column");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var columnName = "Metric";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
             var colIndex = "1";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
 
             try
@@ -72,18 +72,13 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+              
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnPatternRecognition();
@@ -120,18 +115,17 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
             var Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Unit Of Measurement Column");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var columnName = "Unit of Measurement";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
             var colIndex = "2";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
 
             try
@@ -142,18 +136,12 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnPatternRecognition();
@@ -190,18 +178,18 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
             var Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of DCM Bechmark  Column");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var columnName = "DCM Benchmark";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
             var colIndex = "3";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            
+            var costBrainTitle = "Numetra";
 
 
             try
@@ -212,18 +200,12 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnPatternRecognition();
@@ -259,19 +241,18 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
             var Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Current Column");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var columnName = "Current";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
             var colIndex = "4";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
-
+            
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -281,18 +262,12 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnPatternRecognition();
@@ -328,18 +303,18 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
             var Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Savannah Column");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var columnName = "Savannah";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
             var colIndex = "4";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            
+            var costBrainTitle = "Numetra";
 
 
             try
@@ -350,18 +325,12 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnPatternRecognition();
@@ -398,15 +367,15 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
             var Test = Extent.CreateTest("Pattern Recognition: Verify The S Curve Graph Chart");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
             var title = "S-curve";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            
+            var costBrainTitle = "Numetra";
 
 
             try
@@ -417,18 +386,12 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
-                await Task.Delay(15000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnPatternRecognition();
@@ -468,15 +431,14 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
             var Test = Extent.CreateTest("Pattern Recognition Correlation: Verify The Heat Map 1");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var title = "Correlation heat map";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -486,21 +448,15 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
 
+
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnPatternRecognition();
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Correlation </b>");
                 await CostBrainPage_mavryck.ClickOnCorrelation();
@@ -536,15 +492,14 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
             var Test = Extent.CreateTest("Pattern Recognition Correlation: Verify The Heat Map 2");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var title = "Correlation heat map-2";
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -554,17 +509,12 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await CostBrainPage_mavryck.ClickOnPatternRecognition();
@@ -603,13 +553,12 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
             var Test = Extent.CreateTest("Pattern Recognition: Verify The Hover Feature");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
-            var costbrain = "cost";
-            var costBrainTitle = "CostBrain";
+            var costBrainTitle = "Numetra";
 
             try
             {
@@ -619,14 +568,8 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b>CostBrain </b> Button");
-                await DashboardPage_mavryck.ClickOnCostBrain();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(costbrain);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
@@ -653,6 +596,53 @@ namespace Mavryck_System.Tests.CostBrainTests_mavryck
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Pass("Test passed Screenshot", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
 
+            }
+            catch (Exception e)
+            {
+
+                byte[] screenshotBytes = await page.ScreenshotAsync();
+                Test.Fail($"Test failed Screenshot: {e.Message}", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+                Assert.True(false);
+
+            }
+        }
+
+
+        [Test]
+        public async Task PatternRecognition_Verify_PageTitles_WithTooltips()
+        {
+            var Test = Extent.CreateTest("Pattern Recognition: Verify The Page Titles With Tooltips");
+
+            int step = 0;
+            var testSteps = new ArrayList();
+            var loginPage_mavryck = new LoginPage_mavryck(page, Test);
+            var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
+            var CostBrainPage_mavryck = new CostBrainPage_mavryck(page, Test);
+            var costBrainTitle = "Numetra";
+
+
+            try
+            {
+                testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
+                await loadURL(page, Constants.BaseUrl);
+
+                testSteps.AddRange(await loginPage_mavryck.Login(step));
+                step = testSteps.Count;
+
+                Test.Log(Status.Info, $"Step {++step}: Select<b> CostBrain </b> App");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(costBrainTitle);
+
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>CostBrain App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(costBrainTitle));
+
+
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
+                await CostBrainPage_mavryck.ClickOnPatternRecognition();
+
+
+                await CostBrainPage_mavryck.VerifyPageTitleWithTooltip_PatternRecognition();
             }
             catch (Exception e)
             {

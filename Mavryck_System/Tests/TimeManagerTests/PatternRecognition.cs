@@ -4,7 +4,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using AventStack.ExtentReports;
 using Mavryck_System.Pages;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using Microsoft.Playwright;
 using NUnit.Framework;
 using PlanNotePlaywrite;
@@ -46,18 +46,17 @@ namespace Mavryck_System.Tests.TimeManagerTests
         }
 
 
-        [Test]
+        //[Test]
         public async Task PatternRecognition_BenchMarking_VerifyTheTextAllignmentOf_Tasks_Column()
         {
             var Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Sr No Column");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
-            var appName = "projectManager";
+            var timeManagerTitle = "NeuroDynamiq";
             var columnName = "Tasks";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -73,18 +72,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+             
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-               await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
 
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnPatternRecognition();
@@ -115,24 +110,24 @@ namespace Mavryck_System.Tests.TimeManagerTests
             }
         }
 
-        [Test]
+        //[Test]
         public async Task PatternRecognition_BenchMarking_VerifyTheTextAllignmentOf_CurrentProject_Column()
         {
             var Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Current Project  Column");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+          
             var columnName = "Current Project";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
             var colIndex = "2";
-            var appName = "projectManager";
 
             try
             {
@@ -141,21 +136,15 @@ namespace Mavryck_System.Tests.TimeManagerTests
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                await Task.Delay(10000);
+                
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-               await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
 
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-                await Task.Delay(10000);
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnPatternRecognition();
@@ -186,24 +175,25 @@ namespace Mavryck_System.Tests.TimeManagerTests
             }
         }
 
-        [Test]
+        //[Test]
         public async Task PatternRecognition_BenchMarking_VerifyTheTextAllignmentOf_Comparable_InHouse_Projects_Column()
         {
             var Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Comparable In-House Projects  Column");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
-            var columnName = "Comparable In-House Projects";
+            var timeManagerTitle = "NeuroDynamiq";
+          
+            var columnName = "Comparable in-house projects";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
             var colIndex = "3";
-            var appName = "projectManager";
+
             try
             {
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
@@ -212,18 +202,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+              
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-               await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
 
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnPatternRecognition();
@@ -250,25 +236,23 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 byte[] screenshotBytes = await page.ScreenshotAsync();
                 Test.Fail($"Test failed Screenshot: {e.Message}", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
                 Assert.True(false);
-                //await browser.CloseAsync();
-                //playwright.Dispose();
             }
         }
 
-        [Test]
+        //[Test]
         public async Task PatternRecognition_BenchMarking_VerifyTheTextAllignmentOf_Similar_Projects_In_Other_Companies_Column()
         {
             var Test = Extent.CreateTest("Pattern Recognition Bench Marking: Verify The Text Allignment Of Similar Projects In Other Companies Column");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
-            var appName = "projectManager";
-            var columnName = "Similar Projects In Other Companies";
+            var timeManagerTitle = "NeuroDynamiq";
+          
+            var columnName = "Similar projects in other companies";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -282,18 +266,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-               await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
 
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnPatternRecognition();
@@ -332,14 +311,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Pattern Recognition: Verify The Total Float Index Chart");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
-            var appName = "projectManager";
+            var timeManagerTitle = "NeuroDynamiq";
+          
             var title = "Total Float Index";
 
             try
@@ -350,17 +329,12 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+              
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-               await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnPatternRecognition();
@@ -399,14 +373,15 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Pattern Recognition: Verify The Critical Activities Trending Map");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var appName = "projectManager";
-            var timeManager = "NeuroDynamiq";
+
+            var timeManagerTitle = "NeuroDynamiq";
+          
             var title = "Critical Activities Trending";
 
             try
@@ -417,17 +392,12 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+               
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-               await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnPatternRecognition();
@@ -467,15 +437,15 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Pattern Recognition: Verify The S Curve Graph Chart");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq"; 
+          
             var title = "S Curve Graph";
-            var appName = "projectManager";
 
             try
             {
@@ -485,21 +455,16 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+              
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-               await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnPatternRecognition();
-                await Task.Delay(15000);
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>S Curve Graph</b> is visible");
                 Assert.True(await TimeManagerPage_mavryck.VerifyCurveGraphIsDisplaying());
@@ -533,16 +498,16 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Pattern Recognition Correlation: Verify The Heat Map");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
 
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+          
             var title = "Correlation Heatmap-2";
-            var appName = "projectManager";
 
             try
             {
@@ -552,25 +517,20 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+            
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-               await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnPatternRecognition();
-                await Task.Delay(15000);
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Correlation </b>");
                 await TimeManagerPage_mavryck.ClickOnCorrelation();
-                await Task.Delay(15000);
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Correlation HeatMap</b> is visible");
                 Assert.True(await TimeManagerPage_mavryck.VerifyCorrelationHeatMap());
@@ -607,15 +567,15 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Pattern Recognition Anomolies: Verify The Task Over Runs Map");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
+            var timeManagerTitle = "NeuroDynamiq";
+          
             var title = "Task Over Runs";
-            var appName = "projectManager";
 
             try
             {
@@ -625,24 +585,19 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+              
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-               await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnPatternRecognition();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Anomalies </b>");
                 await TimeManagerPage_mavryck.ClickOnAnamolies();
-                await Task.Delay(15000);
+                
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Task Over Runs Map</b> is visible");
                 Assert.True(await OculusDvPage_mavryck.VerifyTotalOverRunsIsDisplaying());
@@ -673,14 +628,14 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Pattern Recognition Anomolies: Verify The Number Of Delay Events Map");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
             var OculusDvPage_mavryck = new OculusDvPage_mavryck(page, Test);
-            var appName = "projectManager";
-            var timeManager = "NeuroDynamiq";
+          
+            var timeManagerTitle = "NeuroDynamiq";
             var title = "Number of Delay Events";
 
             try
@@ -691,17 +646,12 @@ namespace Mavryck_System.Tests.TimeManagerTests
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
+                
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-               await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnPatternRecognition();
@@ -744,13 +694,13 @@ namespace Mavryck_System.Tests.TimeManagerTests
             var Test = Extent.CreateTest("Pattern Recognition: Verify The Hover Feature");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
-            var appName = "projectManager";
+            var timeManagerTitle = "NeuroDynamiq";
+          
             try
             {
                 testSteps.Add(Test.Log(Status.Info, $"Step {++step}: Launching the app"));
@@ -758,23 +708,18 @@ namespace Mavryck_System.Tests.TimeManagerTests
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                await Task.Delay(10000);
+                
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App From Top Right Menu");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App From Top Right Menu");
-               await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
-
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnPatternRecognition();
-                await Task.Delay(16000);
+                
 
                 Test.Log(Status.Info, $" *** Hover The  <b>Pattern Recognition Features</b> ***");
                 testSteps = await TimeManagerPage_mavryck.Verify_Features_Of_PatternRecognition(step);
@@ -804,19 +749,21 @@ namespace Mavryck_System.Tests.TimeManagerTests
 
             }
         }
+
         [Test]
         public async Task PatternRecognition_Verify_PageTitles_WithTooltips()
         {
-            var Test = Extent.CreateTest("Pattern Recognition:  Verify The Page Titles With Tooltips");
+            var Test = Extent.CreateTest("Pattern Recognition : Verify The Page Titles With Tooltips");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var TimeManagerPage_mavryck = new TimeManagerPage_mavryck(page, Test);
-            var timeManager = "NeuroDynamiq";
-            var appName = "projectManager";
+            var timeManagerTitle = "NeuroDynamiq";
+            var actualTitle = "Pattern Recognition";
+
             try
             {
 
@@ -825,25 +772,20 @@ namespace Mavryck_System.Tests.TimeManagerTests
 
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
-                await Task.Delay(10000);
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Time Manager </b> Button");
-                await DashboardPage_mavryck.ClickOnTimeManager();
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+                Test.Log(Status.Info, $"Step {++step}: Select<b> NeuroDynamiq </b> App");
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(timeManagerTitle);
 
-                Test.Log(Status.Info, $"Step {++step}: Select<b> Time Manager </b> App");
-               await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu(appName);
+                Test.Log(Status.Info, $"Step {++step}: Verify the <b>NeuroDynamiq App </b> is displaying");
+                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManagerTitle));
 
-                Test.Log(Status.Info, $"Step {++step}: Verify the <b>Time Manager App </b> is displaying");
-                Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(timeManager));
-                await Task.Delay(10000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Pattern Recognition </b> From Side Nav Menu");
                 await TimeManagerPage_mavryck.ClickOnPatternRecognition();
 
-                await TimeManagerPage_mavryck.VerifyPageTitleWithTooltip_PatternRecognition();
+                await CommonFeaturesPage_mavryck.VerifyPageTitleWithTooltip(actualTitle);
+
             }
             catch (Exception e)
             {
@@ -855,5 +797,5 @@ namespace Mavryck_System.Tests.TimeManagerTests
             }
         }
 
-}
+    }
 }

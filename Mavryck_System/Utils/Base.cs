@@ -1,23 +1,13 @@
 ﻿using Microsoft.Playwright;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
 using System.Threading.Tasks;
-using System.Xml.XPath;
-using AventStack.ExtentReports;
-using System.Globalization;
 using System.IO;
 using System.Threading;
-using NUnit.Framework;
-using AventStack.ExtentReports.Reporter;
-using Newtonsoft.Json;
 using System.Collections;
 using System.Net.Mail;
 using System.Net;
 
-namespace Mavryck_TimeManager.Utils
+namespace Mavryck_System.Utils
 {
     public class Base : Constants
     {
@@ -148,8 +138,7 @@ namespace Mavryck_TimeManager.Utils
         {
             var elementHandle = await page.QuerySelectorAsync(element);
             await elementHandle.ScrollIntoViewIfNeededAsync();
-            await Task.Delay(2000);
-        }
+       }
 
         public static void SendEmailWithReport()
         {

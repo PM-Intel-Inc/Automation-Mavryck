@@ -1,8 +1,9 @@
-﻿using System;
+﻿
+using System;
 using System.Collections;
 using System.Threading.Tasks;
 using AventStack.ExtentReports;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using Microsoft.Playwright;
 using NUnit.Framework;
 
@@ -31,7 +32,7 @@ namespace Mavryck_System.Pages
         private const string ShowHideGridIcon = "//button[@data-tooltip-content='Show/Hide Column']";
         private const string IndicatorsGridIcon = "//button[@data-tooltip-content='Indicators']";
         private const string FullScreenGridIcon = "//button[@data-tooltip-content='Full Screen']";
-        private const string Arrow = "//img[@alt='arrowIcon']";
+        private const string CarbonAndMaterials = "//button[@data-tooltip-content='Carbon and Materials']";
         private const string Logo = "//img[@alt='sidebar logo']";
         private const string PredictButton2 = "(//span[text()='Click to Predict'])[1]";
         private const string PredictButton3 = "(//span[text()='Click to Predict'])[2]";
@@ -44,6 +45,8 @@ namespace Mavryck_System.Pages
         private const string ETC = "//small[text()='ETC']";
         private const string Core = "//span[text()='Core']";
         private const string GridView = "//button[@data-tooltip-content='Overview']";
+        private const string TableView = "//button[@data-tooltip-content='Table View']";
+        private const string AnomaliesFeature = "//button[@data-tooltip-content='Anomalies']";
         private const string KnockOnImpact = "//button[@data-tooltip-content='Knock-on Impact']";
         private const string KnockOnImpact1 = "//button[@data-tooltip-content='Knock on Impact']";
         private const string FullScreen = "//button[@data-tooltip-content='Full Screen']";
@@ -54,6 +57,7 @@ namespace Mavryck_System.Pages
         private const string SCurve = "//button[@data-tooltip-content='S-Curve']";
         private const string Scurve = "//button[text()='SCurve']";
         private const string BenchMarkingFeature = "//button[@data-tooltip-content='BenchMarking']";
+        private const string Recommendations = "//button[@data-tooltip-content='Recommendation']";
         private const string CostFlaw = "//button[@data-tooltip-content='Cost Flaw']";
         private const string GanttChart = "//button[@data-tooltip-content='Gantt Chart']";
         private const string Oculus = "//span[text()='Oculus DV']";
@@ -82,7 +86,10 @@ namespace Mavryck_System.Pages
         private const string Costforecast = "//button[@data-tooltip-content='Cost Forecast']";
         private const string Prognosis = "//button[@data-tooltip-content='Prognosis']";
         private const string RecoverySchedule = "//button[@data-tooltip-content='Recovery Schedule']";
+        private const string TotalPredictedEmission = "//button[text()='Total Predicted Emission']";
+
         private const string ChangeOrders = "//button[@data-tooltip-content='Change Orders']";
+        private const string OverviewDropdown = "(//h3[text()=\'Overview']//following-sibling::div[1]//div)[1]";
         ArrayList testSteps;
         byte[] screenshotBytes = null;
 
@@ -103,7 +110,6 @@ namespace Mavryck_System.Pages
 
         public async Task ClickOnDiagnostics()
         {
-            await page.ClickAsync(Arrow);
             await page.ClickAsync(Diagnostics);
         }
 
@@ -136,14 +142,23 @@ namespace Mavryck_System.Pages
         }
 
 
+        public async Task<bool> VerifyGraph1IsDisplaying()
+        {
+            await ScrollToElement(page, "//h3[text()='Graph1']");
+            return await WaitForElementVisible(page, "//div[@id='Linechartdiv']", 120000);
+
+        }
+        
         public async Task ClickOnAndon()
         {
-            await page.ClickAsync(Arrow);
             await page.ClickAsync(Andon);
+        }
+        public async Task ClickOnCarbonAndMaterials()
+        {
+            await page.ClickAsync(CarbonAndMaterials);
         }
         public async Task ClickOnClimateRisk()
         {
-            await page.ClickAsync(Arrow);
             await page.ClickAsync(ClimateRisk);
         }
         public async Task ClickOnClimateHazardTab()
@@ -157,15 +172,44 @@ namespace Mavryck_System.Pages
         }
         public async Task ClickOnAirQuality()
         {
-            await page.ClickAsync(Arrow);
             await page.ClickAsync(AirQuality);
 
         }
         public async Task ClickOnOculusDV()
         {
-            await page.ClickAsync(Arrow);
             await page.ClickAsync(Oculus);
         }
+        public async Task ClickOnOverViewDropdown()
+        {
+            await page.ClickAsync(OverviewDropdown);
+         
+        }
+        public async Task<bool> VerifyDropDownValues()
+        {
+            string[] dropdownValues = { "Front End Development", "Detailed Engineering", "Procurement", "Construction" };
+            for (int i = 0; i < dropdownValues.Length; i++)
+            {
+                Test.Log(Status.Info, "Verify The Overview Dropdown Value " + dropdownValues[i] + "is displaying");
+                return await WaitForElementVisible(page, $"//label[text()='{dropdownValues[i]}']");
+            }
+            return false;
+        }
+
+        public async Task SelectValue (string value)
+        {
+            
+             Test.Log(Status.Info, " Selected Value "+"<b>"+ value +"</b>");
+             await page.ClickAsync($"//label[text()= '{value}']");
+            
+        }
+
+        public async Task<bool> VerifyPhasevalue(string value)
+        { 
+            Test.Log(Status.Info, "Verify The Phase Column Value" +"<b>"+ value +"</b>");
+            return await WaitForElementVisible(page, $"//div[@col-id='Phase']//div//span[text()='{value}']");
+          
+        }
+
         public async Task<bool> VerifyPercentageGreen()
         {
             return await WaitForElementVisible(page, PercentageGreen);
@@ -229,7 +273,7 @@ namespace Mavryck_System.Pages
 
         public async Task<bool> VerifyTornadoEmissionComparisonChartIsDisplaying()
         {
-            await ScrollToElement(page, "//h3[text()='Tornado Emission Camparison Chart']");
+            await ScrollToElement(page, "//h3[text()='Tornado Emission Comparison Chart']");
             return await WaitForElementVisible(page, "//div[@id='TECdiv']", 120000);
 
         }
@@ -245,6 +289,45 @@ namespace Mavryck_System.Pages
             return await WaitForElementVisible(page, "//div[@id='deriskGanttChartdiv']", 120000);
 
         }
+
+        public async Task<bool> VerifyAnomaliesInCarbonIsDisplaying()
+        {
+            return await WaitForElementVisible(page, "//div[@id='Anomalieschartdiv']", 120000);
+
+        }
+        public async Task<bool> VerifyWordCloudIsDisplaying()
+        {
+            return await WaitForElementVisible(page, "//div[@id='Wordcloudchartdiv']", 120000);
+
+        }
+        public async Task<bool> VerifyFrequencyDistributionOfCarboxTaxIsDisplaying()
+        {
+            return await WaitForElementVisible(page, "//div[@id='barchartdiv1']", 120000);
+
+
+        }
+
+        public async Task<bool> VerifyFrequencyDistributionOfCarbox_Emission_IsDisplaying()
+        {
+            return await WaitForElementVisible(page, "//div[@id='barchartdiv2']", 120000);
+
+
+        }
+
+        public async Task<bool> VerifyAnomalies_In_Carbon_And_Materials_IsDisplaying()
+        {
+            return await WaitForElementVisible(page, "//div[@id='Anomalieschartdiv']", 120000);
+
+
+        }
+
+        public async Task<bool> VerifyTotal_Predicted_Carbon_TaxIsDisplaying()
+        {
+            return await WaitForElementVisible(page, "//div[@id='ECWEChart']", 120000);
+
+
+        }
+
         public async Task<bool> VerifyChartNameIsDisplaying(string title)
         {
             await ScrollToElement(page, $"//h3[text()='{title}']");
@@ -252,10 +335,23 @@ namespace Mavryck_System.Pages
 
         }
 
+        
+
         public async Task ClickOnPredictions()
         {
-            await page.ClickAsync(Arrow);
             await page.ClickAsync(Predictions);
+        }
+
+        public async Task ClickOnTotalPredictedEmission()
+        {
+            await page.ClickAsync(TotalPredictedEmission);
+        }
+
+
+
+        public async Task ClickOnRecommendations()
+        {
+            await page.ClickAsync(Recommendations);
         }
 
         public async Task ClickOnRecoverySchedule()
@@ -284,13 +380,18 @@ namespace Mavryck_System.Pages
 
         public async Task ClickOnPatternRecognition()
         {
-            await page.ClickAsync(Arrow);
             await page.ClickAsync(PatternRecognition);
+
         }
+        public async Task ClickOnAnomalies()
+        {
+            await page.ClickAsync(AnomaliesFeature);
+        }
+
+
 
         public async Task ClickOnBenchMarking()
         {
-            await page.ClickAsync(Arrow);
             await page.ClickAsync(BenchMarkingFeature);
         }
         public async Task ClickOnScurve()
@@ -324,11 +425,7 @@ namespace Mavryck_System.Pages
             await page.ClickAsync(ChangeOrders);
         }
 
-        public async Task ClickOnArrow()
-        {
-            await page.ClickAsync(Arrow);
-        }
-
+      
         public async Task ClickOnGigoLogicalFlaw()
         {
             await page.ClickAsync(Gigo_LogicalFlaw);
@@ -479,7 +576,7 @@ namespace Mavryck_System.Pages
         }
         public async Task VerifyPageTitleWithTooltip_ClimateRisk()
         {
-            
+
             Test.Log(Status.Info, $" *** Hover The  <b>Climate Risk Icon</b> ***");
             await HoverClimateRisk();
 
@@ -499,13 +596,177 @@ namespace Mavryck_System.Pages
             }
 
         }
+        public async Task VerifyPageTitleWithTooltip_Andon()
+        {
+
+            Test.Log(Status.Info, $" *** Hover The  <b> OverView  Icon</b> ***");
+            await HoverGridView();
+
+            Test.Log(Status.Info, "Verify the <b>OverView Icon Tooltip  With Page Title</b> ");
+            screenshotBytes = await page.ScreenshotAsync();
+            var tooltip = await GetTootlTipText();
+            var pagetitleText = await GetPageTitleText();
+            if (tooltip.Equals(pagetitleText))
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Pass("Verified OverView", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+            else
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Fail("Verified OverView", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+            Test.Log(Status.Info, $" *** Hover The  <b> Carbon And Metarials  Icon</b> ***");
+            await ClickOnCarbonAndMaterials();
+            await HoverCarbonAndMaterials();
+
+            Test.Log(Status.Info, "Verify the <b>Carbon And Metarials  Icon Tooltip  With Page Title</b> ");
+            screenshotBytes = await page.ScreenshotAsync();
+            tooltip = await GetTootlTipText();
+            pagetitleText = await GetPageTitleText();
+            if (tooltip.Equals(pagetitleText))
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Pass("Verified Carbon And Metarials ", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+            else
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Fail("Verified Carbon And Metarials ", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+
+        }
+
+        public async Task VerifyPageTitleWithTooltip_PatternRecognition()
+        {
+
+            Test.Log(Status.Info, $" *** Hover The  <b> Trends  Icon</b> ***");
+            await HoverTrendFeature();
+
+            Test.Log(Status.Info, "Verify the <b>Trends Icon Tooltip  With Page Title</b> ");
+            screenshotBytes = await page.ScreenshotAsync();
+            var tooltip = await GetTootlTipText();
+            var pagetitleText = await GetPageTitleText();
+            if (tooltip.Equals(pagetitleText))
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Pass("Verified Trends", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+            else
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Fail("Verified Trends", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+            Test.Log(Status.Info, $" *** Hover The  <b> Anomalies Icon</b> ***");
+            await ClickOnAnomalies();
+            await HoverAnomaliesFeature();
+
+            Test.Log(Status.Info, "Verify the <b>Anomalies Icon Tooltip  With Page Title</b> ");
+            screenshotBytes = await page.ScreenshotAsync();
+            tooltip = await GetTootlTipText();
+            pagetitleText = await GetPageTitleText();
+            if (tooltip.Equals(pagetitleText))
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Pass("Verified Anomalies", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+            else
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Fail("Verified Anomalies", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+
+        }
+
+        public async Task VerifyPageTitleWithTooltip_Predictions()
+        {
+
+            Test.Log(Status.Info, $" *** Hover The  <b> Trends  Icon</b> ***");
+            await HoverTrendFeature();
+
+            Test.Log(Status.Info, "Verify the <b>Trends Icon Tooltip  With Page Title</b> ");
+            screenshotBytes = await page.ScreenshotAsync();
+            var tooltip = await GetTootlTipText();
+            var pagetitleText = await GetPageTitleText();
+            if (tooltip.Equals(pagetitleText))
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Pass("Verified Trends", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+            else
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Fail("Verified Trends", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+            Test.Log(Status.Info, $" *** Hover The  <b> Recommendations Icon</b> ***");
+            await ClickOnRecommendations();
+            await HoverRecommendationsFeature();
+
+            Test.Log(Status.Info, "Verify the <b>Recommendations Icon Tooltip  With Page Title</b> ");
+            screenshotBytes = await page.ScreenshotAsync();
+            tooltip = await GetTootlTipText();
+            pagetitleText = await GetPageTitleText();
+            if (tooltip.Equals(pagetitleText))
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Pass("Verified Recommendations", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+            else
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Fail("Verified Recommendations", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+
+            Test.Log(Status.Info, $" *** Hover The  <b> Air Quality Icon</b> ***");
+            await ClickOnAirQuality();
+            await HoverAirQuality();
+
+            Test.Log(Status.Info, "Verify the <b>Air Quality Icon Tooltip  With Page Title</b> ");
+            screenshotBytes = await page.ScreenshotAsync();
+            tooltip = await GetTootlTipText();
+            pagetitleText = await GetPageTitleText();
+            if (tooltip.Equals(pagetitleText))
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Pass("Verified Air Quality", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+            else
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Fail("Verified Air Quality", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+
+        }
+
+        public async Task VerifyPageTitleWithTooltip_Core()
+        {
+
+            Test.Log(Status.Info, $" *** Hover The  <b> Table View Icon</b> ***");
+            await HoverTableView();
+
+            Test.Log(Status.Info, "Verify the <b>Table View Icon Tooltip  With Page Title</b> ");
+            byte[] screenshotBytes = await page.ScreenshotAsync();
+            var tooltip = await GetTootlTipText();
+            var pagetitleText = await GetPageTitleText();
+            if (tooltip.Equals(pagetitleText))
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Pass("Verified Table View", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+            else
+            {
+                Test.Log(Status.Info, "Expected Title: " + tooltip + "  **** Actual Title : " + pagetitleText);
+                Test.Fail("Verified Table View", MediaEntityBuilder.CreateScreenCaptureFromBase64String(Convert.ToBase64String(screenshotBytes)).Build());
+            }
+          
+        }
 
         public async Task VerifyPageTitleWithTooltip_OculusDV()
         {
-           
+
 
             Test.Log(Status.Info, $" *** Hover The  <b>Oculus Dv Icon</b> ***");
-            await HoverOculusDV();
+            await HoverGridView();
 
             Test.Log(Status.Info, "Verify the <b> Oculus DV Icon Tooltip  With Page Title</b> ");
             screenshotBytes = await page.ScreenshotAsync();
@@ -619,6 +880,11 @@ namespace Mavryck_System.Pages
             var elementToHover = await page.QuerySelectorAsync(GridView);
             await elementToHover.HoverAsync();
         }
+        public async Task HoverAnomaliesFeature()
+        {
+            var elementToHover = await page.QuerySelectorAsync(AnomaliesFeature);
+            await elementToHover.HoverAsync();
+        }
 
         public async Task HoverCostFlaw()
         {
@@ -631,6 +897,12 @@ namespace Mavryck_System.Pages
         public async Task HoverDownloadButton()
         {
             var elementToHover = await page.QuerySelectorAsync(DownloadButtonGrid);
+            await elementToHover.HoverAsync();
+        }
+
+        public async Task HoverCarbonAndMaterials()
+        {
+            var elementToHover = await page.QuerySelectorAsync(CarbonAndMaterials);
             await elementToHover.HoverAsync();
         }
 
@@ -739,6 +1011,17 @@ namespace Mavryck_System.Pages
         public async Task<bool> VerifyHoverTooltip()
         {
             return await WaitForElementVisible(page, Tooltip, 120000);
+        }
+        public async Task HoverTableView()
+        {
+            var elementToHover = await page.QuerySelectorAsync(TableView);
+            await elementToHover.HoverAsync();
+        }
+
+
+        public async Task<bool> HoverRecommendationsFeature()
+        {
+            return await WaitForElementVisible(page, Recommendations, 120000);
         }
 
         public async Task<string> GetTootlTipText()

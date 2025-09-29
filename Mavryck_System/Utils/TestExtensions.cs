@@ -1,10 +1,8 @@
-﻿using NUnit.Framework.Interfaces;
-using System;
-using NUnit.Framework;
+﻿using NUnit.Framework;
 using System.Reflection;
 using System.Linq;
 
-namespace Mavryck_TimeManager.Utils
+namespace Mavryck_System.Utils
 {
     public static class TestExtensions
     {

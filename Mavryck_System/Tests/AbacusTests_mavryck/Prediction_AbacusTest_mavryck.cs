@@ -1,13 +1,10 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using AventStack.ExtentReports;
 using Mavryck_System.Pages;
-using Mavryck_TimeManager.Utils;
+using Mavryck_System.Utils;
 using Microsoft.Playwright;
 using NUnit.Framework;
 using PlanNotePlaywrite;
@@ -56,12 +53,11 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Predictions Completion Grid: Verify The Text Allignment Of TaskName Column");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
             var abacusTitle = "Abacus";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
@@ -77,23 +73,17 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
+           
 
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
            
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Prediction </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnPredictions();
-                await Task.Delay(10000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Completion Grid </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnCompletionGrid();
@@ -126,12 +116,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Prediction Completion Grid: Verify The Text Allignment Of Baseline Duration Column");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
             
             var columnName = "Baseline Duration";
@@ -148,18 +138,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
+
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Prediction </b> From Side Nav Menu");
@@ -197,12 +181,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Prediction Completion Grid: Verify The Text Allignment Of Remaining Duration Current Column");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
             var columnName = "Remaining Duration Current";
             var textAllig_left = "Left";
@@ -217,23 +201,20 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
+
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Prediction </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnPredictions();
-                await Task.Delay(10000);
+
+
+                Test.Log(Status.Info, $"Step {++step}: Click On <b> Completion Grid </b> From Side Nav Menu");
+                await AbacusPage_mavryck.ClickOnCompletionGrid();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await AbacusPage_mavryck.ClickOnTextAllignmentButton();
@@ -264,12 +245,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Prediction Completion Grid: Verify The Text Allignment Of Current Finish Column");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
             var columnName = "Current Finish";
             var textAllig_left = "Left";
@@ -284,25 +265,19 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
+           
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Prediction </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnPredictions();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Completion Grid </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnCompletionGrid();
-                Thread.Sleep(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await AbacusPage_mavryck.ClickOnTextAllignmentButton();
@@ -330,12 +305,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Prediction Completion Grid: Verify The Text Allignment Of Critical Column");          
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
             var columnName = "Critical";
             var textAllig_left = "Left";
@@ -350,18 +325,13 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
+
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Prediction </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnPredictions();
@@ -400,14 +370,14 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
             var Test = Extent.CreateTest("Prediction Completion Grid: Verify The Text Allignment Of Optimal Bias Check Column");
             
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
-            var columnName = "Optimal Bias Check";
+            var columnName = "Optimal Bias check";
             var textAllig_left = "Left";
             var textAllig_right = "Right";
             var textAllig_center = "Center";
@@ -420,18 +390,13 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
+
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Prediction </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnPredictions();
@@ -468,12 +433,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Prediction Completion Grid: Verify The Text Allignment Of Predicted Remaining Duration Column");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
             var columnName = "Predicted Remaining Duration";
             var textAllig_left = "Left";
@@ -488,25 +453,19 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
+
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Prediction </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnPredictions();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Completion Grid </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnCompletionGrid();
-                Thread.Sleep(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await AbacusPage_mavryck.ClickOnTextAllignmentButton();
@@ -534,12 +493,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
             var Test = Extent.CreateTest("Prediction Completion Grid: Verify The Text Allignment Of Predicted Finish Date Column");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
             var columnName = "Predicted Finish Date";
             var textAllig_left = "Left";
@@ -554,25 +513,18 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Prediction </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnPredictions();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Completion Grid </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnCompletionGrid();
-                Thread.Sleep(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await AbacusPage_mavryck.ClickOnTextAllignmentButton();
@@ -601,12 +553,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Prediction Completion Grid: Verify The Text Allignment Of Insights Column");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
             var columnName = "Insights";
             var textAllig_left = "Left";
@@ -621,25 +573,18 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Prediction </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnPredictions();
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Completion Grid </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnCompletionGrid();
-                Thread.Sleep(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Text Allignment </b> Button From Grid");
                 await AbacusPage_mavryck.ClickOnTextAllignmentButton();
@@ -669,12 +614,11 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Prediction: Verify The Hover Feature");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
             var abacusTitle = "Abacus";         
             try
             {
@@ -684,18 +628,11 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Prediction </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnPredictions();
@@ -745,12 +682,11 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Verify AI Prediction Of Completion Probability");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
             var abacusTitle = "Abacus";
            
 
@@ -762,18 +698,11 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Prediction </b> From Side Nav Menu");
@@ -808,12 +737,11 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
         {
             var Test = Extent.CreateTest("Verify Prediction Of Claim Probability");
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
             var abacusTitle = "Abacus";
 
 
@@ -825,18 +753,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Prediction </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnPredictions();
@@ -871,12 +793,11 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
             var Test = Extent.CreateTest("Verify Prediction Of Prognosis");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
             var abacusTitle = "Abacus";
 
 
@@ -888,18 +809,11 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Prediction </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnPredictions();
@@ -914,7 +828,6 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
 
                 Test.Log(Status.Info, $"Step {++step}: Select <b> Phase </b>");
                 await AbacusPage_mavryck.ClickOnPrognosisPhaseButton();
-                Thread.Sleep(15000);
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Predict");
                 await AbacusPage_mavryck.CLickOnPredictButton1();
@@ -945,12 +858,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
             var Test = Extent.CreateTest("Predictions:  Verify The Page Titles With Tooltips");
 
             int step = 0;
-            ArrayList testSteps = new();
+            var testSteps = new ArrayList();
             var loginPage_mavryck = new LoginPage_mavryck(page, Test);
             var EnterpriseProjectPage_mavryck = new EnterpriseProjectPage_mavryck(page, Test);
-            var DashboardPage_mavryck = new DashboardPage_mavryck(page, Test);
+            var CommonFeaturesPage_mavryck = new CommonFeaturesPage_mavryck(page, Test);
             var AbacusPage_mavryck = new AbacusPage_mavryck(page, Test);
-            var abacus = "estimation";
+            
             var abacusTitle = "Abacus";
 
 
@@ -962,18 +875,12 @@ namespace Mavryck_System.Tests.AbacusTests_mavryck
                 testSteps.AddRange(await loginPage_mavryck.Login(step));
                 step = testSteps.Count;
 
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Abacus </b> Button");
-                await DashboardPage_mavryck.ClickOnAbacus();
-
-                Test.Log(Status.Info, $"Step {++step}: Click On <b> Open Enterprise Directory </b> Button");
-                await DashboardPage_mavryck.ClickOnOpenEnterpriseDirectory();
-
                 Test.Log(Status.Info, $"Step {++step}: Select<b> Abacus </b> App");
-                await EnterpriseProjectPage_mavryck.SelectAppFromTopRight_Menu1(abacus);
+                await CommonFeaturesPage_mavryck.SelectAppFromTopRight_Menu(abacusTitle);
 
                 Test.Log(Status.Info, $"Step {++step}: Verify the <b>Abacus App </b> is displaying");
                 Assert.True(await EnterpriseProjectPage_mavryck.VerifyAppDashboardIsDisplaying(abacusTitle));
-                await Task.Delay(15000);
+
 
                 Test.Log(Status.Info, $"Step {++step}: Click On <b> Prediction </b> From Side Nav Menu");
                 await AbacusPage_mavryck.ClickOnPredictions();
